@@ -2,12 +2,14 @@
 import { css } from "@emotion/react";
 import { useEffect } from "react";
 import { GAME_HEIGHT, GAME_WIDTH } from "../constants";
-import { main } from "../main";
+// import { main } from "../main";
+import { Game } from "./Game";
+import { Level1 } from "./Level1";
 
 function App() {
-  useEffect(() => {
-    main();
-  }, []);
+  // useEffect(() => {
+  //   main();
+  // }, []);
 
   return (
     <div
@@ -23,14 +25,15 @@ function App() {
         justify-content: center;
       `}
     >
-      <canvas
+      {/* <canvas
         id="game"
         width={GAME_WIDTH}
         height={GAME_HEIGHT}
         css={css`
           background: #fff;
         `}
-      />
+      /> */}
+        <Level1 />
     </div>
   );
 }

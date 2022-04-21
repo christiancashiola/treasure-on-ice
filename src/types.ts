@@ -1,3 +1,4 @@
-import { Ice } from "./classes/Ice";
-
-export type GamePiece = Ice;
+export interface GamePiece {
+  x: number;
+  y: number;
+}
