@@ -1,26 +1,24 @@
-// import { Ice } from "./classes/Ice";
-// import { Player } from "./classes/Player";
-// import { Wall } from "./classes/Wall";
-// import { convertLevelArrayToGamePieces, convertLevelMapToLevelArray, LEVEL_1 } from "./levels/level-1";
+import { Ice } from "./classes/Ice";
+import { Player } from "./classes/Player";
+import { Wall } from "./classes/Wall";
+import { getLevelPieces } from "./levels/getLevelPieces";
+import { LEVEL_1 } from "./levels/level-1";
 
-// export function main() {
-//   const ice = new Ice();
+export function main() {
+  const ice = new Ice();
+  const pieces = getLevelPieces(LEVEL_1);
 
-//   const levelArray = convertLevelMapToLevelArray(LEVEL_1);
-//   const pieces = convertLevelArrayToGamePieces(levelArray);
+  renderLoop(ice, ...pieces);
+}
 
-//   renderLoop(ice, ...pieces);
-// }
+function renderLoop(...gamePieces: (Ice | Wall | Player)[]) {
+  let animationReq;
 
-// function renderLoop(...gamePieces: (Ice | Wall | Player)[]) {
-//   let animationReq;
-
-//   try {
-//     animationReq = window.requestAnimationFrame(() => renderLoop(...gamePieces));
-//     gamePieces.forEach((piece) => piece.paint());
-//   } catch (e) {
-//     console.error(e);
-//     window.cancelAnimationFrame(animationReq as number);
-//   }
-// }
-export {}
+  try {
+    animationReq = window.requestAnimationFrame(() => renderLoop(...gamePieces));
+    gamePieces.forEach((piece) => piece.paint());
+  } catch (e) {
+    console.error(e);
+    window.cancelAnimationFrame(animationReq as number);
+  }
+}

@@ -33,9 +33,8 @@ export class Ice extends GamePiece {
 
     super({
       color: gradient,
-      width: GAME_WIDTH,
-      height: GAME_HEIGHT,
       position: { x: 0, y: 0 },
+      dimensions: { width: GAME_WIDTH, height: GAME_HEIGHT },
     });
   }
 }

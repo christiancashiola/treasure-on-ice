@@ -4,10 +4,9 @@ import { GamePiece } from "./GamePiece";
 export class Player extends GamePiece {
   constructor(x: number, y: number) {
     super({
-      position: { x, y },
       color: PLAYER_COLOR,
-      width: PLAYER_WIDTH,
-      height: PLAYER_HEIGHT,
-    })
+      position: { x, y },
+      dimensions: { width: PLAYER_WIDTH, height: PLAYER_HEIGHT },
+    });
   }
 }
