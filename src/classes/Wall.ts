@@ -13,7 +13,8 @@ export class Wall extends GamePiece {
     });
 
     this.image = new Image();
-    this.image.src = Wall.count % 2 === 0 ? '/wall-1.png' : './wall-2.png';
+    // this.image.src = Wall.count % 2 === 0 ? '/wall-1.png' : './wall-2.png';
+    this.image.src = '/wall-4.png';
     Wall.count++;
   }
 
