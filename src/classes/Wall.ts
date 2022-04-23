@@ -1,23 +1,23 @@
-import { WALL_COLOR, WALL_HEIGHT, WALL_WIDTH } from "../constants";
+import { BLOCK_SIZE, WALL_COLOR } from "../constants";
 import { GamePiece } from "./GamePiece";
 
 export class Wall extends GamePiece {
+  static count: number = 0;
   private readonly image: HTMLImageElement;
 
   constructor(x: number, y: number) {
     super({
       color: WALL_COLOR,
       position: { x, y },
-      dimensions: { width: WALL_WIDTH, height: WALL_HEIGHT },
+      dimensions: { width: BLOCK_SIZE, height: BLOCK_SIZE },
     });
 
-    // todo preload this before game begins?
     this.image = new Image();
-    this.image.src = "/wall.png";
+    this.image.src = Wall.count % 2 === 0 ? '/wall-1.png' : './wall-2.png';
+    Wall.count++;
   }
 
   paint() {
-    const position = this.getPosition();
-    this.getCtx().drawImage(this.image, position.x, position.y, WALL_WIDTH, WALL_HEIGHT);
+    this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
   }
 }

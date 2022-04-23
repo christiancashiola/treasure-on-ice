@@ -1,20 +1,17 @@
 export const W = Symbol('WALL');
 export const _ = Symbol('EMPTY');
-export const P = Symbol('PLAYER');
-export const X = Symbol('FINISH');
+export const D = Symbol('DEATH');
+export const S = Symbol('START');
+export const G = Symbol('GOAL');
 
 export const GAME_WIDTH = 500;
 export const GAME_HEIGHT = 500;
+export const BLOCK_SIZE = 50;
 
 // todo should `50` be one var?
-export const PLAYER_COLOR = '#090';
-export const PLAYER_WIDTH = 50;
-export const PLAYER_HEIGHT = 50;
+export const PLAYER_COLOR = '#009';
+export const GOAL_COLOR = '#090';
+export const WALL_COLOR = '#000';
+export const DEATH_COLOR = '#900';
 
-export const FINISH_COLOR = '#08002e';
-export const FINISH_WIDTH = 50;
-export const FINISH_HEIGHT = 50;
-
-export const WALL_COLOR = '#333';
-export const WALL_WIDTH = 50;
-export const WALL_HEIGHT = 50;
+export const PLAYER_SPEED = 30;

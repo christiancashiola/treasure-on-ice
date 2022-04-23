@@ -1,14 +1,17 @@
+import { BLOCK_SIZE } from "../constants";
+import { Dimensions, Position } from "../types";
+
 export interface IGamePiece {
   color: string | CanvasGradient;
-  position: { x: number; y: number };
-  dimensions: { width: number; height: number };
+  position: Position;
+  dimensions: Dimensions;
 }
 
 export class GamePiece {
-  private readonly ctx: CanvasRenderingContext2D;
-  private readonly color: string | CanvasGradient;
-  private readonly position: { x: number; y: number };
-  private readonly dimensions: { width: number; height: number };
+  protected ctx: CanvasRenderingContext2D;
+  protected position: Position;
+  protected dimensions: Dimensions;
+  protected color: string | CanvasGradient;
 
   constructor({ color, position, dimensions }: IGamePiece) {
     this.ctx = (document.getElementById("game") as HTMLCanvasElement).getContext(
@@ -28,18 +31,5 @@ export class GamePiece {
       this.dimensions.width,
       this.dimensions.height
     );
-  }
-
-  getCtx() {
-    return this.ctx;
-  }
-
-  getPosition() {
-    return this.position;
-  }
-
-  // todo, again, is this necessary if everything is 50?
-  getDimensions() {
-    return this.dimensions;
   }
 }
