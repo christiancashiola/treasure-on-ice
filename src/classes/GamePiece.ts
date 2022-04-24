@@ -1,27 +1,24 @@
-import { Dimensions, Position } from "../types";
+import { BLOCK_SIZE } from "../constants";
+import { Position } from "../types";
 
 export interface IGamePiece {
-  color: string | CanvasGradient;
+  ctx: CanvasRenderingContext2D;
+  image: HTMLImageElement;
   position: Position;
-  dimensions: Dimensions;
 }
 
 export abstract class GamePiece {
   position: Position;
-  abstract type: Symbol;
+  protected image: HTMLImageElement;
   protected ctx: CanvasRenderingContext2D;
-  protected dimensions: Dimensions;
-  protected color: string | CanvasGradient;
 
-  constructor({ color, position, dimensions }: IGamePiece) {
-    this.ctx = (document.getElementById("game") as HTMLCanvasElement).getContext(
-      "2d"
-    ) as CanvasRenderingContext2D;
-
-    this.color = color;
+  constructor({ ctx, image, position }: IGamePiece) {
+    this.ctx = ctx;
+    this.image = image;
     this.position = position;
-    this.dimensions = dimensions;
   }
 
-  abstract paint(): void;
+  paint() {
+    this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+  }
 }

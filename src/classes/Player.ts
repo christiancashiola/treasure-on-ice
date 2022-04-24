@@ -1,17 +1,16 @@
 import {
   BLOCK_SIZE,
   PLAYER_ACCELERATION,
-  PLAYER_COLOR,
   PLAYER_MAX_SPEED,
   PLAYER_SPEED,
-  P,
-  W as Wall, D as Death, G as Goal
+  W as Wall,
+  D as Death,
+  G as Goal,
 } from "../constants";
 import { CollisionResult, Direction, Map, Position } from "../types";
 import { GamePiece } from "./GamePiece";
 
 export class Player extends GamePiece {
-  readonly type = P;
   private readonly imageUp: HTMLImageElement;
   private readonly imageDown: HTMLImageElement;
   private readonly imageLeft: HTMLImageElement;
@@ -25,46 +24,75 @@ export class Player extends GamePiece {
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
 
-  constructor(x: number, y: number, map: Map) {
+  constructor(ctx: CanvasRenderingContext2D, position: Position, map: Map) {
+    const imageDown = new Image();
+    imageDown.src = "./images/player-down.png";
     super({
-      color: PLAYER_COLOR,
-      position: { x, y },
-      dimensions: { width: BLOCK_SIZE, height: BLOCK_SIZE },
+      ctx,
+      image: imageDown,
+      position,
     });
-
     this.map = map;
     this.imageUp = new Image();
-    this.imageUp.src = "./player-up-2.png";
-    this.imageDown = new Image();
-    this.imageDown.src = "./player-down-2.png";
+    this.imageUp.src = "./images/player-up.png";
+    this.imageDown = imageDown;
     this.imageLeft = new Image();
-    this.imageLeft.src = "./player-left-2.png";
+    this.imageLeft.src = "./images/player-left.png";
     this.imageRight = new Image();
-    this.imageRight.src = "./player-right-2.png";
+    this.imageRight.src = "./images/player-right.png";
     this.currentImage = this.imageDown;
     this.imageUpRun = new Image();
-    this.imageUpRun.src = "./player-up-run.png";
+    this.imageUpRun.src = "./images/player-up-run.png";
     this.imageDownRun = new Image();
-    this.imageDownRun.src = "./player-down-run.png";
+    this.imageDownRun.src = "./images/player-down-run.png";
     this.imageLeftRun = new Image();
-    this.imageLeftRun.src = "./player-left-run.png";
+    this.imageLeftRun.src = "./images/player-left-run.png";
     this.imageRightRun = new Image();
-    this.imageRightRun.src = "./player-right-run.png";
-    this.currentImage = this.imageDown;
+    this.imageRightRun.src = "./images/player-right-run.png";
     this.addControls();
   }
 
-  // todo: mobile swiping
   private addControls() {
-    window.addEventListener("keydown", this.setDirection);
+    // desktop controls
+    window.addEventListener("keydown", ({ key: direction }) => this.setDirection(direction));
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    // mobile/tablet controls
+    window.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    });
+    window.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+
+      const dx = touchEndX - touchStartX;
+      const dy = touchEndY - touchStartY;
+
+      let direction: Direction;
+      // user might swipe slightly at angle
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        // moving in X direction
+        direction = dx > 0 ? Direction.Right : Direction.Left;
+      } else {
+        // moving in Y direction
+        direction = dy > 0 ? Direction.Down : Direction.Up;
+      }
+
+      this.setDirection(direction);
+    });
   }
 
-  private setDirection = ({ key }: KeyboardEvent) => {
+  private setDirection = (direction: string) => {
     if (this.direction) return;
-    if (key === Direction.Up) this.direction = Direction.Up;
-    else if (key === Direction.Down) this.direction = Direction.Down;
-    else if (key === Direction.Left) this.direction = Direction.Left;
-    else if (key === Direction.Right) this.direction = Direction.Right;
+    if (direction === Direction.Up) this.direction = Direction.Up;
+    else if (direction === Direction.Down) this.direction = Direction.Down;
+    else if (direction === Direction.Left) this.direction = Direction.Left;
+    else if (direction === Direction.Right) this.direction = Direction.Right;
   };
 
   private move() {
@@ -102,7 +130,7 @@ export class Player extends GamePiece {
       else this.currentImage = this.imageRight;
       return;
     }
-    
+
     if (this.direction === Direction.Up) this.currentImage = this.imageUpRun;
     else if (this.direction === Direction.Down) this.currentImage = this.imageDownRun;
     else if (this.direction === Direction.Left) this.currentImage = this.imageLeftRun;

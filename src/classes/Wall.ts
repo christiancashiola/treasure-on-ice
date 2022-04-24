@@ -1,24 +1,22 @@
-import { BLOCK_SIZE, W, WALL_COLOR } from "../constants";
+import { BLOCK_SIZE, WALL_COLOR } from "../constants";
+import { Position } from "../types";
 import { GamePiece } from "./GamePiece";
 
 export class Wall extends GamePiece {
-  readonly type = W;
-  static count: number = 0;
-  private readonly image: HTMLImageElement;
+  constructor(ctx: CanvasRenderingContext2D, position: Position) {
+    const image = new Image();
+    image.src = '/images/wall.png';
 
-  constructor(x: number, y: number) {
     super({
-      color: WALL_COLOR,
-      position: { x, y },
-      dimensions: { width: BLOCK_SIZE, height: BLOCK_SIZE },
+      ctx,
+      image,
+      position,
     });
-
-    this.image = new Image();
-    this.image.src = '/wall-4.png';
-    Wall.count++;
   }
 
   paint() {
-    this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+    this.ctx.fillStyle = WALL_COLOR;
+    this.ctx.fillRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+    super.paint();
   }
 }

@@ -1,22 +1,15 @@
-import { BLOCK_SIZE, G, GOAL_COLOR } from "../constants";
+import { Position } from "../types";
 import { GamePiece } from "./GamePiece";
 
 export class Goal extends GamePiece {
-  readonly type = G;
-  private readonly image: HTMLImageElement;
+  constructor(ctx: CanvasRenderingContext2D,position: Position) {
+    const image = new Image();
+    image.src = './images/goal.png';
 
-  constructor(x: number, y: number) {
     super({
-      color: GOAL_COLOR,
-      position: { x, y },
-      dimensions: { width: BLOCK_SIZE, height: BLOCK_SIZE },
+      ctx,
+      image,
+      position,
     });
-
-    this.image = new Image();
-    this.image.src = './goal-2.png';
-  }
-
-  paint() {
-    this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
   }
 }

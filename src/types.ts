@@ -1,6 +1,5 @@
 export type Map = Symbol[][];
 export type Position = { x: number; y: number };
-export type Dimensions = { width: number; height: number };
 
 export enum CollisionResult {
   Safe,

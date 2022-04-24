@@ -18,7 +18,6 @@ function App() {
         bottom: 0;
         display: flex;
         position: absolute;
-        background: #ccc;
         align-items: center;
         justify-content: center;
       `}
@@ -31,21 +30,20 @@ function App() {
           background: rgb(3, 207, 252);
           background: linear-gradient(
             135deg,
-            rgba(3, 207, 252, 1) 0%,
-            rgba(128, 232, 255, 1) 10%,
-            rgba(96, 224, 252, 1) 20%,
-            rgba(3, 207, 252, 1) 30%,
-            rgba(96, 224, 252, 1) 40%,
-            rgba(3, 207, 252, 1) 50%,
-            rgba(96, 224, 252, 1) 60%,
-            rgba(128, 232, 255, 1) 70%,
-            rgba(96, 224, 252, 1) 80%,
-            rgba(3, 207, 252, 1) 90%,
-            rgba(128, 232, 255, 1) 100%
+            #03cffc 0%,
+            #80e8ff 10%,
+            #03cffc 20%,
+            #80e8ff 30%,
+            #03cffc 40%,
+            #80e8ff 50%,
+            #03cffc 60%,
+            #80e8ff 70%,
+            #03cffc 80%,
+            #80e8ff 90%,
+            #03cffc 100%
           );
         `}
       />
-      {/* <Level1 /> */}
     </div>
   );
 }
