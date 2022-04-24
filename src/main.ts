@@ -1,25 +1,20 @@
-import { GamePiece } from "./classes/GamePiece";
-import { Player } from "./classes/Player";
-import { Wall } from "./classes/Wall";
-import { getLevelPieces } from "./levels/getLevelPieces";
-import { LEVEL_1 } from "./levels/level-1";
+import { Game } from "./classes/Game";
+import { MAP_1 } from "./maps/map-1";
+import { MAP_2 } from "./maps/map-2";
+
+export let GLOBAL_ANIMATION_REQ: number;
 
 export function main() {
-  const pieces = getLevelPieces(LEVEL_1);
-
-  renderLoop(...pieces);
+  const game = new Game([MAP_1, MAP_2]);
+  renderLoop(game);
 }
 
-function renderLoop(...gamePieces: GamePiece[]) {
-  let animationReq;
-
+function renderLoop(game: Game) {
   try {
-    animationReq = window.requestAnimationFrame(() => renderLoop(...gamePieces));
-    // animationReq = window.setInterval(() => renderLoop(...gamePieces), 100);
-    gamePieces.forEach((piece) => piece.paint());
+    GLOBAL_ANIMATION_REQ = window.requestAnimationFrame(() => renderLoop(game));
+    game.render();
   } catch (e) {
     console.error(e);
-    // window.clearInterval(animationReq)
-    window.cancelAnimationFrame(animationReq as number);
+    window.cancelAnimationFrame(GLOBAL_ANIMATION_REQ);
   }
 }

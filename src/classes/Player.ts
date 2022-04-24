@@ -4,12 +4,14 @@ import {
   PLAYER_COLOR,
   PLAYER_MAX_SPEED,
   PLAYER_SPEED,
+  P,
+  W as Wall, D as Death, G as Goal
 } from "../constants";
-import { CollisionResult, Direction, Level, Position } from "../types";
+import { CollisionResult, Direction, Map, Position } from "../types";
 import { GamePiece } from "./GamePiece";
-import { W as Wall, D as Death, G as Goal } from "../constants";
 
 export class Player extends GamePiece {
+  readonly type = P;
   private readonly imageUp: HTMLImageElement;
   private readonly imageDown: HTMLImageElement;
   private readonly imageLeft: HTMLImageElement;
@@ -18,19 +20,19 @@ export class Player extends GamePiece {
   private readonly imageDownRun: HTMLImageElement;
   private readonly imageLeftRun: HTMLImageElement;
   private readonly imageRightRun: HTMLImageElement;
-  private readonly level: Level;
+  private readonly map: Map;
   private speed: number = PLAYER_SPEED;
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
 
-  constructor(x: number, y: number, level: Level) {
+  constructor(x: number, y: number, map: Map) {
     super({
       color: PLAYER_COLOR,
       position: { x, y },
       dimensions: { width: BLOCK_SIZE, height: BLOCK_SIZE },
     });
 
-    this.level = level;
+    this.map = map;
     this.imageUp = new Image();
     this.imageUp.src = "./player-up-2.png";
     this.imageDown = new Image();
@@ -82,11 +84,9 @@ export class Player extends GamePiece {
     } else if (collisionResult === CollisionResult.Goal) {
       this.updatePosition(dx, dy);
       this.completeMove();
-      console.log("you win!");
     } else if (collisionResult === CollisionResult.Death) {
       this.updatePosition(dx, dy);
       this.completeMove();
-      console.log("you lose!");
     } else {
       const prevDirection = this.direction;
       this.completeMove();
@@ -125,7 +125,7 @@ export class Player extends GamePiece {
     let spaceAboutToMoveInto: Symbol | undefined;
     if (this.direction === Direction.Right || this.direction === Direction.Left) {
       const currentRowIndex = Math.floor(futurePosition.y / BLOCK_SIZE);
-      const currentRow = this.level[currentRowIndex];
+      const currentRow = this.map[currentRowIndex];
       const futureColIndexDelta =
         futurePosition.x + (this.direction === Direction.Right ? BLOCK_SIZE : 0);
       const futureColIndex = Math.floor(futureColIndexDelta / BLOCK_SIZE);
@@ -135,7 +135,7 @@ export class Player extends GamePiece {
       const futureRowIndexDelta =
         futurePosition.y + (this.direction === Direction.Down ? BLOCK_SIZE : 0);
       const futureRowIndex = Math.floor(futureRowIndexDelta / BLOCK_SIZE);
-      spaceAboutToMoveInto = this.level[futureRowIndex][currentColIndex];
+      spaceAboutToMoveInto = this.map[futureRowIndex][currentColIndex];
     }
 
     if (spaceAboutToMoveInto === Goal) return CollisionResult.Goal;

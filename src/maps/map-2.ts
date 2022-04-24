@@ -1,6 +1,6 @@
 import { W, _, P, G, D } from "../constants";
 
-export const LEVEL_1 = [
+export const MAP_2 = [
   [W, W, W, W, W, W, W, W, W, W],
   [W, _, _, _, _, _, W, _, _, W],
   [W, _, P, _, _, _, _, _, _, W],

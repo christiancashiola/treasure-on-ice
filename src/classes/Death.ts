@@ -1,7 +1,8 @@
-import { DEATH_COLOR, BLOCK_SIZE, DEATH_SPIN_RATE } from "../constants";
+import { DEATH_COLOR, BLOCK_SIZE, DEATH_SPIN_RATE, D } from "../constants";
 import { GamePiece } from "./GamePiece";
 
 export class Death extends GamePiece {
+  readonly type = D;
   private readonly image: HTMLImageElement;
   private readonly imageAlt: HTMLImageElement;
   private currentImage: HTMLImageElement;

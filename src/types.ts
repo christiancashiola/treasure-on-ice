@@ -1,5 +1,4 @@
-export type Level = Symbol[][];
-
+export type Map = Symbol[][];
 export type Position = { x: number; y: number };
 export type Dimensions = { width: number; height: number };
 

@@ -1,7 +1,8 @@
-import { BLOCK_SIZE, GOAL_COLOR } from "../constants";
+import { BLOCK_SIZE, G, GOAL_COLOR } from "../constants";
 import { GamePiece } from "./GamePiece";
 
 export class Goal extends GamePiece {
+  readonly type = G;
   private readonly image: HTMLImageElement;
 
   constructor(x: number, y: number) {

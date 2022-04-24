@@ -1,4 +1,3 @@
-import { BLOCK_SIZE } from "../constants";
 import { Dimensions, Position } from "../types";
 
 export interface IGamePiece {
@@ -7,9 +6,10 @@ export interface IGamePiece {
   dimensions: Dimensions;
 }
 
-export class GamePiece {
+export abstract class GamePiece {
+  position: Position;
+  abstract type: Symbol;
   protected ctx: CanvasRenderingContext2D;
-  protected position: Position;
   protected dimensions: Dimensions;
   protected color: string | CanvasGradient;
 
@@ -23,13 +23,5 @@ export class GamePiece {
     this.dimensions = dimensions;
   }
 
-  paint() {
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(
-      this.position.x,
-      this.position.y,
-      this.dimensions.width,
-      this.dimensions.height
-    );
-  }
+  abstract paint(): void;
 }
