@@ -1,0 +1,24 @@
+$screensize-sm-phone: 320px;
+$screensize-phone: 400px;
+$screensize-phablet: 550px;
+$screensize-tablet: 750px;
+$screensize-desktop: 1024px;
+
+body {
+  margin: 0;
+  color: #fff;
+  background: #000;
+  font-family: 'Press Start 2P', sans-serif;
+}
+
+// @media (min-width: $screensize-sm-phone) {
+//   h1 {
+//     font-size: 20px;
+//   }
+// }
+
+// @media (min-width: $screensize-phone) {
+//   h1 {
+//     font-size: 24px;
+//   }
+// }

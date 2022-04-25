@@ -17,7 +17,7 @@ export class Game {
   protected ctx: CanvasRenderingContext2D;
 
   constructor(maps: Map[]) {
-    this.ctx = (document.getElementById("game") as HTMLCanvasElement).getContext(
+    this.ctx = (document.getElementById("canvas") as HTMLCanvasElement).getContext(
       "2d"
     ) as CanvasRenderingContext2D;
     this.maps = maps;

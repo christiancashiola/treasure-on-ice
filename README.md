@@ -11,6 +11,7 @@
 - database setup..............`2hr`
 - more levels.................`1-3hr`
 - sounds......................`2-3hr`
+- seo.........................`1hr`
 
 # Phase 2 (optional)
 - level generator using maze runner algorithm w/ difficulty rankings
