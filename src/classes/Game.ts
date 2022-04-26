@@ -1,10 +1,10 @@
-import { Map, Position } from "../types";
-import { Death } from "./Death";
-import { Goal } from "./Goal";
-import { Player } from "./Player";
-import { Wall } from "./Wall";
-import { GamePiece } from "./GamePiece";
-import { D, P, W, G, BLOCK_SIZE, GAME_WIDTH, GAME_HEIGHT } from "../constants";
+import {Map, Position} from '../types';
+import {Death} from './Death';
+import {Goal} from './Goal';
+import {Player} from './Player';
+import {Wall} from './Wall';
+import {GamePiece} from './GamePiece';
+import {D, P, W, G, BLOCK_SIZE, GAME_WIDTH, GAME_HEIGHT} from '../constants';
 
 export class Game {
   readonly maps: Map[];
@@ -17,8 +17,8 @@ export class Game {
   protected ctx: CanvasRenderingContext2D;
 
   constructor(maps: Map[]) {
-    this.ctx = (document.getElementById("canvas") as HTMLCanvasElement).getContext(
-      "2d"
+    this.ctx = (document.getElementById('canvas') as HTMLCanvasElement).getContext(
+      '2d',
     ) as CanvasRenderingContext2D;
     this.maps = maps;
     this.setMap();
@@ -40,7 +40,7 @@ export class Game {
         const x = colIndex * BLOCK_SIZE;
 
         const position: Position = {x, y};
-        
+
         if (col === W) pieces.push(new Wall(this.ctx, position));
         else if (col === D) pieces.push(new Death(this.ctx, position));
         else if (col === G) {
@@ -72,7 +72,7 @@ export class Game {
   }
 
   private gameOver() {
-    console.log("game over");
+    console.log('game over');
   }
 
   private loadNextMap() {
@@ -92,7 +92,7 @@ export class Game {
       this.stopAnimationFrame();
       console.error(e);
     }
-  }
+  };
 
   private stopAnimationFrame() {
     window.cancelAnimationFrame(this.animationReq);

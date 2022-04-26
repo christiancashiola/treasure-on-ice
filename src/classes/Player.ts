@@ -6,9 +6,9 @@ import {
   W as Wall,
   D as Death,
   G as Goal,
-} from "../constants";
-import { CollisionResult, Direction, Map, Position } from "../types";
-import { GamePiece } from "./GamePiece";
+} from '../constants';
+import {CollisionResult, Direction, Map, Position} from '../types';
+import {GamePiece} from './GamePiece';
 
 export class Player extends GamePiece {
   private readonly imageUp: HTMLImageElement;
@@ -26,7 +26,7 @@ export class Player extends GamePiece {
 
   constructor(ctx: CanvasRenderingContext2D, position: Position, map: Map) {
     const imageDown = new Image();
-    imageDown.src = "./images/player-down.png";
+    imageDown.src = './images/player-down.png';
     super({
       ctx,
       image: imageDown,
@@ -34,39 +34,39 @@ export class Player extends GamePiece {
     });
     this.map = map;
     this.imageUp = new Image();
-    this.imageUp.src = "./images/player-up.png";
+    this.imageUp.src = './images/player-up.png';
     this.imageDown = imageDown;
     this.imageLeft = new Image();
-    this.imageLeft.src = "./images/player-left.png";
+    this.imageLeft.src = './images/player-left.png';
     this.imageRight = new Image();
-    this.imageRight.src = "./images/player-right.png";
+    this.imageRight.src = './images/player-right.png';
     this.currentImage = this.imageDown;
     this.imageUpRun = new Image();
-    this.imageUpRun.src = "./images/player-up-run.png";
+    this.imageUpRun.src = './images/player-up-run.png';
     this.imageDownRun = new Image();
-    this.imageDownRun.src = "./images/player-down-run.png";
+    this.imageDownRun.src = './images/player-down-run.png';
     this.imageLeftRun = new Image();
-    this.imageLeftRun.src = "./images/player-left-run.png";
+    this.imageLeftRun.src = './images/player-left-run.png';
     this.imageRightRun = new Image();
-    this.imageRightRun.src = "./images/player-right-run.png";
+    this.imageRightRun.src = './images/player-right-run.png';
     this.addControls();
   }
 
   private addControls() {
     // desktop controls
-    window.addEventListener("keydown", ({ key: direction }) => this.setDirection(direction));
-    
+    window.addEventListener('keydown', ({key: direction}) => this.setDirection(direction));
+
     let touchStartX = 0;
     let touchEndX = 0;
     let touchStartY = 0;
     let touchEndY = 0;
-    
+
     // mobile/tablet controls
-    window.addEventListener("touchstart", (e) => {
+    window.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     });
-    window.addEventListener("touchend", (e) => {
+    window.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       touchEndY = e.changedTouches[0].screenY;
 
@@ -96,10 +96,10 @@ export class Player extends GamePiece {
   };
 
   private move() {
-    const { dx, dy } = this.getDeltas();
+    const {dx, dy} = this.getDeltas();
 
     this.updatePlayerImage();
-    const collisionResult = this.checkCollision({ x: dx, y: dy });
+    const collisionResult = this.checkCollision({x: dx, y: dy});
     if (collisionResult === CollisionResult.Safe) {
       this.updatePosition(dx, dy);
       if (this.speed < PLAYER_MAX_SPEED) {
@@ -146,7 +146,7 @@ export class Player extends GamePiece {
     if (this.direction === Direction.Left) dx -= this.speed;
     if (this.direction === Direction.Right) dx += this.speed;
 
-    return { dx, dy };
+    return {dx, dy};
   }
 
   private checkCollision(futurePosition: Position): CollisionResult {
@@ -180,11 +180,11 @@ export class Player extends GamePiece {
   private completeMove() {
     if (this.direction === Direction.Right || this.direction === Direction.Left) {
       this.position.x =
-        Math[this.direction === Direction.Right ? "ceil" : "floor"](this.position.x / BLOCK_SIZE) *
+        Math[this.direction === Direction.Right ? 'ceil' : 'floor'](this.position.x / BLOCK_SIZE) *
         BLOCK_SIZE;
     } else {
       this.position.y =
-        Math[this.direction === Direction.Down ? "ceil" : "floor"](this.position.y / BLOCK_SIZE) *
+        Math[this.direction === Direction.Down ? 'ceil' : 'floor'](this.position.y / BLOCK_SIZE) *
         BLOCK_SIZE;
     }
     this.direction = null;

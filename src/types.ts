@@ -1,5 +1,5 @@
 export type Map = Symbol[][];
-export type Position = { x: number; y: number };
+export type Position = {x: number; y: number};
 
 export enum CollisionResult {
   Safe,
@@ -9,8 +9,8 @@ export enum CollisionResult {
 }
 
 export enum Direction {
-  Up = "ArrowUp",
-  Down = "ArrowDown",
-  Left = "ArrowLeft",
-  Right = "ArrowRight",
+  Up = 'ArrowUp',
+  Down = 'ArrowDown',
+  Left = 'ArrowLeft',
+  Right = 'ArrowRight',
 }

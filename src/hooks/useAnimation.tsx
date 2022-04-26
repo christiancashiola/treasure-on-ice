@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from 'react';
 
 export function useAnimation() {
-  const forceUpdate: () => void = useState<{}>()[1].bind(null, {})
+  const forceUpdate: () => void = useState<{}>()[1].bind(null, {});
   const animationReq = useRef(0);
 
   const animate = (time: number) => {

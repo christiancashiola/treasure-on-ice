@@ -1,4 +1,4 @@
-import { W, _, P, G, D } from "../constants";
+import {W, _, P, G, D} from '../constants';
 
 export const MAP_2 = [
   [W, W, W, W, W, W, W, W, W, W],

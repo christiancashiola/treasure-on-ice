@@ -1,0 +1,54 @@
+/** @jsxImportSource @emotion/react */
+import {css} from '@emotion/react';
+import {v4 as uuidV4} from 'uuid';
+import {NUM_SNOWFLAKES, SPACE_BETWEEN_SNOWFLAKES} from '../constants';
+import {Diamond} from './Diamond';
+import {Snowflake} from './Snowflake';
+
+const wrapperCss = css`
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+`;
+
+interface ISnowflakeRow {
+  offset: number;
+}
+
+export function SnowflakeRow({offset}: ISnowflakeRow) {
+  return (
+    <div
+      css={css`
+        ${wrapperCss}
+        top: -${offset}px;
+      `}
+    >
+      {[...Array(NUM_SNOWFLAKES)].map((_, i) => {
+        const randomNumber = generateRandomNumber(1, NUM_SNOWFLAKES * 2);
+
+        if (randomNumber === NUM_SNOWFLAKES) {
+          return (
+            <Diamond key={uuidV4()} left={i * SPACE_BETWEEN_SNOWFLAKES} delay={randomNumber} />
+          );
+        }
+
+        return (
+          <Snowflake
+            key={uuidV4()}
+            left={i * SPACE_BETWEEN_SNOWFLAKES}
+            delay={randomNumber}
+            duration={randomNumber < 9 ? randomNumber + 9 : randomNumber}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+// generates number between min/max including min/max rounded to nearest 0.5
+function generateRandomNumber(min: number, max: number) {
+  return Math.round((Math.random() * (max - min + 1) + min) * 2) / 2;
+}

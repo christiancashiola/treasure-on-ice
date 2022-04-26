@@ -1,6 +1,6 @@
-import { BLOCK_SIZE, WALL_COLOR } from "../constants";
-import { Position } from "../types";
-import { GamePiece } from "./GamePiece";
+import {BLOCK_SIZE, WALL_COLOR} from '../constants';
+import {Position} from '../types';
+import {GamePiece} from './GamePiece';
 
 export class Wall extends GamePiece {
   constructor(ctx: CanvasRenderingContext2D, position: Position) {

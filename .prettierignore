@@ -1,0 +1,6 @@
+dist-client/
+dist-server/
+coverage/
+pnpm-lock.yaml
+data.json
+dist

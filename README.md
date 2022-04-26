@@ -1,4 +1,5 @@
 # TODOs
+
 - main menu...................`2hr`
 - instructions................`1hr`
 - level timer.................`1hr`
@@ -14,6 +15,7 @@
 - seo.........................`1hr`
 
 # Phase 2 (optional)
+
 - level generator using maze runner algorithm w/ difficulty rankings
 - teleport/warp squares
 - moving enemies

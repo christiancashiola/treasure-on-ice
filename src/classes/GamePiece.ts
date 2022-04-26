@@ -1,5 +1,5 @@
-import { BLOCK_SIZE } from "../constants";
-import { Position } from "../types";
+import {BLOCK_SIZE} from '../constants';
+import {Position} from '../types';
 
 export interface IGamePiece {
   ctx: CanvasRenderingContext2D;
@@ -12,7 +12,7 @@ export abstract class GamePiece {
   protected image: HTMLImageElement;
   protected ctx: CanvasRenderingContext2D;
 
-  constructor({ ctx, image, position }: IGamePiece) {
+  constructor({ctx, image, position}: IGamePiece) {
     this.ctx = ctx;
     this.image = image;
     this.position = position;

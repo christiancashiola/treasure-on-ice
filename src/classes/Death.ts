@@ -1,11 +1,11 @@
-import { BLOCK_SIZE } from "../constants";
-import { Position } from "../types";
-import { GamePiece } from "./GamePiece";
+import {BLOCK_SIZE} from '../constants';
+import {Position} from '../types';
+import {GamePiece} from './GamePiece';
 
 export class Death extends GamePiece {
   constructor(ctx: CanvasRenderingContext2D, position: Position) {
     const image = new Image();
-    image.src = "./images/death.png";
+    image.src = './images/death.png';
 
     super({
       ctx,
