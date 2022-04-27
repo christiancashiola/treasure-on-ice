@@ -23,8 +23,9 @@ export class Player extends GamePiece {
   private speed: number = PLAYER_SPEED;
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
+  loseLife: () => void;
 
-  constructor(ctx: CanvasRenderingContext2D, position: Position, map: Map) {
+  constructor(ctx: CanvasRenderingContext2D, position: Position, map: Map, loseLife: () => void) {
     const imageDown = new Image();
     imageDown.src = './images/player-down.png';
     super({
@@ -33,6 +34,7 @@ export class Player extends GamePiece {
       position,
     });
     this.map = map;
+    this.loseLife = loseLife;
     this.imageUp = new Image();
     this.imageUp.src = './images/player-up.png';
     this.imageDown = imageDown;
@@ -115,6 +117,8 @@ export class Player extends GamePiece {
     } else if (collisionResult === CollisionResult.Death) {
       this.updatePosition(dx, dy);
       this.completeMove();
+      // todo: stop animation, lose life, reset board
+      this.loseLife();
     } else {
       const prevDirection = this.direction;
       this.completeMove();

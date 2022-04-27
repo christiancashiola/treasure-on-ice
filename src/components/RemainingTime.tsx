@@ -8,5 +8,5 @@ export function RemainingTime({remainingTime}: Pick<GameMetrics, 'remainingTime'
   const seconds = Math.floor(remainingTime - minutes * 60);
   const [, centiseconds] = remainingTime.toFixed(2).split('.');
 
-  return <div css={css(DEFAULT_IN_GAME_TEXT)}>Time:&nbsp;{`${minutes}m ${seconds}s ${centiseconds}`}</div>;
+  return <div css={css(DEFAULT_IN_GAME_TEXT)}>&nbsp;TIME:&nbsp;{`${minutes}m ${seconds}s ${centiseconds}`}</div>;
 }

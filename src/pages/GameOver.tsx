@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { ICE_GRADIENT_LETTERS } from "../constants";
 import { GameMetrics } from "../types";
 
-type IGameOver = Omit<GameMetrics, 'setScore' | 'setLives'>
+type IGameOver = Omit<GameMetrics, 'setScore' | 'loseLife'>
 
 export function GameOver({lives, score, remainingTime}: IGameOver) {
   return (

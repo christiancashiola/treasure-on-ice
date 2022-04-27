@@ -15,10 +15,15 @@ export function useGameMetrics(): GameMetrics {
     return () => clearInterval(intervalId);
   }, []);
 
+  const loseLife = () => {
+    console.log('here')
+    setLives((lives) => lives - 1);
+  }
+  
   return {
     score,
     lives,
-    setLives,
+    loseLife,
     setScore,
     remainingTime,
   };

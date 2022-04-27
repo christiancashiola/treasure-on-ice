@@ -9,7 +9,7 @@ export const Score = memo(function Score({score}: Pick<GameMetrics, 'score'>) {
     <div
       css={css(DEFAULT_IN_GAME_TEXT)}
     >
-      Score:&nbsp;{score}
+      SCORE:&nbsp;{score}
     </div>
   );
 })

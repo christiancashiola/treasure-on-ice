@@ -18,7 +18,7 @@ export enum Direction {
 export type GameMetrics = {
   lives: number;
   score: number;
-  setLives: React.Dispatch<React.SetStateAction<number>>,
+  loseLife: () => void,
   setScore: React.Dispatch<React.SetStateAction<number>>,
   remainingTime: number;
 }

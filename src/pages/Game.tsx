@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
+import { useEffect } from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {Canvas} from '../components/Canvas';
 import { Lives } from '../components/Lives';
@@ -8,10 +9,18 @@ import {Score} from '../components/Score';
 import {Title} from '../components/Title';
 import { CANVAS_MEDIA_QUERY } from '../constants';
 import {useGameMetrics} from '../hooks/useGameMetrics';
+import { MAP_1 } from '../maps/map-1';
+import { MAP_2 } from '../maps/map-2';
 import {GameOver} from './GameOver';
+import {Game as GameClass} from '../classes/Game';
 
 export function Game() {
-  const {lives, score, remainingTime} = useGameMetrics();
+  const {lives, score, loseLife, remainingTime} = useGameMetrics();
+  useEffect(() => {
+    // todo make hook
+    const game = new GameClass([MAP_1, MAP_2], loseLife);
+    game.start();
+  }, []);
 
   return (
     <div

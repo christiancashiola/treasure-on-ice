@@ -1,4 +1,4 @@
-import {Map, Position} from '../types';
+import {GameMetrics, Map, Position} from '../types';
 import {Death} from './Death';
 import {Goal} from './Goal';
 import {Player} from './Player';
@@ -7,20 +7,23 @@ import {GamePiece} from './GamePiece';
 import {D, P, W, G, BLOCK_SIZE, GAME_WIDTH, GAME_HEIGHT} from '../constants';
 
 export class Game {
-  readonly maps: Map[];
+  loseLife: () => void;
   currentMap: Map;
   gamePieces: GamePiece[] = [];
   currentLevel: number = 0;
   animationReq: number;
   goalPosition: Position;
   playerPosition: Position;
+  readonly maps: Map[];
   protected ctx: CanvasRenderingContext2D;
 
-  constructor(maps: Map[]) {
+  constructor(maps: Map[], loseLife: () => void) {
     this.ctx = (document.getElementById('canvas') as HTMLCanvasElement).getContext(
       '2d',
     ) as CanvasRenderingContext2D;
     this.maps = maps;
+    this.loseLife = loseLife;
+
     this.setMap();
     this.getGamePieces();
   }
@@ -48,7 +51,7 @@ export class Game {
           this.goalPosition = goal.position;
           pieces.push(goal);
         } else if (col === P) {
-          const player = new Player(this.ctx, position, this.currentMap);
+          const player = new Player(this.ctx, position, this.currentMap, this.loseLife);
           this.playerPosition = player.position;
           pieces.push(player);
         }
@@ -72,7 +75,7 @@ export class Game {
   }
 
   private gameOver() {
-    console.log('game over');
+    this.loseLife()
   }
 
   private loadNextMap() {
