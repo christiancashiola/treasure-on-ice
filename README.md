@@ -13,6 +13,7 @@
 - more levels.................`1-3hr`
 - sounds......................`2-3hr`
 - seo.........................`1hr`
+- cool background image.......`2hr`
 
 # Phase 2 (optional)
 

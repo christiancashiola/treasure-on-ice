@@ -1,35 +1,28 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import { ICE_GRADIENT } from '../constants';
+import { useNavigate } from 'react-router-dom';
 import {Button} from './Button';
 import {SnowStorm} from './SnowStorm';
+import {Title} from './Title';
 
 export function MainMenu() {
+  const navigate = useNavigate();
   return (
-    <div>
+    <div css={css`
+              top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        position: absolute;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    `}>
+      <Title />
       <SnowStorm />
-      <div
-        css={css`
-          z-index: 1;
-        `}
-      >
-        <h1
-          css={css`
-            text-align: center;
-            ${ICE_GRADIENT}
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-          `}
-        >
-          TREASURE
-          <br />
-          ON
-          <br />
-          ICE
-        </h1>
-        <Button onClick={() => {}}>Instructions</Button>
-        <Button onClick={() => {}}>Play</Button>
-      </div>
+      <Button onClick={() => {}}>Instructions</Button>
+      <Button onClick={() => navigate('game')}>Play</Button>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { css, keyframes } from "@emotion/react";
+import {css} from '@emotion/react';
 
 // GAME CONSTANTS
 export const W = Symbol('WALL');
@@ -10,6 +10,8 @@ export const G = Symbol('GOAL');
 export const GAME_WIDTH = 500;
 export const GAME_HEIGHT = 500;
 export const BLOCK_SIZE = 50;
+
+export const GAME_TIME = 600;
 
 export const WALL_COLOR = '#391b06';
 
@@ -37,48 +39,9 @@ export const ICE_GRADIENT = css`
     #03cffc 100%
   );
 `;
-export const FALL_ANIMATION = keyframes`
-  0% {
-    top: 0%;
-  }
 
-  10% {
-    transform: rotate(40deg) translateX(5px);
-  }
-
-  20% {
-    transform: rotate(80deg) translateX(-5px);
-  }
-
-  30% {
-    transform: rotate(120deg) translateX(5px);
-  }
-
-  40% {
-    transform: rotate(160deg) translateX(-5px);
-  }
-
-  50% {
-    transform: rotate(200deg) translateX(5px);
-  }
-
-  60% {
-    transform: rotate(240deg) translateX(-5px);
-  }
-
-  70% {
-    transform: rotate(280deg) translateX(5px);
-  }
-  
-  80% {
-    transform: rotate(320deg) translateX(-5px);
-  }
-
-  90% {
-    transform: rotate(360deg) translateX(5px);
-  }
-
-  100% {
-    top: 110%
-  }
+export const ICE_GRADIENT_LETTERS = css`
+  ${ICE_GRADIENT}
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;

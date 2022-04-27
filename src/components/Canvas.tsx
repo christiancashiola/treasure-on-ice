@@ -16,21 +16,20 @@ export function Canvas() {
       height={GAME_HEIGHT}
       css={css`
         ${ICE_GRADIENT}
+        margin-bottom: 20px;
+        width: 320px;
 
-        @media (min-width: 320px) {
-          transform: scale(0.64);
-        }
         @media (min-width: 375px) {
-          transform: scale(0.75);
+          width: 375px;
         }
         @media (min-width: 400px) {
-          transform: scale(0.8);
+          width: 400px;
         }
         @media (min-width: 450px) {
-          transform: scale(0.9);
+          width: 450px;
         }
         @media (min-width: 500px) {
-          transform: scale(1);
+          width: 500px;
         }
       `}
     />
