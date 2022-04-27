@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {ReactNode} from 'react';
-import { ICE_GRADIENT } from '../constants';
+import {ICE_GRADIENT} from '../constants';
 
 interface IButton {
   children: ReactNode;

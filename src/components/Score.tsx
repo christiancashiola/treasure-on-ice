@@ -1,46 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {ICE_GRADIENT_LETTERS} from '../constants';
-import {mediaQuery, ScreenSize} from '../util/mediaQuery';
+import { memo } from 'react';
+import {DEFAULT_IN_GAME_TEXT} from '../constants';
+import {GameMetrics} from '../types';
 
-interface IScore {
-  score: number;
-}
-
-export function Score({score}: IScore) {
+export const Score = memo(function Score({score}: Pick<GameMetrics, 'score'>) {
   return (
     <div
-      css={css`
-        ${ICE_GRADIENT_LETTERS}
-        font-size: 16px;
-        margin-bottom: 10px;
-        ${mediaQuery(
-          ScreenSize.Phone,
-          `
-        font-size: 20px;
-      `,
-        )}
-        ${mediaQuery(
-          ScreenSize.Phablet,
-          `
-        font-size: 24px;
-      `,
-        )}
-      ${mediaQuery(
-          ScreenSize.Tablet,
-          `
-        font-size: 28px;
-      `,
-        )}
-      ${mediaQuery(
-          ScreenSize.Desktop,
-          `
-        font-size: 32px;
-      `,
-        )}
-      `}
+      css={css(DEFAULT_IN_GAME_TEXT)}
     >
       Score:&nbsp;{score}
     </div>
   );
-}
+})

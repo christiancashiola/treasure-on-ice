@@ -14,3 +14,11 @@ export enum Direction {
   Left = 'ArrowLeft',
   Right = 'ArrowRight',
 }
+
+export type GameMetrics = {
+  lives: number;
+  score: number;
+  setLives: React.Dispatch<React.SetStateAction<number>>,
+  setScore: React.Dispatch<React.SetStateAction<number>>,
+  remainingTime: number;
+}

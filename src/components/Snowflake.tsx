@@ -55,7 +55,6 @@ export const fallAnimation = keyframes`
   }
 `;
 
-
 export function Snowflake({left, delay, duration, size, opacity}: ISnowflake) {
   return (
     <div
@@ -70,7 +69,8 @@ export function Snowflake({left, delay, duration, size, opacity}: ISnowflake) {
         animation-duration: ${duration}s;
         animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53);
         animation-iteration-count: infinite;
-  `}>
+      `}
+    >
       ❄️
     </div>
   );

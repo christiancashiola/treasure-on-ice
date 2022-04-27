@@ -1,4 +1,5 @@
 import {css} from '@emotion/react';
+import {mediaQuery, ScreenSize} from './util/mediaQuery';
 
 // GAME CONSTANTS
 export const W = Symbol('WALL');
@@ -12,6 +13,7 @@ export const GAME_HEIGHT = 500;
 export const BLOCK_SIZE = 50;
 
 export const GAME_TIME = 600;
+export const GAMES_LIVES = 3;
 
 export const WALL_COLOR = '#391b06';
 
@@ -45,3 +47,51 @@ export const ICE_GRADIENT_LETTERS = css`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
+export const DEFAULT_IN_GAME_TEXT = css`
+  ${ICE_GRADIENT_LETTERS}
+  font-size: 12px;
+  
+  :not(:last-child) {
+    margin-bottom: 5px;
+  }
+  
+  ${mediaQuery(
+    ScreenSize.Phone,
+    `
+        font-size: 14px;
+      `,
+  )}
+  ${mediaQuery(
+    ScreenSize.Phablet,
+    `
+        font-size: 16px;
+      `,
+  )}
+      ${mediaQuery(
+    ScreenSize.Tablet,
+    `
+        font-size: 18px;
+      `,
+  )}
+      ${mediaQuery(
+    ScreenSize.Desktop,
+    `
+        font-size: 20px;
+      `,
+  )}
+`;
+export const CANVAS_MEDIA_QUERY = css`
+  width: 320px;
+  @media (min-width: 375px) {
+    width: 375px;
+  }
+  @media (min-width: 400px) {
+    width: 400px;
+  }
+  @media (min-width: 450px) {
+    width: 450px;
+  }
+  @media (min-width: 500px) {
+    width: 500px;
+  }
+`

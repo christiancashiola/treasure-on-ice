@@ -1,5 +1,6 @@
 dist-client/
 dist-server/
+build/
 coverage/
 pnpm-lock.yaml
 data.json
