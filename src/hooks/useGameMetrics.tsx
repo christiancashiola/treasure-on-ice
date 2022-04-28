@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {GAMES_LIVES, GAME_TIME} from '../constants';
 import {GameMetrics} from '../types';
+import { debounce } from '../util/debounce';
 
 export function useGameMetrics(): GameMetrics {
   const [score, setScore] = useState(0);
@@ -15,9 +16,13 @@ export function useGameMetrics(): GameMetrics {
     return () => clearInterval(intervalId);
   }, []);
 
+  // debounced because the animation frame cannot be cancelled quick enough when syncing w/ React
   const loseLife = () => {
     setLives((lives) => lives - 1);
   }
+  // const loseLife = debounce(() => {
+  //   setLives((lives) => lives - 1);
+  // }, 100);
   
   return {
     score,

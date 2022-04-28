@@ -1,10 +1,10 @@
-import {GameMetrics, Map, Position, ReactUpdaters} from '../types';
+import {Map, Position, ReactUpdaters} from '../types';
 import {Death} from './Death';
 import {Goal} from './Goal';
 import {Player} from './Player';
 import {Wall} from './Wall';
-import {GamePiece} from './GamePiece';
 import {D, P, W, G, BLOCK_SIZE, GAME_WIDTH, GAME_HEIGHT, GAMES_LIVES} from '../constants';
+import { debounce } from '../util/debounce';
 
 export class Game {
   currentMap: Map;
@@ -63,10 +63,10 @@ export class Game {
 
   private lose = () => {
     this.stopAnimationFrame();
-    // this.getGamePieces();
+    this.getGamePieces();
     // this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     // this.runRenderLoop();
-    this.reactUpdaters.loseLife()
+    debounce(this.reactUpdaters.loseLife, 100)()
   };
 
   private loadNextMap() {

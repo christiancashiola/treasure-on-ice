@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css, keyframes} from '@emotion/react';
+import { memo } from 'react';
 import {ICE_GRADIENT_LETTERS} from '../constants';
 
 const shineAnimation = keyframes`
@@ -11,7 +12,7 @@ const shineAnimation = keyframes`
 	}
 `;
 
-export function Title() {
+export const Title = memo(function Title() {
   return (
     <div
       css={css`
@@ -37,4 +38,4 @@ export function Title() {
       </h1>
     </div>
   );
-}
+});

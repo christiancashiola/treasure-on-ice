@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {Canvas} from '../components/Canvas';
 import { Lives } from '../components/Lives';
@@ -14,7 +14,7 @@ import { MAP_2 } from '../maps/map-2';
 import {GameOver} from './GameOver';
 import {Game as GameClass} from '../classes/Game';
 
-export function Game() {
+export const Game = memo(function Game() {
   // todo game over
   const {lives, score, loseLife, remainingTime} = useGameMetrics();
   useEffect(() => {
@@ -59,4 +59,4 @@ export function Game() {
       </Routes>
     </div>
   );
-}
+});
