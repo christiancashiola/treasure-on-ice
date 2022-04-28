@@ -215,7 +215,13 @@ export class Player extends GamePiece {
     if (this.direction) {
       this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
       this.move();
-      this.ctx.drawImage(this.currentImage, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+      this.ctx.drawImage(
+        this.currentImage,
+        this.position.x,
+        this.position.y,
+        BLOCK_SIZE,
+        BLOCK_SIZE,
+      );
     }
   }
 }

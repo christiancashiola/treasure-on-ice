@@ -19,6 +19,6 @@ export abstract class GamePiece {
 
     this.image.onload = () => {
       this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
-    }
+    };
   }
 }

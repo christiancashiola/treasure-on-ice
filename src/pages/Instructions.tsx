@@ -1,3 +1,3 @@
 export function Instructions() {
-  return null;  
+  return null;
 }

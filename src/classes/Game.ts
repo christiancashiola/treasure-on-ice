@@ -3,8 +3,19 @@ import {Death} from './Death';
 import {Goal} from './Goal';
 import {Player} from './Player';
 import {Wall} from './Wall';
-import {D, P, W, G, BLOCK_SIZE, GAME_WIDTH, GAME_HEIGHT, GAMES_LIVES} from '../constants';
-import { debounce } from '../util/debounce';
+import {
+  D,
+  P,
+  W,
+  G,
+  BLOCK_SIZE,
+  GAME_WIDTH,
+  GAME_HEIGHT,
+  GAMES_LIVES,
+  GAME_DEBOUNCE,
+  GAME_DELAY,
+} from '../constants';
+import {debounce} from '../util/debounce';
 
 export class Game {
   currentMap: Map;
@@ -33,7 +44,9 @@ export class Game {
     this.currentMap = this.maps[this.currentLevel];
   }
 
-  private getGamePieces() {
+  private generateGamePieces() {
+    this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
     const rowLength = this.currentMap.length;
     const colLength = this.currentMap[0].length;
 
@@ -61,19 +74,21 @@ export class Game {
     this.loadNextMap();
   };
 
-  private lose = () => {
-    this.stopAnimationFrame();
-    this.getGamePieces();
-    // this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    // this.runRenderLoop();
-    debounce(this.reactUpdaters.loseLife, 100)()
-  };
+  // debounced because the animation frame cannot be cancelled quick enough
+  private lose = debounce(() => {
+    setTimeout(() => {
+      this.reactUpdaters.loseLife();
+      this.stopAnimationFrame();
+      this.generateGamePieces();
+      this.runRenderLoop();
+    }, GAME_DELAY);
+  }, GAME_DEBOUNCE);
 
   private loadNextMap() {
     this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     this.currentLevel++;
     this.setMap();
-    this.getGamePieces();
+    this.generateGamePieces();
     this.runRenderLoop();
   }
 
@@ -92,7 +107,7 @@ export class Game {
   }
 
   start() {
-    this.getGamePieces();
+    this.generateGamePieces();
     this.runRenderLoop();
   }
 }

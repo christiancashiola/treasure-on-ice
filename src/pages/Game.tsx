@@ -1,27 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import { memo, useEffect } from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {memo, useEffect} from 'react';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 import {Canvas} from '../components/Canvas';
-import { Lives } from '../components/Lives';
+import {Lives} from '../components/Lives';
 import {RemainingTime} from '../components/RemainingTime';
 import {Score} from '../components/Score';
 import {Title} from '../components/Title';
-import { CANVAS_MEDIA_QUERY } from '../constants';
+import {AppRoutes, CANVAS_MEDIA_QUERY} from '../constants';
 import {useGameMetrics} from '../hooks/useGameMetrics';
-import { MAP_1 } from '../maps/map-1';
-import { MAP_2 } from '../maps/map-2';
+import {MAP_1} from '../maps/map-1';
+import {MAP_2} from '../maps/map-2';
 import {GameOver} from './GameOver';
 import {Game as GameClass} from '../classes/Game';
 
 export const Game = memo(function Game() {
-  // todo game over
-  const {lives, score, loseLife, remainingTime} = useGameMetrics();
+  const navigate = useNavigate();
+  const gameMetrics = useGameMetrics();
+
   useEffect(() => {
-    // todo make hook
-    const game = new GameClass([MAP_1, MAP_2], {loseLife});
+    const game = new GameClass([MAP_1, MAP_2], {loseLife: gameMetrics.loseLife});
     game.start();
   }, []);
+
+  if (gameMetrics.isGameOver) navigate(AppRoutes.gameOver, {state: 'asdf'});
 
   return (
     <div
@@ -47,16 +49,10 @@ export const Game = memo(function Game() {
           ${CANVAS_MEDIA_QUERY}
         `}
       >
-        <RemainingTime remainingTime={remainingTime} />
-        <Lives lives={lives} />
-        <Score score={score} />
+        <RemainingTime remainingTime={gameMetrics.remainingTime} />
+        <Lives lives={gameMetrics.lives} />
+        <Score score={gameMetrics.score} />
       </div>
-      <Routes>
-        <Route
-          path="/over"
-          element={<GameOver lives={lives} score={score} remainingTime={remainingTime} />}
-        />
-      </Routes>
     </div>
   );
 });

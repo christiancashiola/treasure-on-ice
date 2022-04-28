@@ -22,6 +22,6 @@
 - moving enemies
 - different textures for each level
 
-
 # Highlights
+
 React profiling to view re-renders

@@ -13,7 +13,9 @@ export const GAME_HEIGHT = 500;
 export const BLOCK_SIZE = 50;
 
 export const GAME_TIME = 600;
+export const GAME_DELAY = 300;
 export const GAMES_LIVES = 3;
+export const GAME_DEBOUNCE = 100;
 
 export const WALL_COLOR = '#391b06';
 
@@ -22,6 +24,13 @@ export const PLAYER_MAX_SPEED = 16;
 export const PLAYER_ACCELERATION = 1.05;
 
 // UI CONSTANTS
+export enum AppRoutes {
+  home = '/',
+  game = '/game',
+  gameOver = '/game-over',
+  instructions = '/instructions',
+}
+
 export const NUM_SNOWFLAKES = Math.round(window.innerWidth / 50);
 export const SPACE_BETWEEN_SNOWFLAKES = 100 / NUM_SNOWFLAKES;
 export const ICE_GRADIENT = css`
@@ -50,11 +59,11 @@ export const ICE_GRADIENT_LETTERS = css`
 export const DEFAULT_IN_GAME_TEXT = css`
   ${ICE_GRADIENT_LETTERS}
   font-size: 12px;
-  
+
   :not(:last-child) {
     margin-bottom: 5px;
   }
-  
+
   ${mediaQuery(
     ScreenSize.Phone,
     `
@@ -94,4 +103,4 @@ export const CANVAS_MEDIA_QUERY = css`
   @media (min-width: 500px) {
     width: 500px;
   }
-`
+`;

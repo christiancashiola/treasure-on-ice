@@ -1,14 +1,19 @@
 import {Route, Routes} from 'react-router-dom';
+import {AppRoutes} from '../constants';
 import {Game} from '../pages/Game';
-import { Instructions } from '../pages/Instructions';
+import {GameOver} from '../pages/GameOver';
+import {Instructions} from '../pages/Instructions';
 import {MainMenu} from '../pages/MainMenu';
+import {NoMatch} from './NoMatch';
 
 function App() {
   return (
     <Routes>
-      <Route path="/*" element={<MainMenu />} />
-      <Route path="/game/*" element={<Game />} />
-      <Route path="/instructions" element={<Instructions />} />
+      <Route path={AppRoutes.game} element={<Game />} />
+      <Route path={AppRoutes.home} element={<MainMenu />} />
+      <Route path={AppRoutes.gameOver} element={<GameOver />} />
+      <Route path={AppRoutes.instructions} element={<Instructions />} />
+      <Route path="*" element={<NoMatch />} />
     </Routes>
   );
 }

@@ -1,18 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { ICE_GRADIENT_LETTERS } from "../constants";
-import { GameMetrics } from "../types";
+import {css} from '@emotion/react';
+import {useLocation} from 'react-router-dom';
+import {ICE_GRADIENT_LETTERS} from '../constants';
+import {GameMetrics} from '../types';
 
-type IGameOver = Omit<GameMetrics, 'setScore' | 'loseLife'>
+export function GameOver() {
+  const location = useLocation();
+  console.log(location);
+  // const {score} = location.state as GameMetrics;
 
-export function GameOver({lives, score, remainingTime}: IGameOver) {
   return (
     <div>
-      <h1 css={css`
-        ${ICE_GRADIENT_LETTERS}
-      `}>
-        GAME OVER
-      </h1>
+      <h1 css={css(ICE_GRADIENT_LETTERS)}>GAME OVER</h1>
     </div>
   );
 }

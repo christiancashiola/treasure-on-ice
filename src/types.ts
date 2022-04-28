@@ -18,10 +18,11 @@ export enum Direction {
 export type GameMetrics = {
   lives: number;
   score: number;
-  loseLife: () => void,
-  setScore: React.Dispatch<React.SetStateAction<number>>,
+  loseLife: () => void;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  isGameOver: boolean;
   remainingTime: number;
-}
+};
 
 // where game logic overlaps with React logic, make these update fns explicit
 export type ReactUpdaters = Pick<GameMetrics, 'loseLife'>;
