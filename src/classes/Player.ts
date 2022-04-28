@@ -23,9 +23,17 @@ export class Player extends GamePiece {
   private speed: number = PLAYER_SPEED;
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
-  loseLife: () => void;
+  win: () => void;
+  lose: () => void;
 
-  constructor(ctx: CanvasRenderingContext2D, position: Position, map: Map, loseLife: () => void) {
+  // todo use interface
+  constructor(
+    ctx: CanvasRenderingContext2D,
+    position: Position,
+    map: Map,
+    win: () => void,
+    lose: () => void,
+  ) {
     const imageDown = new Image();
     imageDown.src = './images/player-down.png';
     super({
@@ -34,7 +42,8 @@ export class Player extends GamePiece {
       position,
     });
     this.map = map;
-    this.loseLife = loseLife;
+    this.win = win;
+    this.lose = lose;
     this.imageUp = new Image();
     this.imageUp.src = './images/player-up.png';
     this.imageDown = imageDown;
@@ -104,29 +113,35 @@ export class Player extends GamePiece {
     const collisionResult = this.checkCollision({x: dx, y: dy});
     if (collisionResult === CollisionResult.Safe) {
       this.updatePosition(dx, dy);
-      if (this.speed < PLAYER_MAX_SPEED) {
-        this.speed *= PLAYER_ACCELERATION;
-
-        if (this.speed > PLAYER_MAX_SPEED) {
-          this.speed = Math.round(this.speed / PLAYER_MAX_SPEED) * PLAYER_MAX_SPEED;
-        }
-      }
+      this.accelerateSpeed();
     } else if (collisionResult === CollisionResult.Goal) {
       this.updatePosition(dx, dy);
       this.completeMove();
+      this.win();
     } else if (collisionResult === CollisionResult.Death) {
+      this.lose();
       this.updatePosition(dx, dy);
       this.completeMove();
-      // todo: stop animation, lose life, reset board
-      this.loseLife();
     } else {
+      // else CollisionResult.Wall
       const prevDirection = this.direction;
       this.completeMove();
       this.updatePlayerImage(prevDirection as Direction);
     }
   }
 
+  private accelerateSpeed() {
+    if (this.speed < PLAYER_MAX_SPEED) {
+      this.speed *= PLAYER_ACCELERATION;
+
+      if (this.speed > PLAYER_MAX_SPEED) {
+        this.speed = Math.round(this.speed / PLAYER_MAX_SPEED) * PLAYER_MAX_SPEED;
+      }
+    }
+  }
+
   private updatePlayerImage(prevDirection?: Direction) {
+    // non-running image
     if (prevDirection) {
       if (prevDirection === Direction.Up) this.currentImage = this.imageUp;
       else if (prevDirection === Direction.Down) this.currentImage = this.imageDown;
@@ -135,6 +150,7 @@ export class Player extends GamePiece {
       return;
     }
 
+    // running image
     if (this.direction === Direction.Up) this.currentImage = this.imageUpRun;
     else if (this.direction === Direction.Down) this.currentImage = this.imageDownRun;
     else if (this.direction === Direction.Left) this.currentImage = this.imageLeftRun;
@@ -196,9 +212,10 @@ export class Player extends GamePiece {
   }
 
   paint() {
-    this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
-
-    if (this.direction) this.move();
-    this.ctx.drawImage(this.currentImage, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+    if (this.direction) {
+      this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+      this.move();
+      this.ctx.drawImage(this.currentImage, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+    }
   }
 }

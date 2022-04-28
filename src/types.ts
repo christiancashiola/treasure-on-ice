@@ -22,3 +22,6 @@ export type GameMetrics = {
   setScore: React.Dispatch<React.SetStateAction<number>>,
   remainingTime: number;
 }
+
+// where game logic overlaps with React logic, make these update fns explicit
+export type ReactUpdaters = Pick<GameMetrics, 'loseLife'>;

@@ -16,7 +16,6 @@ export function useGameMetrics(): GameMetrics {
   }, []);
 
   const loseLife = () => {
-    console.log('here')
     setLives((lives) => lives - 1);
   }
   

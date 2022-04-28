@@ -13,9 +13,4 @@ export class Death extends GamePiece {
       position,
     });
   }
-
-  paint() {
-    this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
-    super.paint();
-  }
 }

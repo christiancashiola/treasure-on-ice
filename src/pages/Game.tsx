@@ -15,10 +15,11 @@ import {GameOver} from './GameOver';
 import {Game as GameClass} from '../classes/Game';
 
 export function Game() {
+  // todo game over
   const {lives, score, loseLife, remainingTime} = useGameMetrics();
   useEffect(() => {
     // todo make hook
-    const game = new GameClass([MAP_1, MAP_2], loseLife);
+    const game = new GameClass([MAP_1, MAP_2], {loseLife});
     game.start();
   }, []);
 

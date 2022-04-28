@@ -1,31 +1,32 @@
-import {GameMetrics, Map, Position} from '../types';
+import {GameMetrics, Map, Position, ReactUpdaters} from '../types';
 import {Death} from './Death';
 import {Goal} from './Goal';
 import {Player} from './Player';
 import {Wall} from './Wall';
 import {GamePiece} from './GamePiece';
-import {D, P, W, G, BLOCK_SIZE, GAME_WIDTH, GAME_HEIGHT} from '../constants';
+import {D, P, W, G, BLOCK_SIZE, GAME_WIDTH, GAME_HEIGHT, GAMES_LIVES} from '../constants';
 
 export class Game {
-  loseLife: () => void;
   currentMap: Map;
-  gamePieces: GamePiece[] = [];
   currentLevel: number = 0;
   animationReq: number;
   goalPosition: Position;
-  playerPosition: Position;
+  reactUpdaters: ReactUpdaters;
+  private lives: number;
+  private player: Player;
   readonly maps: Map[];
   protected ctx: CanvasRenderingContext2D;
 
-  constructor(maps: Map[], loseLife: () => void) {
+  // todo use interface
+  constructor(maps: Map[], reactUpdaters: ReactUpdaters) {
     this.ctx = (document.getElementById('canvas') as HTMLCanvasElement).getContext(
       '2d',
     ) as CanvasRenderingContext2D;
     this.maps = maps;
-    this.loseLife = loseLife;
+    this.lives = GAMES_LIVES;
+    this.reactUpdaters = reactUpdaters;
 
     this.setMap();
-    this.getGamePieces();
   }
 
   private setMap() {
@@ -33,50 +34,40 @@ export class Game {
   }
 
   private getGamePieces() {
-    this.gamePieces = [];
+    const rowLength = this.currentMap.length;
     const colLength = this.currentMap[0].length;
 
-    this.currentMap.reduce<GamePiece[]>((pieces, row, rowIndex) => {
+    for (let rowIndex = 0; rowIndex < rowLength; rowIndex++) {
+      const row = this.currentMap[rowIndex];
       for (let colIndex = 0; colIndex < colLength; colIndex++) {
         const col = row[colIndex];
         const y = rowIndex * BLOCK_SIZE;
         const x = colIndex * BLOCK_SIZE;
-
         const position: Position = {x, y};
 
-        if (col === W) pieces.push(new Wall(this.ctx, position));
-        else if (col === D) pieces.push(new Death(this.ctx, position));
-        else if (col === G) {
-          const goal = new Goal(this.ctx, position);
-          this.goalPosition = goal.position;
-          pieces.push(goal);
-        } else if (col === P) {
-          const player = new Player(this.ctx, position, this.currentMap, this.loseLife);
-          this.playerPosition = player.position;
-          pieces.push(player);
+        if (col === W) new Wall(this.ctx, position);
+        else if (col === D) new Death(this.ctx, position);
+        else if (col === G) new Goal(this.ctx, position);
+        else if (col === P) {
+          const player = new Player(this.ctx, position, this.currentMap, this.win, this.lose);
+          this.player = player;
         }
       }
-      return pieces;
-    }, this.gamePieces);
-  }
-
-  private checkWin() {
-    if (
-      this.playerPosition.x === this.goalPosition.x &&
-      this.playerPosition.y === this.goalPosition.y
-    ) {
-      this.win();
     }
   }
 
-  private win() {
+  private win = () => {
     this.stopAnimationFrame();
     this.loadNextMap();
-  }
+  };
 
-  private gameOver() {
-    this.loseLife()
-  }
+  private lose = () => {
+    this.stopAnimationFrame();
+    // this.getGamePieces();
+    // this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    // this.runRenderLoop();
+    this.reactUpdaters.loseLife()
+  };
 
   private loadNextMap() {
     this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -89,8 +80,7 @@ export class Game {
   private runRenderLoop = () => {
     try {
       this.animationReq = window.requestAnimationFrame(this.runRenderLoop);
-      this.gamePieces.forEach((gamePiece) => gamePiece.paint());
-      this.checkWin();
+      this.player.paint();
     } catch (e) {
       this.stopAnimationFrame();
       console.error(e);
@@ -102,6 +92,7 @@ export class Game {
   }
 
   start() {
+    this.getGamePieces();
     this.runRenderLoop();
   }
 }

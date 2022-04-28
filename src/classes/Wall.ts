@@ -12,11 +12,8 @@ export class Wall extends GamePiece {
       image,
       position,
     });
-  }
 
-  paint() {
     this.ctx.fillStyle = WALL_COLOR;
     this.ctx.fillRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
-    super.paint();
   }
 }

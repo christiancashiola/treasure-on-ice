@@ -16,9 +16,9 @@ export abstract class GamePiece {
     this.ctx = ctx;
     this.image = image;
     this.position = position;
-  }
 
-  paint() {
-    this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+    this.image.onload = () => {
+      this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+    }
   }
 }
