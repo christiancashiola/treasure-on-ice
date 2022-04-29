@@ -1,4 +1,4 @@
-import {BLOCK_SIZE, WALL_COLOR} from '../constants';
+import {BLOCK_SIZE, WALL_COLOR} from '../constants/gameConstants';
 import {Position} from '../types';
 import {GamePiece} from './GamePiece';
 

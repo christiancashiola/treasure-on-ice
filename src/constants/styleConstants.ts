@@ -1,38 +1,6 @@
 import {css} from '@emotion/react';
-import {mediaQuery, ScreenSize} from './util/mediaQuery';
+import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
-// GAME CONSTANTS
-export const W = Symbol('WALL');
-export const _ = Symbol('EMPTY');
-export const D = Symbol('DEATH');
-export const P = Symbol('PLAYER');
-export const G = Symbol('GOAL');
-
-export const GAME_WIDTH = 500;
-export const GAME_HEIGHT = 500;
-export const BLOCK_SIZE = 50;
-
-export const GAME_TIME = 600;
-export const GAME_DELAY = 300;
-export const GAMES_LIVES = 3;
-export const GAME_DEBOUNCE = 100;
-
-export const WALL_COLOR = '#391b06';
-
-export const PLAYER_SPEED = 8;
-export const PLAYER_MAX_SPEED = 16;
-export const PLAYER_ACCELERATION = 1.05;
-
-// UI CONSTANTS
-export enum AppRoutes {
-  home = '/',
-  game = '/game',
-  gameOver = '/game-over',
-  instructions = '/instructions',
-}
-
-export const NUM_SNOWFLAKES = Math.round(window.innerWidth / 50);
-export const SPACE_BETWEEN_SNOWFLAKES = 100 / NUM_SNOWFLAKES;
 export const ICE_GRADIENT = css`
   background: #03cffc;
   background: linear-gradient(
@@ -56,6 +24,7 @@ export const ICE_GRADIENT_LETTERS = css`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
+
 export const DEFAULT_IN_GAME_TEXT = css`
   ${ICE_GRADIENT_LETTERS}
   font-size: 12px;
@@ -89,6 +58,7 @@ export const DEFAULT_IN_GAME_TEXT = css`
       `,
   )}
 `;
+
 export const CANVAS_MEDIA_QUERY = css`
   width: 320px;
   @media (min-width: 375px) {
@@ -103,4 +73,18 @@ export const CANVAS_MEDIA_QUERY = css`
   @media (min-width: 500px) {
     width: 500px;
   }
+`;
+
+export const ABSOLUTE_ZERO = css`
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+`;
+
+export const FLEX_CENTER = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import {AppRoutes} from '../constants';
+import {AppRoutes} from '../constants/reactConstants';
 import {Game} from '../pages/Game';
 import {GameOver} from '../pages/GameOver';
 import {Instructions} from '../pages/Instructions';

@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {memo} from 'react';
-import {GAME_HEIGHT, GAME_WIDTH, ICE_GRADIENT, CANVAS_MEDIA_QUERY} from '../constants';
+import {GAME_HEIGHT, GAME_WIDTH} from '../constants/gameConstants';
+import {CANVAS_MEDIA_QUERY, ICE_GRADIENT} from '../constants/styleConstants';
 
 export const Canvas = memo(function Canvas() {
   return (

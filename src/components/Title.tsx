@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {css, keyframes} from '@emotion/react';
 import {memo} from 'react';
-import {ICE_GRADIENT_LETTERS} from '../constants';
+import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 
 const shineAnimation = keyframes`
 	0% {

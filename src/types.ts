@@ -20,6 +20,7 @@ export type GameMetrics = {
   score: number;
   loseLife: () => void;
   setScore: React.Dispatch<React.SetStateAction<number>>;
+  startTimer: () => void;
   isGameOver: boolean;
   remainingTime: number;
 };

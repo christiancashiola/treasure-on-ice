@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {DEFAULT_IN_GAME_TEXT} from '../constants';
+import {DEFAULT_IN_GAME_TEXT} from '../constants/styleConstants';
 import {GameMetrics} from '../types';
 
 export function RemainingTime({remainingTime}: Pick<GameMetrics, 'remainingTime'>) {

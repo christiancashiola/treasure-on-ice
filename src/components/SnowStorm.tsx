@@ -1,16 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
+import { ABSOLUTE_ZERO } from '../constants/styleConstants';
 import {SnowflakeRow} from './SnowflakeRow';
 
 export function SnowStorm() {
   return (
     <div
       css={css`
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        position: absolute;
+        ${ABSOLUTE_ZERO}
         z-index: -1;
       `}
     >

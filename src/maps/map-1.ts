@@ -1,4 +1,4 @@
-import {W, _, P, G, D} from '../constants';
+import {W, _, P, G, D} from '../constants/gameConstants';
 
 export const MAP_1 = [
   [W, W, W, W, W, W, W, W, W, W],

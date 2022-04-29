@@ -1,4 +1,4 @@
-import {BLOCK_SIZE} from '../constants';
+import {BLOCK_SIZE} from '../constants/gameConstants';
 import {Position} from '../types';
 
 export interface IGamePiece {

@@ -1,14 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {v4 as uuidV4} from 'uuid';
-import {NUM_SNOWFLAKES, SPACE_BETWEEN_SNOWFLAKES} from '../constants';
+import {NUM_SNOWFLAKES, SPACE_BETWEEN_SNOWFLAKES} from '../constants/reactConstants';
+import { ABSOLUTE_ZERO } from '../constants/styleConstants';
 import {Snowflake} from './Snowflake';
 
 const wrapperCss = css`
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
+  ${ABSOLUTE_ZERO}
   display: flex;
   justify-content: space-between;
 `;

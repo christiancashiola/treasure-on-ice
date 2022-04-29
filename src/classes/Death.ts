@@ -1,4 +1,3 @@
-import {BLOCK_SIZE} from '../constants';
 import {Position} from '../types';
 import {GamePiece} from './GamePiece';
 

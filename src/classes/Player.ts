@@ -6,7 +6,7 @@ import {
   W as Wall,
   D as Death,
   G as Goal,
-} from '../constants';
+} from '../constants/gameConstants';
 import {CollisionResult, Direction, Map, Position} from '../types';
 import {GamePiece} from './GamePiece';
 
@@ -115,6 +115,7 @@ export class Player extends GamePiece {
       this.updatePosition(dx, dy);
       this.accelerateSpeed();
     } else if (collisionResult === CollisionResult.Goal) {
+      console.log('goal')
       this.updatePosition(dx, dy);
       this.completeMove();
       this.win();
@@ -124,6 +125,8 @@ export class Player extends GamePiece {
       this.completeMove();
     } else {
       // else CollisionResult.Wall
+      console.log('wall')
+
       const prevDirection = this.direction;
       this.completeMove();
       this.updatePlayerImage(prevDirection as Direction);
