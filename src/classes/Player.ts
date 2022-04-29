@@ -4,11 +4,19 @@ import {
   PLAYER_MAX_SPEED,
   PLAYER_SPEED,
   W as Wall,
-  D as Death,
+  O as Obstacle,
   G as Goal,
 } from '../constants/gameConstants';
 import {CollisionResult, Direction, Map, Position} from '../types';
 import {GamePiece} from './GamePiece';
+
+interface IPlayer {
+  ctx: CanvasRenderingContext2D;
+  map: Map;
+  win: () => void;
+  lose: () => void;
+  position: Position;
+}
 
 export class Player extends GamePiece {
   private readonly imageUp: HTMLImageElement;
@@ -26,14 +34,7 @@ export class Player extends GamePiece {
   win: () => void;
   lose: () => void;
 
-  // todo use interface
-  constructor(
-    ctx: CanvasRenderingContext2D,
-    position: Position,
-    map: Map,
-    win: () => void,
-    lose: () => void,
-  ) {
+  constructor({ctx, map, win, lose, position}: IPlayer) {
     const imageDown = new Image();
     imageDown.src = './images/player-down.png';
     super({
@@ -41,6 +42,7 @@ export class Player extends GamePiece {
       image: imageDown,
       position,
     });
+
     this.map = map;
     this.win = win;
     this.lose = lose;
@@ -60,6 +62,7 @@ export class Player extends GamePiece {
     this.imageLeftRun.src = './images/player-left-run.png';
     this.imageRightRun = new Image();
     this.imageRightRun.src = './images/player-right-run.png';
+
     this.addControls();
   }
 
@@ -115,18 +118,15 @@ export class Player extends GamePiece {
       this.updatePosition(dx, dy);
       this.accelerateSpeed();
     } else if (collisionResult === CollisionResult.Goal) {
-      console.log('goal')
       this.updatePosition(dx, dy);
       this.completeMove();
       this.win();
-    } else if (collisionResult === CollisionResult.Death) {
+    } else if (collisionResult === CollisionResult.Obstacle) {
       this.lose();
       this.updatePosition(dx, dy);
       this.completeMove();
     } else {
       // else CollisionResult.Wall
-      console.log('wall')
-
       const prevDirection = this.direction;
       this.completeMove();
       this.updatePlayerImage(prevDirection as Direction);
@@ -191,7 +191,7 @@ export class Player extends GamePiece {
 
     if (spaceAboutToMoveInto === Goal) return CollisionResult.Goal;
     if (spaceAboutToMoveInto === Wall) return CollisionResult.Wall;
-    if (spaceAboutToMoveInto === Death) return CollisionResult.Death;
+    if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
     else return CollisionResult.Safe;
   }
 

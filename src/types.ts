@@ -5,7 +5,7 @@ export enum CollisionResult {
   Safe,
   Goal,
   Wall,
-  Death,
+  Obstacle,
 }
 
 export enum Direction {
@@ -15,15 +15,18 @@ export enum Direction {
   Right = 'ArrowRight',
 }
 
-export type GameMetrics = {
+export type GameUtils = {
   lives: number;
   score: number;
   loseLife: () => void;
   setScore: React.Dispatch<React.SetStateAction<number>>;
   startTimer: () => void;
+  startLevel: () => void;
   isGameOver: boolean;
+  currentLevel: number;
+  completeLevel: () => void;
   remainingTime: number;
 };
 
 // where game logic overlaps with React logic, make these update fns explicit
-export type ReactUpdaters = Pick<GameMetrics, 'loseLife'>;
+export type ReactUpdaters = Pick<GameUtils, 'loseLife' | 'completeLevel'>;

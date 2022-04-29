@@ -24,8 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "prettier": "prettier --write .",
-    "eject": "react-scripts eject"
+    "linesOfCode": "find ./src -name '*' -print | xargs wc -l"
   },
   "eslintConfig": {
     "extends": [

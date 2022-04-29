@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
-import { ABSOLUTE_ZERO, FLEX_CENTER } from '../constants/styleConstants';
+import {ABSOLUTE_ZERO, FLEX_CENTER} from '../constants/styleConstants';
 
 export function MainMenu() {
   const navigate = useNavigate();

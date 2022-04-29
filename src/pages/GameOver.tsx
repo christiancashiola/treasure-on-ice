@@ -6,7 +6,7 @@ import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 export function GameOver() {
   const location = useLocation();
   console.log(location.state);
-  // const {score} = location.state as GameMetrics;
+  // const {score} = location.state as GameUtils;
 
   return (
     <div>

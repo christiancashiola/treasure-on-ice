@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {memo, useEffect, useRef, useState} from 'react';
-import { COUNTDOWN_INTERVAL } from '../constants/reactConstants';
+import {memo, useEffect, useState} from 'react';
+import {COUNTDOWN_INTERVAL} from '../constants/reactConstants';
 import {ABSOLUTE_ZERO, FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import { useInterval } from '../hooks/useInterval';
 
 interface ICountdown {
   onCountdownDone: () => void;
@@ -10,21 +12,15 @@ interface ICountdown {
 
 export const Countdown = memo(function Countdown({onCountdownDone}: ICountdown) {
   const [count, setCount] = useState(3);
-  const intervalIdRef = useRef<ReturnType<typeof setInterval>>();
-  const handleIntervalRemoval = () => intervalIdRef.current && clearInterval(intervalIdRef.current);
 
-  useEffect(() => {
-    intervalIdRef.current = setInterval(() => {
-      setCount((count) => count - 1);
-    }, COUNTDOWN_INTERVAL);
-
-    return handleIntervalRemoval;
-  }, []);
+  const cancelInterval = useInterval(() => {
+    setCount((count) => count - 1);
+  }, [], COUNTDOWN_INTERVAL);
 
   useEffect(() => {
     if (count < 0) {
       onCountdownDone();
-      handleIntervalRemoval();
+      cancelInterval();
     }
   }, [count]);
 

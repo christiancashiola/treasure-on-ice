@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {DEFAULT_IN_GAME_TEXT} from '../constants/styleConstants';
-import {GameMetrics} from '../types';
+import {GameUtils} from '../types';
 
-export function RemainingTime({remainingTime}: Pick<GameMetrics, 'remainingTime'>) {
+export function RemainingTime({remainingTime}: Pick<GameUtils, 'remainingTime'>) {
   const minutes = Math.floor(remainingTime / 60);
   const seconds = Math.floor(remainingTime - minutes * 60);
   const [, centiseconds] = remainingTime.toFixed(2).split('.');

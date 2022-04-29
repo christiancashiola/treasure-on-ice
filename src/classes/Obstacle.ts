@@ -1,9 +1,9 @@
 import {GamePiece, IGamePiece} from './GamePiece';
 
-export class Goal extends GamePiece {
+export class Obstacle extends GamePiece {
   constructor({ctx, position}: Omit<IGamePiece, 'image'>) {
     const image = new Image();
-    image.src = './images/goal.png';
+    image.src = './images/obstacle.png';
 
     super({
       ctx,

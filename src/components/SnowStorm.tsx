@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import { ABSOLUTE_ZERO } from '../constants/styleConstants';
+import {ABSOLUTE_ZERO} from '../constants/styleConstants';
 import {SnowflakeRow} from './SnowflakeRow';
 
 export function SnowStorm() {

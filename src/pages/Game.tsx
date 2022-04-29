@@ -1,36 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {memo, useCallback, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useCallback, useEffect} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {Canvas} from '../components/Canvas';
 import {Lives} from '../components/Lives';
 import {RemainingTime} from '../components/RemainingTime';
 import {Score} from '../components/Score';
 import {Title} from '../components/Title';
-import {useGameMetrics} from '../hooks/useGameMetrics';
-import {MAP_1} from '../maps/map-1';
-import {MAP_2} from '../maps/map-2';
-import {Game as GameClass} from '../classes/Game';
+import {useGameUtils} from '../hooks/useGameUtils';
 import {AppRoutes} from '../constants/reactConstants';
 import {CANVAS_MEDIA_QUERY, FLEX_CENTER} from '../constants/styleConstants';
-import { Countdown } from '../components/Countdown';
+import {Countdown} from '../components/Countdown';
 
-export const Game = memo(function Game() {
+export function Game() {  
   const navigate = useNavigate();
-  const gameMetrics = useGameMetrics();
+
+  // todo, use context
+  // todo, make better name for this hook
+  // todo, should the routes be nested?
+  const gameUtils = useGameUtils();
 
   useEffect(() => {
-    if (gameMetrics.isGameOver) {
-      console.log(gameMetrics);
-      // can only pass primitive data types
+    if (gameUtils.isGameOver) {
+      console.log(gameUtils);
+      // can only pass serializable data types to route state (no fns)
       navigate(AppRoutes.gameOver, {state: {foo: () => true}});
     }
-  }, [gameMetrics.isGameOver])
+  }, [gameUtils.isGameOver]);
 
   const onCountdownDone = useCallback(() => {
-    const game = new GameClass([MAP_1, MAP_2], {loseLife: gameMetrics.loseLife});
-    game.start();
-    gameMetrics.startTimer();
+    gameUtils.startLevel();
   }, []);
 
   return (
@@ -38,8 +38,8 @@ export const Game = memo(function Game() {
       <Countdown onCountdownDone={onCountdownDone} />
       <div
         css={css`
-          padding-top: 10vh;
           ${FLEX_CENTER}
+          padding-top: 10vh;
           justify-self: flex-start;
           flex-direction: column;
         `}
@@ -48,18 +48,18 @@ export const Game = memo(function Game() {
         <Canvas />
         <div
           css={css`
-            margin: 0 auto;
             ${FLEX_CENTER}
-            flex-direction: column;
-            align-items: flex-start;
             ${CANVAS_MEDIA_QUERY}
+            margin: 0 auto;
+            align-items: flex-start;
+            flex-direction: column;
           `}
         >
-          <RemainingTime remainingTime={gameMetrics.remainingTime} />
-          <Lives lives={gameMetrics.lives} />
-          <Score score={gameMetrics.score} />
+          <RemainingTime remainingTime={gameUtils.remainingTime} />
+          <Lives lives={gameUtils.lives} />
+          <Score score={gameUtils.score} />
         </div>
       </div>
     </>
   );
-});
+};

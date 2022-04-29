@@ -1,9 +1,8 @@
 import {BLOCK_SIZE, WALL_COLOR} from '../constants/gameConstants';
-import {Position} from '../types';
-import {GamePiece} from './GamePiece';
+import {GamePiece, IGamePiece} from './GamePiece';
 
 export class Wall extends GamePiece {
-  constructor(ctx: CanvasRenderingContext2D, position: Position) {
+  constructor({ctx, position}: Omit<IGamePiece, 'image'>) {
     const image = new Image();
     image.src = '/images/wall.png';
 

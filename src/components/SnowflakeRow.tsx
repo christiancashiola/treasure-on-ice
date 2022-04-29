@@ -2,7 +2,7 @@
 import {css} from '@emotion/react';
 import {v4 as uuidV4} from 'uuid';
 import {NUM_SNOWFLAKES, SPACE_BETWEEN_SNOWFLAKES} from '../constants/reactConstants';
-import { ABSOLUTE_ZERO } from '../constants/styleConstants';
+import {ABSOLUTE_ZERO} from '../constants/styleConstants';
 import {Snowflake} from './Snowflake';
 
 const wrapperCss = css`
