@@ -1,3 +1,3 @@
-export function Instructions() {
+export default function Instructions() {
   return null;
 }

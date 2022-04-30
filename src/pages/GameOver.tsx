@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {useLocation} from 'react-router-dom';
-import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import { useContext } from 'react';
+import {ABSOLUTE_ZERO, FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import { HighscoreContext } from '../contexts/HighscoreContext';
 
-export function GameOver() {
-  const location = useLocation();
-  console.log(location.state);
-  // const {score} = location.state as GameUtils;
+export default function GameOver() {
+  const highscores = useContext(HighscoreContext);
+
+  console.log(highscores);
 
   return (
-    <div>
+    <div css={css(ABSOLUTE_ZERO, FLEX_CENTER)}>
       <h1 css={css(ICE_GRADIENT_LETTERS)}>GAME OVER</h1>
     </div>
   );

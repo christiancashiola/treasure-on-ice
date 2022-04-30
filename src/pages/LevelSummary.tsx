@@ -10,7 +10,7 @@ import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';
 import {getMotivation} from '../util/getMotivation';
 
-export function LevelSummary() {
+export default function LevelSummary() {
   const navigate = useNavigate();
   const [isCalculatingLevelScore, setIsCalculatingLevelScore] = useState(true);
   const [isCalculatingTotalScore, setIsCalculatingTotalScore] = useState(true);

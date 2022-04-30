@@ -11,7 +11,7 @@ import {CANVAS_MEDIA_QUERY, DEFAULT_IN_GAME_TEXT, FLEX_CENTER} from '../constant
 import {Countdown} from '../components/Countdown';
 import { useGameStateContext } from '../hooks/useGameStateContext';
 
-export function Game() {
+export default function Game() {
   const {lives, score, startLevel, remainingTime, currentLevel} = useGameStateContext();
 
   const onCountdownDone = useCallback(() => {

@@ -3,9 +3,9 @@ import {css} from '@emotion/react';
 import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {ABSOLUTE_ZERO, FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
-import {Button} from './Button';
+import {Button} from '../components/Button';
 
-export function NoMatch() {
+export default function NoMatch() {
   const navigate = useNavigate();
 
   return (

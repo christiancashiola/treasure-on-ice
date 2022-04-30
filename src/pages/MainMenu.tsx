@@ -7,7 +7,7 @@ import {Title} from '../components/Title';
 import { AppRoutes } from '../constants/reactConstants';
 import {ABSOLUTE_ZERO, FLEX_CENTER} from '../constants/styleConstants';
 
-export function MainMenu() {
+export default function MainMenu() {
   const navigate = useNavigate();
   return (
     <div

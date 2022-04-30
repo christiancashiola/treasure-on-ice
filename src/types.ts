@@ -31,3 +31,8 @@ export type GameState = {
 
 // where game logic overlaps with React logic, make these update fns explicit
 export type ReactUpdaters = Pick<GameState, 'loseLife' | 'completeLevel'>;
+
+export type Highscore = {
+  score: number;
+  initials: string;
+}

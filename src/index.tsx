@@ -5,8 +5,6 @@ import {App} from './components/App';
 import reportWebVitals from './reportWebVitals';
 import './global.scss';
 
-console.log(process.env.REACT_APP_NOT_SECRET_CODE);
-
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <BrowserRouter>
