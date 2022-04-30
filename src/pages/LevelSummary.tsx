@@ -125,7 +125,7 @@ export function LevelSummary() {
           height: 50px;
         `}
       >
-        {showMotivation ? <Button onClick={handlePlayNextLevel}>Next Level</Button> : <span />}
+        {showMotivation ? <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button> : <span />}
       </div>
     </div>
   );
