@@ -14,6 +14,10 @@
 - sounds......................`2-3hr`
 - seo.........................`1hr`
 - cool background image.......`2hr`
+- social links.......`1hr`
+- update personal site.......`1hr`
+- time run out game over
+
 
 # Phase 2 (optional)
 

@@ -19,6 +19,7 @@ export const Countdown = memo(function Countdown({onCountdownDone}: ICountdown) 
 
   useEffect(() => {
     if (count < 0) {
+      console.log('calling')
       onCountdownDone();
       cancelInterval();
     }

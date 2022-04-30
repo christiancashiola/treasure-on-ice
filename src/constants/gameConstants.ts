@@ -8,10 +8,11 @@ export const GAME_WIDTH = 500;
 export const GAME_HEIGHT = 500;
 export const BLOCK_SIZE = 50;
 
-export const GAME_TIME = 600;
+export const GAME_TIME = 120;
 // a delay so user has time to realize they lost a life
-export const GAME_DELAY = 100;
+export const GAME_DELAY = 300;
 export const GAMES_LIVES = 3;
+export const BASE_SCORE_MULTIPLIER = 1000;
 
 export const WALL_COLOR = '#391b06';
 

@@ -1,36 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {useCallback, useEffect} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useCallback} from 'react';
 import {Canvas} from '../components/Canvas';
 import {Lives} from '../components/Lives';
 import {RemainingTime} from '../components/RemainingTime';
 import {Score} from '../components/Score';
 import {Title} from '../components/Title';
-import {useGameUtils} from '../hooks/useGameUtils';
-import {AppRoutes} from '../constants/reactConstants';
-import {CANVAS_MEDIA_QUERY, FLEX_CENTER} from '../constants/styleConstants';
+import {CANVAS_MEDIA_QUERY, DEFAULT_IN_GAME_TEXT, FLEX_CENTER} from '../constants/styleConstants';
 import {Countdown} from '../components/Countdown';
+import { useGameStateContext } from '../hooks/useGameStateContext';
 
-export function Game() {  
-  const navigate = useNavigate();
-
-  // todo, use context
-  // todo, make better name for this hook
-  // todo, should the routes be nested?
-  const gameUtils = useGameUtils();
-
-  useEffect(() => {
-    if (gameUtils.isGameOver) {
-      console.log(gameUtils);
-      // can only pass serializable data types to route state (no fns)
-      navigate(AppRoutes.gameOver, {state: {foo: () => true}});
-    }
-  }, [gameUtils.isGameOver]);
+export function Game() {
+  const {lives, score, startLevel, remainingTime, currentLevel} = useGameStateContext();
 
   const onCountdownDone = useCallback(() => {
-    gameUtils.startLevel();
+    startLevel();
   }, []);
 
   return (
@@ -55,9 +40,10 @@ export function Game() {
             flex-direction: column;
           `}
         >
-          <RemainingTime remainingTime={gameUtils.remainingTime} />
-          <Lives lives={gameUtils.lives} />
-          <Score score={gameUtils.score} />
+          <div css={css(DEFAULT_IN_GAME_TEXT)}>LEVEL:&nbsp;{currentLevel + 1}</div>
+          <RemainingTime remainingTime={remainingTime} />
+          <Score score={score} />
+          <Lives lives={lives} />
         </div>
       </div>
     </>
