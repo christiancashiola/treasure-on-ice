@@ -4,8 +4,9 @@ import {
   PLAYER_MAX_SPEED,
   PLAYER_SPEED,
   W as Wall,
-  O as Obstacle,
   G as Goal,
+  _ as Empty,
+  P as PlayerStartingPoint,
 } from '../constants/gameConstants';
 import {CollisionResult, Direction, Map, Position} from '../types';
 import {GamePiece} from './GamePiece';
@@ -186,13 +187,15 @@ export class Player extends GamePiece {
       const futureRowIndexDelta =
         futurePosition.y + (this.direction === Direction.Down ? BLOCK_SIZE : 0);
       const futureRowIndex = Math.floor(futureRowIndexDelta / BLOCK_SIZE);
-      spaceAboutToMoveInto = this.map[futureRowIndex][currentColIndex];
+      // spaceAboutToMoveInto can be undefined which would mean the player fell off the ice
+      spaceAboutToMoveInto = this.map[futureRowIndex]?.[currentColIndex];
     }
 
     if (spaceAboutToMoveInto === Goal) return CollisionResult.Goal;
     if (spaceAboutToMoveInto === Wall) return CollisionResult.Wall;
-    if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
-    else return CollisionResult.Safe;
+    if (spaceAboutToMoveInto === Empty || spaceAboutToMoveInto === PlayerStartingPoint)
+      return CollisionResult.Safe;
+    else return CollisionResult.Obstacle;
   }
 
   private updatePosition(dx: number, dy: number) {
