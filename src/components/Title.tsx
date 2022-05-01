@@ -3,7 +3,6 @@ import {css} from '@emotion/react';
 import {memo} from 'react';
 import {ICE_GRADIENT_LETTERS, SHINING_LETTERS} from '../constants/styleConstants';
 
-
 export const Title = memo(function Title() {
   return (
     <div
@@ -13,7 +12,7 @@ export const Title = memo(function Title() {
     >
       <h1
         css={css`
-          font-size: 36px;
+          font-size: 48px;
           text-align: center;
           ${ICE_GRADIENT_LETTERS}
           ${SHINING_LETTERS}

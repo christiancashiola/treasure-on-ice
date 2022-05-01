@@ -2,14 +2,15 @@
 import {css} from '@emotion/react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
-import { HighscoreBoard } from '../components/HighscoreBoard';
+import {HighscoreBoard} from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
-import { AppRoutes } from '../constants/reactConstants';
+import {AppRoutes} from '../constants/reactConstants';
 import {ABSOLUTE_ZERO, FLEX_CENTER} from '../constants/styleConstants';
 
 export default function MainMenu() {
   const navigate = useNavigate();
+
   return (
     <div
       css={css`

@@ -11,8 +11,8 @@ interface IButton {
 export function Button({children, onClick}: IButton) {
   return (
     <button
-      onClick={onClick}
       type="button"
+      onClick={onClick}
       css={css`
         margin: 0 auto 20px;
         display: block;

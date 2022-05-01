@@ -35,4 +35,4 @@ export type ReactUpdaters = Pick<GameState, 'loseLife' | 'completeLevel'>;
 export type Highscore = {
   score: number;
   initials: string;
-}
+};

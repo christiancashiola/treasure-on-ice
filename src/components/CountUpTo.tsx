@@ -2,14 +2,20 @@ import {memo, useEffect, useRef, useState} from 'react';
 import {useInterval} from '../hooks/useInterval';
 
 interface ICountUpTo {
-  delay?: number
-  start?: number
+  delay?: number;
+  start?: number;
   onDone?: () => void;
   renderProp: (count: number) => JSX.Element;
   numberToCountUpTo: number;
 }
 
-export const CountUpTo = memo(function CountUpTo({delay = 0, start = 0, numberToCountUpTo, renderProp, onDone}: ICountUpTo): JSX.Element {
+export const CountUpTo = memo(function CountUpTo({
+  delay = 0,
+  start = 0,
+  numberToCountUpTo,
+  renderProp,
+  onDone,
+}: ICountUpTo): JSX.Element {
   const [count, setCount] = useState(start);
   const [isDone, setIsDone] = useState(false);
   const [startCount, setStartCount] = useState(false);
@@ -24,7 +30,7 @@ export const CountUpTo = memo(function CountUpTo({delay = 0, start = 0, numberTo
 
   useEffect(() => {
     if (isDone) onDone?.();
-  }, [isDone, onDone])
+  }, [isDone, onDone]);
 
   const cancelInterval = useInterval(
     () => {

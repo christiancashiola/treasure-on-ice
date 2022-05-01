@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from "react";
+import {useEffect, useRef} from 'react';
 
-export function useInterval(callback: (...args: unknown[]) => void, dependencies: unknown[], milliseconds: number) {
+export function useInterval(
+  callback: (...args: unknown[]) => void,
+  dependencies: unknown[],
+  milliseconds: number,
+) {
   const intervalIdRef = useRef<ReturnType<typeof setInterval>>();
   const cancelInterval = () => intervalIdRef.current && clearInterval(intervalIdRef.current);
 
@@ -13,7 +17,6 @@ export function useInterval(callback: (...args: unknown[]) => void, dependencies
 
   return cancelInterval;
 }
-
 
 /* Example use cases
 // Simple:

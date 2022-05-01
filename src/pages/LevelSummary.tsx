@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {useCallback, useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CountUpTo} from '../components/CountUpTo';
 import {AppRoutes, MOTIVATION_DELAY, SCORE_DELAY} from '../constants/reactConstants';
@@ -39,7 +39,7 @@ export default function LevelSummary() {
   const handlePlayNextLevel = () => {
     updateScore(levelScore);
     navigate(AppRoutes.game);
-  }
+  };
 
   return (
     <div
@@ -125,7 +125,11 @@ export default function LevelSummary() {
           height: 50px;
         `}
       >
-        {showMotivation ? <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button> : <span />}
+        {showMotivation ? (
+          <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
+        ) : (
+          <span />
+        )}
       </div>
     </div>
   );

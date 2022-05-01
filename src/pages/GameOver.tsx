@@ -1,9 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import { useContext } from 'react';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Button} from '../components/Button';
+import {HighscoreBoard} from '../components/HighscoreBoard';
+import {LoadSpinner} from '../components/LoadSpinner';
+import {ScoreSubmission} from '../components/ScoreSubmission';
+import {AppRoutes} from '../constants/reactConstants';
 import {ABSOLUTE_ZERO, FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
-import { HighscoreContext } from '../contexts/HighscoreContext';
-
+import {useGameStateContext} from '../hooks/useGameStateContext';
+import {useHighscoreContext} from '../hooks/useHighscoreContext';
+import {Highscore} from '../types';
 
 /*
 - get current highscores
@@ -23,13 +30,66 @@ import { HighscoreContext } from '../contexts/HighscoreContext';
   - show button to be taken back to main menu
 */
 export default function GameOver() {
-  const highscores = useContext(HighscoreContext);
+  const navigate = useNavigate();
+  const {highscores, isLoadingHighscores} = useHighscoreContext();
+  const score = 200;
+  const {score: lowestHighscore} = highscores[highscores.length - 1] ?? [];
+  // just in case the data is prefetched and `isLoadingHighscores` starts as true, we check here
+  const [isSubmittingNewHighscore, setIsSubmittingNewHighscore] = useState<boolean | null>(null);
 
-  console.log(highscores);
+  useEffect(() => {
+    if (!isLoadingHighscores) {
+      setIsSubmittingNewHighscore(score >= lowestHighscore);
+    }
+    // intentionally not adding `lowestHighscore` since we don't want to cancel the form entry
+    // while user is still submitting their highscore; they can find out after if someone else
+    // beat their score as they were entering their initials
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoadingHighscores]);
 
+  if (isLoadingHighscores) return 
+  
   return (
-    <div css={css(ABSOLUTE_ZERO, FLEX_CENTER)}>
-      <h1 css={css(ICE_GRADIENT_LETTERS)}>GAME OVER</h1>
-    </div>
+    <>
+      {isLoadingHighscores && <LoadSpinner />}
+      {!isLoadingHighscores && (
+        <>
+          {isSubmittingNewHighscore && <ScoreSubmission />}
+          {!isSubmittingNewHighscore && (
+             <div
+             css={css`
+               ${FLEX_CENTER}
+               ${ABSOLUTE_ZERO}
+               flex-direction: column;
+       
+               > button {
+                 margin-bottom: 48px;
+               }
+             `}
+           >
+              <h1
+                css={css`
+                  ${ICE_GRADIENT_LETTERS}
+                  font-size: 36px;
+                `}
+              >
+                GAME OVER
+              </h1>
+              <h2
+                css={css`
+                  ${ICE_GRADIENT_LETTERS}
+                  font-size: 24px;
+                  margin-bottom: 48px;
+                `}
+              >
+                {`SCORE: ${score}`}
+              </h2>
+              <Button onClick={() => navigate(AppRoutes.home)}>Main Menu</Button>
+              <HighscoreBoard />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }

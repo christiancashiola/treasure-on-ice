@@ -9,7 +9,7 @@ import {Score} from '../components/Score';
 import {Title} from '../components/Title';
 import {CANVAS_MEDIA_QUERY, DEFAULT_IN_GAME_TEXT, FLEX_CENTER} from '../constants/styleConstants';
 import {Countdown} from '../components/Countdown';
-import { useGameStateContext } from '../hooks/useGameStateContext';
+import {useGameStateContext} from '../hooks/useGameStateContext';
 
 export default function Game() {
   const {lives, score, startLevel, remainingTime, currentLevel} = useGameStateContext();
@@ -48,4 +48,4 @@ export default function Game() {
       </div>
     </>
   );
-};
+}

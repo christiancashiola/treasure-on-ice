@@ -1,6 +1,6 @@
 import {FirebaseOptions, initializeApp} from 'firebase/app';
 import {getDatabase} from 'firebase/database';
-import { getFirestore } from 'firebase/firestore';
+import {getFirestore} from 'firebase/firestore';
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.REACT_APP_GFB_API_KEY,
@@ -16,4 +16,3 @@ const app = initializeApp(firebaseConfig);
 
 export const DATABASE = getDatabase(initializeApp(firebaseConfig));
 export const DATABASE_PATH = 'highscores';
-

@@ -4,19 +4,17 @@ import {v4 as uuidV4} from 'uuid';
 import {HIGHSCORE_CHAR_SPACE} from '../constants/reactConstants';
 import {FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 import {useHighscoreContext} from '../hooks/useHighscoreContext';
+import {CenterChildren} from './CenterChildren';
 import {LoadSpinner} from './LoadSpinner';
 
 export function HighscoreBoard() {
-  const highscores = useHighscoreContext();
-  const isHighscoresLoading = highscores.length === 0;
+  const {highscores, isLoadingHighscores} = useHighscoreContext();
 
   return (
-    <div
-      css={css`
-        ${FLEX_CENTER}
+    <CenterChildren
+      extraCss={css`
         margin: 0 auto;
         box-sizing: border-box;
-        flex-direction: column;
       `}
     >
       <h1
@@ -28,11 +26,13 @@ export function HighscoreBoard() {
       >
         HIGH SCORES
       </h1>
-      <div css={css`
-        min-height: 155px;
-      `}>
-        {isHighscoresLoading && <LoadSpinner />}
-        {!isHighscoresLoading &&
+      <div
+        css={css`
+          min-height: 155px;
+        `}
+      >
+        {isLoadingHighscores && <LoadSpinner />}
+        {!isLoadingHighscores &&
           highscores.map(({initials, score}, i) => {
             const numberOfDigits = score.toString().length;
             const isNumberOnePlayer = i === 0;
@@ -73,6 +73,6 @@ export function HighscoreBoard() {
             );
           })}
       </div>
-    </div>
+    </CenterChildren>
   );
 }

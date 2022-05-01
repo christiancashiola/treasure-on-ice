@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css, keyframes} from '@emotion/react';
-import { ICE_GRADIENT_LETTERS } from '../constants/styleConstants';
+import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 
 const spinAnimation = keyframes`
   0% {
@@ -109,9 +109,11 @@ const spinAnimation = keyframes`
 
 export function LoadSpinner() {
   return (
-    <div css={css`
-      margin-top: 50px;
-    `}>
+    <div
+      css={css`
+        margin-top: 50px;
+      `}
+    >
       <div
         css={css`
           width: 10px;
