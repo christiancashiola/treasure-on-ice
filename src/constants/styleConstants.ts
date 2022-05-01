@@ -1,4 +1,4 @@
-import {css} from '@emotion/react';
+import {css, keyframes} from '@emotion/react';
 import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
 export const ICE_GRADIENT = css`
@@ -87,4 +87,20 @@ export const FLEX_CENTER = css`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const shineAnimation = keyframes`
+	0% {
+		background-position: -1000px;
+	}
+	100% {
+		background-position: 0;
+	}
+`;
+
+export const SHINING_LETTERS = css`
+  animation-name: ${shineAnimation};
+  background-size: 300px;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
 `;

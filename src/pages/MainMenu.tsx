@@ -2,6 +2,7 @@
 import {css} from '@emotion/react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
+import { HighscoreBoard } from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
 import { AppRoutes } from '../constants/reactConstants';
@@ -15,12 +16,17 @@ export default function MainMenu() {
         ${ABSOLUTE_ZERO}
         ${FLEX_CENTER}
         flex-direction: column;
+
+        button:last-of-type {
+          margin-bottom: 48px;
+        }
       `}
     >
       <Title />
       <SnowStorm />
       <Button onClick={() => navigate(AppRoutes.instructions)}>Instructions</Button>
       <Button onClick={() => navigate(AppRoutes.game)}>Play</Button>
+      <HighscoreBoard />
     </div>
   );
 }

@@ -1,16 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import {css, keyframes} from '@emotion/react';
+import {css} from '@emotion/react';
 import {memo} from 'react';
-import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {ICE_GRADIENT_LETTERS, SHINING_LETTERS} from '../constants/styleConstants';
 
-const shineAnimation = keyframes`
-	0% {
-		background-position: -1000px;
-	}
-	100% {
-		background-position: 0;
-	}
-`;
 
 export const Title = memo(function Title() {
   return (
@@ -24,10 +16,7 @@ export const Title = memo(function Title() {
           font-size: 36px;
           text-align: center;
           ${ICE_GRADIENT_LETTERS}
-          background-size: 300px;
-          animation-name: ${shineAnimation};
-          animation-duration: 5s;
-          animation-iteration-count: infinite;
+          ${SHINING_LETTERS}
         `}
       >
         TREASURE

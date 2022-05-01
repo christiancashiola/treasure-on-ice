@@ -6,3 +6,8 @@ body {
   background: #000;
   font-family: 'Press Start 2P', sans-serif;
 }
+
+h1, h2, h3, h4 {
+  // this google font looks blurry when bold
+  font-weight: normal;
+}

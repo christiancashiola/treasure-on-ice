@@ -17,7 +17,7 @@
 - social links.......`1hr`
 - update personal site.......`1hr`
 - time run out game over
-
+- user pressing back button? send to main menu
 
 # Phase 2 (optional)
 
