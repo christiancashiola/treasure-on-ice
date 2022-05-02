@@ -7,9 +7,10 @@ import {Lives} from '../components/Lives';
 import {RemainingTime} from '../components/RemainingTime';
 import {Score} from '../components/Score';
 import {Title} from '../components/Title';
-import {CANVAS_MEDIA_QUERY, DEFAULT_IN_GAME_TEXT, FLEX_CENTER} from '../constants/styleConstants';
+import {CANVAS_MEDIA_QUERY, DEFAULT_IN_GAME_TEXT} from '../constants/styleConstants';
 import {Countdown} from '../components/Countdown';
 import {useGameStateContext} from '../hooks/useGameStateContext';
+import {CenterChildren} from '../components/CenterChildren';
 
 export default function Game() {
   const {lives, score, startLevel, remainingTime, currentLevel} = useGameStateContext();
@@ -21,31 +22,28 @@ export default function Game() {
   return (
     <>
       <Countdown onCountdownDone={onCountdownDone} />
-      <div
-        css={css`
-          ${FLEX_CENTER}
-          padding-top: 10vh;
+      <CenterChildren
+        isPositionAbsolute
+        extraCss={css`
+          padding-bottom: 10vh;
           justify-self: flex-start;
-          flex-direction: column;
         `}
       >
         <Title />
         <Canvas />
-        <div
-          css={css`
-            ${FLEX_CENTER}
+        <CenterChildren
+          extraCss={css`
             ${CANVAS_MEDIA_QUERY}
             margin: 0 auto;
             align-items: flex-start;
-            flex-direction: column;
           `}
         >
           <div css={css(DEFAULT_IN_GAME_TEXT)}>LEVEL:&nbsp;{currentLevel + 1}</div>
           <RemainingTime remainingTime={remainingTime} />
           <Score score={score} />
           <Lives lives={lives} />
-        </div>
-      </div>
+        </CenterChildren>
+      </CenterChildren>
     </>
   );
 }

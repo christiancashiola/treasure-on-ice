@@ -1,9 +1,9 @@
 import {EmotionJSX} from '@emotion/react/types/jsx-namespace';
-import {Suspense} from 'react';
+import {LazyExoticComponent, Suspense} from 'react';
 
 // the page loads so fast that seeing a flickering fallback is disorienting
 export function withNullSuspense<T>(
-  LazyComponent: React.LazyExoticComponent<() => EmotionJSX.Element>,
+  LazyComponent: LazyExoticComponent<() => EmotionJSX.Element | null>,
 ) {
   return (props: T) => (
     <Suspense fallback={null}>

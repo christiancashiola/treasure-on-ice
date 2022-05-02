@@ -11,6 +11,7 @@
 - time run out game over
 - user pressing back button? send to main menu
 - protected routes
+- CenterChildren
 
 # Phase 2 (optional)
 

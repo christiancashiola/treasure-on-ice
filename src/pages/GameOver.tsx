@@ -3,14 +3,13 @@ import {css} from '@emotion/react';
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
+import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
 import {LoadSpinner} from '../components/LoadSpinner';
 import {ScoreSubmission} from '../components/ScoreSubmission';
 import {AppRoutes} from '../constants/reactConstants';
-import {ABSOLUTE_ZERO, FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
-import {useGameStateContext} from '../hooks/useGameStateContext';
+import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 import {useHighscoreContext} from '../hooks/useHighscoreContext';
-import {Highscore} from '../types';
 
 /*
 - get current highscores
@@ -36,6 +35,13 @@ export default function GameOver() {
   const {score: lowestHighscore} = highscores[highscores.length - 1] ?? [];
   // just in case the data is prefetched and `isLoadingHighscores` starts as true, we check here
   const [isSubmittingNewHighscore, setIsSubmittingNewHighscore] = useState<boolean | null>(null);
+  const [isShowingGameOver, setIsShowingGameOver] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setIsShowingGameOver(false))
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   useEffect(() => {
     if (!isLoadingHighscores) {
@@ -47,26 +53,23 @@ export default function GameOver() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingHighscores]);
 
-  if (isLoadingHighscores) return 
-  
+  if (isLoadingHighscores) return null;
+
   return (
-    <>
+    <div>
       {isLoadingHighscores && <LoadSpinner />}
       {!isLoadingHighscores && (
         <>
           {isSubmittingNewHighscore && <ScoreSubmission />}
           {!isSubmittingNewHighscore && (
-             <div
-             css={css`
-               ${FLEX_CENTER}
-               ${ABSOLUTE_ZERO}
-               flex-direction: column;
-       
-               > button {
-                 margin-bottom: 48px;
-               }
-             `}
-           >
+            <CenterChildren
+              isPositionAbsolute
+              extraCss={css`
+                > button {
+                  margin-bottom: 48px;
+                }
+              `}
+            >
               <h1
                 css={css`
                   ${ICE_GRADIENT_LETTERS}
@@ -86,10 +89,10 @@ export default function GameOver() {
               </h2>
               <Button onClick={() => navigate(AppRoutes.home)}>Main Menu</Button>
               <HighscoreBoard />
-            </div>
+            </CenterChildren>
           )}
         </>
       )}
-    </>
+    </div>
   );
 }

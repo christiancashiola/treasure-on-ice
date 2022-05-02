@@ -3,17 +3,15 @@ import {css} from '@emotion/react';
 import {FormEvent, useEffect, useRef, useState} from 'react';
 import {Button} from '../components/Button';
 import {
-  ABSOLUTE_ZERO,
-  FLEX_CENTER,
-  ICE_GRADIENT_LETTERS,
   SHINING_LETTERS,
+  ICE_GRADIENT_LETTERS,
 } from '../constants/styleConstants';
 import {postHighscore} from '../api/postHighscore';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {LoadSpinner} from './LoadSpinner';
 import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
-import { CenterChildren } from './CenterChildren';
+import {CenterChildren} from './CenterChildren';
 
 export function ScoreSubmission() {
   const navigate = useNavigate();
@@ -49,6 +47,7 @@ export function ScoreSubmission() {
 
   return (
     <CenterChildren
+      isPositionAbsolute
       extraCss={css`
         z-index: 100;
         background: #000;

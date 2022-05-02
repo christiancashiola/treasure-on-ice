@@ -3,9 +3,10 @@ import {css} from '@emotion/react';
 import {useCallback, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
+import {CenterChildren} from '../components/CenterChildren';
 import {CountUpTo} from '../components/CountUpTo';
 import {AppRoutes, MOTIVATION_DELAY, SCORE_DELAY} from '../constants/reactConstants';
-import {ABSOLUTE_ZERO, FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';
 import {getMotivation} from '../util/getMotivation';
@@ -42,13 +43,7 @@ export default function LevelSummary() {
   };
 
   return (
-    <div
-      css={css`
-        ${ABSOLUTE_ZERO}
-        ${FLEX_CENTER}
-        flex-direction: column;
-      `}
-    >
+    <CenterChildren isPositionAbsolute>
       <h1
         css={css`
           ${ICE_GRADIENT_LETTERS}
@@ -131,6 +126,6 @@ export default function LevelSummary() {
           <span />
         )}
       </div>
-    </div>
+    </CenterChildren>
   );
 }
