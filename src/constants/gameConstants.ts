@@ -4,8 +4,7 @@ export const O = Symbol('OBSTACLE');
 export const P = Symbol('PLAYER');
 export const G = Symbol('GOAL');
 
-export const GAME_WIDTH = 500;
-export const GAME_HEIGHT = 500;
+export const GAME_SIZE = 500;
 export const BLOCK_SIZE = 50;
 
 export const GAME_TIME = 120;

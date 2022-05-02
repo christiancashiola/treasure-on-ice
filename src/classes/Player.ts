@@ -4,9 +4,9 @@ import {
   PLAYER_MAX_SPEED,
   PLAYER_SPEED,
   W as Wall,
+  O as Obstacle,
   G as Goal,
-  _ as Empty,
-  P as PlayerStartingPoint,
+  GAME_SIZE,
 } from '../constants/gameConstants';
 import {CollisionResult, Direction, Map, Position} from '../types';
 import {GamePiece} from './GamePiece';
@@ -32,6 +32,7 @@ export class Player extends GamePiece {
   private speed: number = PLAYER_SPEED;
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
+  private timesSlidThroughMap: number = 0;
   win: () => void;
   lose: () => void;
 
@@ -111,7 +112,15 @@ export class Player extends GamePiece {
   };
 
   private move() {
-    const {dx, dy} = this.getDeltas();
+    // todo remove let
+    let {dx, dy} = this.getDeltas();
+
+    // it's possible for user to slide themselves into an infinite loop
+    // we let it slide 3 times around so player realizes they made the mistake
+    if (this.timesSlidThroughMap === 3) {
+      this.lose();
+      this.completeMove();
+    }
 
     this.updatePlayerImage();
     const collisionResult = this.checkCollision({x: dx, y: dy});
@@ -122,6 +131,9 @@ export class Player extends GamePiece {
       this.updatePosition(dx, dy);
       this.completeMove();
       this.win();
+    } else if (collisionResult === CollisionResult.OffTheIce) {
+      this.updatePlayerImage(this.direction as Direction);
+      this.completeMove();
     } else if (collisionResult === CollisionResult.Obstacle) {
       this.lose();
       this.updatePosition(dx, dy);
@@ -165,37 +177,59 @@ export class Player extends GamePiece {
     let dx = this.position.x;
     let dy = this.position.y;
 
+    // first increment/decrement position by speed
     if (this.direction === Direction.Up) dy -= this.speed;
-    if (this.direction === Direction.Down) dy += this.speed;
-    if (this.direction === Direction.Left) dx -= this.speed;
-    if (this.direction === Direction.Right) dx += this.speed;
+    else if (this.direction === Direction.Down) dy += this.speed;
+    else if (this.direction === Direction.Left) dx -= this.speed;
+    else dx += this.speed;
 
+    // next update the deltas based on if player is sliding off one side to the other
+    if (dx > GAME_SIZE) {
+      dx = -1;
+      this.timesSlidThroughMap++;
+    } else if (dx < 0) {
+      dx = GAME_SIZE - 1;
+      this.timesSlidThroughMap++;
+    }
+    if (dy > GAME_SIZE) {
+      dy = -1;
+      this.timesSlidThroughMap++;
+    } else if (dy < 0) {
+      dy = GAME_SIZE - 1;
+      this.timesSlidThroughMap++;
+    }
+    
     return {dx, dy};
   }
 
   private checkCollision(futurePosition: Position): CollisionResult {
     let spaceAboutToMoveInto: Symbol | undefined;
+
     if (this.direction === Direction.Right || this.direction === Direction.Left) {
       const currentRowIndex = Math.floor(futurePosition.y / BLOCK_SIZE);
       const currentRow = this.map[currentRowIndex];
       const futureColIndexDelta =
         futurePosition.x + (this.direction === Direction.Right ? BLOCK_SIZE : 0);
-      const futureColIndex = Math.floor(futureColIndexDelta / BLOCK_SIZE);
+      const futureColIndex = Math.floor((futureColIndexDelta % GAME_SIZE) / BLOCK_SIZE);
       spaceAboutToMoveInto = currentRow[futureColIndex];
     } else {
       const currentColIndex = Math.floor(futurePosition.x / BLOCK_SIZE);
       const futureRowIndexDelta =
         futurePosition.y + (this.direction === Direction.Down ? BLOCK_SIZE : 0);
-      const futureRowIndex = Math.floor(futureRowIndexDelta / BLOCK_SIZE);
-      // spaceAboutToMoveInto can be undefined which would mean the player fell off the ice
+      const futureRowIndex = Math.floor((futureRowIndexDelta % GAME_SIZE) / BLOCK_SIZE);
+      console.log(futureRowIndex)
+      // spaceAboutToMoveInto can be undefined which would mean the player slid off the ice
       spaceAboutToMoveInto = this.map[futureRowIndex]?.[currentColIndex];
+      console.log(futureRowIndex, spaceAboutToMoveInto)
     }
 
+    if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
     if (spaceAboutToMoveInto === Goal) return CollisionResult.Goal;
     if (spaceAboutToMoveInto === Wall) return CollisionResult.Wall;
-    if (spaceAboutToMoveInto === Empty || spaceAboutToMoveInto === PlayerStartingPoint)
-      return CollisionResult.Safe;
-    else return CollisionResult.Obstacle;
+    // this situation happens when user slides through one side but there is a wall
+    // immediately blocking the path on the other side
+    // if (spaceAboutToMoveInto === undefined) return CollisionResult.OffTheIce;
+      else return CollisionResult.Safe;
   }
 
   private updatePosition(dx: number, dy: number) {
@@ -215,6 +249,7 @@ export class Player extends GamePiece {
     }
     this.direction = null;
     this.speed = PLAYER_SPEED;
+    this.timesSlidThroughMap = 0;
   }
 
   paint() {

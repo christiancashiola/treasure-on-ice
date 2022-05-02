@@ -9,8 +9,7 @@ import {
   W,
   G,
   BLOCK_SIZE,
-  GAME_WIDTH,
-  GAME_HEIGHT,
+  GAME_SIZE,
   GAME_DELAY,
 } from '../constants/gameConstants';
 
@@ -36,7 +35,7 @@ export class Level {
   }
 
   private generateGamePieces() {
-    this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    this.ctx.clearRect(0, 0, GAME_SIZE, GAME_SIZE);
 
     const rowLength = this.map.length;
     const colLength = this.map[0].length;

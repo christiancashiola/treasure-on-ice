@@ -6,6 +6,7 @@ export enum CollisionResult {
   Goal,
   Wall,
   Obstacle,
+  OffTheIce,
 }
 
 export enum Direction {
