@@ -16,6 +16,7 @@
 # Phase 2 (optional)
 
 - error handling
+- slide off one side and come out the other
 - level generator using maze runner algorithm w/ difficulty rankings
 - teleport/warp squares
 - moving enemies
