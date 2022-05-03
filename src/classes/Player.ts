@@ -135,9 +135,9 @@ export class Player extends GamePiece {
       this.updatePlayerImage(this.direction as Direction);
       this.completeMove();
     } else if (collisionResult === CollisionResult.Obstacle) {
-      this.lose();
       this.updatePosition(dx, dy);
       this.completeMove();
+      this.lose();
     } else {
       // else CollisionResult.Wall
       const prevDirection = this.direction;
@@ -217,10 +217,7 @@ export class Player extends GamePiece {
       const futureRowIndexDelta =
         futurePosition.y + (this.direction === Direction.Down ? BLOCK_SIZE : 0);
       const futureRowIndex = Math.floor((futureRowIndexDelta % GAME_SIZE) / BLOCK_SIZE);
-      console.log(futureRowIndex)
-      // spaceAboutToMoveInto can be undefined which would mean the player slid off the ice
       spaceAboutToMoveInto = this.map[futureRowIndex]?.[currentColIndex];
-      console.log(futureRowIndex, spaceAboutToMoveInto)
     }
 
     if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
