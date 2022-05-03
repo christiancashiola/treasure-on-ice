@@ -13,6 +13,7 @@ const LazyLevelSummary = withNullSuspense(lazy(() => import('../pages/LevelSumma
 const LazyMainMenu = withNullSuspense(lazy(() => import('../pages/MainMenu')));
 const LazyInstructions = withNullSuspense(lazy(() => import('../pages/Instructions')));
 const LazyNoMatch = withNullSuspense(lazy(() => import('../pages/NoMatch')));
+const LazyScoreSubmission = withNullSuspense(lazy(() => import('../pages/ScoreSubmission')));
 
 export function App() {
   const gameState = useGameState();
@@ -27,6 +28,7 @@ export function App() {
           <Route path={AppRoutes.levelSummary} element={<LazyLevelSummary />} />
           <Route path={AppRoutes.home} element={<LazyMainMenu />} />
           <Route path={AppRoutes.instructions} element={<LazyInstructions />} />
+          <Route path={AppRoutes.scoreSubmission} element={<LazyScoreSubmission />} />
           <Route path="*" element={<LazyNoMatch />} />
         </Routes>
       </HighscoreContext.Provider>

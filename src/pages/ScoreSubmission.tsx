@@ -5,12 +5,12 @@ import {Button} from '../components/Button';
 import {SHINING_LETTERS, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 import {postHighscore} from '../api/postHighscore';
 import {useGameStateContext} from '../hooks/useGameStateContext';
-import {LoadSpinner} from './LoadSpinner';
+import {LoadSpinner} from '../components/LoadSpinner';
 import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
-import {CenterChildren} from './CenterChildren';
+import {CenterChildren} from '../components/CenterChildren';
 
-export function ScoreSubmission() {
+export default function ScoreSubmission() {
   const navigate = useNavigate();
   const {score} = useGameStateContext();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,8 +38,7 @@ export function ScoreSubmission() {
   const handleScoreSubmit = async () => {
     setIsPostingScore(true);
     await postHighscore({score, initials: inputValue});
-    navigate(AppRoutes.home);
-    window.location.reload();
+    navigate(AppRoutes.gameOver);
   };
 
   return (

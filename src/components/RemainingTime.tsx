@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {DEFAULT_IN_GAME_TEXT} from '../constants/styleConstants';
+import {DEFAULT_IN_GAME_TEXT, RED_HUE, YELLOW_HUE} from '../constants/styleConstants';
 import {GameState} from '../types';
 
 export function RemainingTime({remainingTime}: Pick<GameState, 'remainingTime'>) {
@@ -9,14 +9,8 @@ export function RemainingTime({remainingTime}: Pick<GameState, 'remainingTime'>)
   const [, centiseconds] = remainingTime.toFixed(2).split('.');
 
   let filterStyles;
-  if ((minutes === 0 && seconds < 30) || remainingTime === 0)
-    filterStyles = css`
-      filter: hue-rotate(170deg);
-    `;
-  else if ((minutes === 1 && seconds === 0) || minutes === 0)
-    filterStyles = css`
-      filter: hue-rotate(235deg) brightness(1.25);
-    `;
+  if ((minutes === 0 && seconds < 30) || remainingTime === 0) filterStyles = RED_HUE;
+  else if (minutes < 1) filterStyles = YELLOW_HUE;
 
   let text;
   if (remainingTime === 0) text = '@#$%!!!';

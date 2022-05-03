@@ -11,5 +11,6 @@ export function calculateLevelScore(
 
   // in other words, the less time user spends to complete a level,
   // the closer they get to earning their base score
+  console.log(Math.ceil(baseScore * decimalFractionOfTimeSpent), (currentLevel * lives * BASE_SCORE_MULTIPLIER * remainingTime) / GAME_TIME)
   return Math.ceil(baseScore * decimalFractionOfTimeSpent);
 }

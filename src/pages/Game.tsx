@@ -36,6 +36,10 @@ export default function Game() {
             ${CANVAS_MEDIA_QUERY}
             margin: 0 auto;
             align-items: flex-start;
+
+            > div:not(:last-child) {
+              margin-bottom: 5px;
+            }
           `}
         >
           <div css={css(DEFAULT_IN_GAME_TEXT)}>LEVEL:&nbsp;{currentLevel + 1}</div>

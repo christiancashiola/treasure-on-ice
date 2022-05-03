@@ -4,6 +4,7 @@ export enum AppRoutes {
   gameOver = '/game-over',
   instructions = '/instructions',
   levelSummary = '/level-summary',
+  scoreSubmission = '/score-submission',
 }
 
 // export const COUNTDOWN_INTERVAL = 750;

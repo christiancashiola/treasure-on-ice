@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import {css} from '@emotion/react';
+import {css, SerializedStyles} from '@emotion/react';
 import {memo} from 'react';
 import {v4 as uuidV4} from 'uuid';
-import {DEFAULT_IN_GAME_TEXT} from '../constants/styleConstants';
+import {DEFAULT_IN_GAME_TEXT, RED_HUE, YELLOW_HUE} from '../constants/styleConstants';
 import {GameState} from '../types';
 
 export const Lives = memo(function Lives({lives}: Pick<GameState, 'lives'>) {
+  let filterStyles: SerializedStyles | null = null;
+  if (lives === 1) filterStyles = RED_HUE;
+  else if (lives === 2) filterStyles = YELLOW_HUE;
+
   return (
     <div
       css={css`
@@ -21,6 +25,8 @@ export const Lives = memo(function Lives({lives}: Pick<GameState, 'lives'>) {
         <span
           key={uuidV4()}
           css={css`
+            ${DEFAULT_IN_GAME_TEXT}
+            ${filterStyles}
             font-weight: bold;
           `}
         >

@@ -6,10 +6,12 @@ import {GAMES_LIVES, GAME_TIME} from '../constants/gameConstants';
 import {AppRoutes, REMAINING_TIME_INTERVAL} from '../constants/reactConstants';
 import {GameState} from '../types';
 import {getLevelMaps} from '../util/getLevelMaps';
+import { useHighscoreContext } from './useHighscoreContext';
 import {useInterval} from './useInterval';
 
 export function useGameState(): GameState {
   const navigate = useNavigate();
+  const {highscores, isLoadingHighscores} = useHighscoreContext();
   const mapsRef = useRef(getLevelMaps());
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(GAMES_LIVES);
@@ -36,12 +38,11 @@ export function useGameState(): GameState {
   }, [lives, remainingTime]);
 
   useEffect(() => {
-    if (isGameOver) {
-      // todo
-      // can only pass serializable data types to route state (no fns)
-      navigate(AppRoutes.gameOver, {state: {foo: () => true}});
+    if (isGameOver && !isLoadingHighscores) {
+      const {score: lowestHighscore} = highscores[highscores.length - 1] ?? [];
+      navigate(score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver);
     }
-  }, [isGameOver]);
+  }, [isGameOver, isLoadingHighscores]);
 
   const updateScore = (points: number) => setScore((prevScore) => prevScore + points);
   const loseLife = () => setLives((prevLives) => prevLives - 1);

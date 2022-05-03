@@ -29,10 +29,6 @@ export const DEFAULT_IN_GAME_TEXT = css`
   ${ICE_GRADIENT_LETTERS}
   font-size: 12px;
 
-  :not(:last-child) {
-    margin-bottom: 5px;
-  }
-
   ${mediaQuery(
     ScreenSize.Phone,
     `
@@ -103,4 +99,12 @@ export const SHINING_LETTERS = css`
   background-size: 300px;
   animation-duration: 5s;
   animation-iteration-count: infinite;
+`;
+
+export const YELLOW_HUE = css`
+  filter: hue-rotate(235deg) brightness(1.25);
+`;
+
+export const RED_HUE = css`
+  filter: hue-rotate(170deg);
 `;
