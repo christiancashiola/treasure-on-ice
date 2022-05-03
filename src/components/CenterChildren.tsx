@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css, SerializedStyles} from '@emotion/react';
-import { ReactNode } from 'react';
+import {ReactNode} from 'react';
 import {ABSOLUTE_ZERO, FLEX_CENTER} from '../constants/styleConstants';
 
 interface ICenterChildren {
@@ -9,7 +9,11 @@ interface ICenterChildren {
   isPositionAbsolute?: boolean;
 }
 
-export function CenterChildren({children, isPositionAbsolute = false, extraCss = null}: ICenterChildren) {
+export function CenterChildren({
+  children,
+  isPositionAbsolute = false,
+  extraCss = null,
+}: ICenterChildren) {
   return (
     <div
       css={css`

@@ -21,7 +21,7 @@ export function useGameState(): GameState {
   const cancelInterval = useInterval(
     () => {
       if (timeStarted) {
-        setRemainingTime((time) => time - 0.01);
+        setRemainingTime((time) => Math.round(((time - 0.01) + Number.EPSILON) * 100) / 100);
       }
     },
     [timeStarted],
@@ -29,8 +29,11 @@ export function useGameState(): GameState {
   );
 
   useEffect(() => {
-    if (!lives) setIsGameOver(true);
-  }, [lives]);
+    if (!lives || remainingTime === 0) {
+      cancelInterval();
+      setIsGameOver(true);
+    }
+  }, [lives, remainingTime]);
 
   useEffect(() => {
     if (isGameOver) {
@@ -42,26 +45,25 @@ export function useGameState(): GameState {
 
   const updateScore = (points: number) => setScore((prevScore) => prevScore + points);
   const loseLife = () => setLives((prevLives) => prevLives - 1);
-  const startTimer = () => setTimeStarted(true);
   const completeLevel = () => {
     cancelInterval();
+    setTimeStarted(false);
     setCurrentLevel((prevLevel) => prevLevel + 1);
     navigate(AppRoutes.levelSummary, {state: {lives, remainingTime, score}});
   };
   const startLevel = () => {
+    setRemainingTime(GAME_TIME);
     new Level({
       map: mapsRef.current[currentLevel],
       reactUpdaters: {loseLife, completeLevel},
     }).start();
-    startTimer();
+    setTimeStarted(true);
   };
 
   return {
     score,
     lives,
     loseLife,
-    setScore,
-    startTimer,
     startLevel,
     isGameOver,
     updateScore,

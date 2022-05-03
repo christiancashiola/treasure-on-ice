@@ -198,7 +198,7 @@ export class Player extends GamePiece {
       dy = GAME_SIZE - 1;
       this.timesSlidThroughMap++;
     }
-    
+
     return {dx, dy};
   }
 
@@ -226,7 +226,7 @@ export class Player extends GamePiece {
     // this situation happens when user slides through one side but there is a wall
     // immediately blocking the path on the other side
     // if (spaceAboutToMoveInto === undefined) return CollisionResult.OffTheIce;
-      else return CollisionResult.Safe;
+    else return CollisionResult.Safe;
   }
 
   private updatePosition(dx: number, dy: number) {

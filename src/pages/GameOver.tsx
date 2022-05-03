@@ -38,7 +38,7 @@ export default function GameOver() {
   const [isShowingGameOver, setIsShowingGameOver] = useState(true);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => setIsShowingGameOver(false))
+    const timeoutId = setTimeout(() => setIsShowingGameOver(false));
 
     return () => clearTimeout(timeoutId);
   }, []);

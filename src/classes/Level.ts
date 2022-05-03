@@ -3,15 +3,7 @@ import {Obstacle} from './Obstacle';
 import {Goal} from './Goal';
 import {Player} from './Player';
 import {Wall} from './Wall';
-import {
-  O,
-  P,
-  W,
-  G,
-  BLOCK_SIZE,
-  GAME_SIZE,
-  GAME_DELAY,
-} from '../constants/gameConstants';
+import {O, P, W, G, BLOCK_SIZE, GAME_SIZE, GAME_DELAY} from '../constants/gameConstants';
 
 interface ILevel {
   map: Map;

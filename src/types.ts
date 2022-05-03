@@ -20,8 +20,6 @@ export type GameState = {
   lives: number;
   score: number;
   loseLife: () => void;
-  setScore: React.Dispatch<React.SetStateAction<number>>;
-  startTimer: () => void;
   startLevel: () => void;
   isGameOver: boolean;
   updateScore: (points: number) => void;

@@ -2,10 +2,7 @@
 import {css} from '@emotion/react';
 import {FormEvent, useEffect, useRef, useState} from 'react';
 import {Button} from '../components/Button';
-import {
-  SHINING_LETTERS,
-  ICE_GRADIENT_LETTERS,
-} from '../constants/styleConstants';
+import {SHINING_LETTERS, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 import {postHighscore} from '../api/postHighscore';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {LoadSpinner} from './LoadSpinner';
@@ -70,6 +67,7 @@ export function ScoreSubmission() {
       >
         <div
           css={css`
+            filter: hue-rotate(45deg);
             background: none #000;
             -webkit-text-fill-color: #000;
             -webkit-background-clip: text;

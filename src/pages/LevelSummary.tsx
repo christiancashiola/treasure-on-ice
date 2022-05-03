@@ -64,7 +64,7 @@ export default function LevelSummary() {
             LEVEL SCORE:&nbsp;
             <span
               css={css`
-                width: 100px;
+                width: 166px;
                 display: inline-block;
               `}
             >
