@@ -32,7 +32,7 @@ React profiling to view re-renders
 1. Verify timer turns yellow if < 1m is remaining (only numbers change colors)
 2. Verify timer turns red if < 30s are remaining (only numbers change colors)
 3. Verify timer @#$%!!! shows up for a split second when time runs out
-4. Verify score is calculated correctly on level summary: (level * lives * remaining seconds * 1000) / 120
+4. Verify score is calculated correctly on level summary: (level _ lives _ remaining seconds \* 1000) / 120
 5. Verify that a random motivational message is shown after score is calculated--intentional delay between calculation complete and message
 6. Verify button text in level summary is accurate
 7. Verify routing between main menu and instructions and back works
@@ -42,8 +42,7 @@ React profiling to view re-renders
 11. Verify lives remain same between levels
 12. Verify game over screen text and score accuracy
 13. Verify initials submission form
-15. Verify lives turns yellow if 2 lives are left (only emoji changes colors)
-16. Verify lives turns red if 1 life is left (only emoji changes colors)
+14. Verify lives turns yellow if 2 lives are left (only emoji changes colors)
+15. Verify lives turns red if 1 life is left (only emoji changes colors)
 
 - Verify everything again on mobile device
-

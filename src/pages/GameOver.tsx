@@ -6,7 +6,7 @@ import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
 import {AppRoutes} from '../constants/reactConstants';
 import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
-import { useGameStateContext } from '../hooks/useGameStateContext';
+import {useGameStateContext} from '../hooks/useGameStateContext';
 
 export default function GameOver() {
   const navigate = useNavigate();
@@ -16,8 +16,9 @@ export default function GameOver() {
     <CenterChildren
       isPositionAbsolute
       extraCss={css`
-        > button {
-          margin-bottom: 48px;
+        h1,
+        h2 {
+          margin: 20px auto;
         }
       `}
     >

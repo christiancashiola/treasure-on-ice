@@ -49,6 +49,11 @@ export default function LevelSummary() {
       extraCss={css`
         button {
           margin-bottom: 99px;
+
+          h1,
+          h2 {
+            margin: 20px auto;
+          }
         }
       `}
     >

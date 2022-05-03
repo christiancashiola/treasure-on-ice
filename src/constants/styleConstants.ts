@@ -102,7 +102,7 @@ export const SHINING_LETTERS = css`
 `;
 
 export const YELLOW_HUE = css`
-  filter: hue-rotate(235deg) brightness(1.25);
+  filter: hue-rotate(235deg);
 `;
 
 export const RED_HUE = css`

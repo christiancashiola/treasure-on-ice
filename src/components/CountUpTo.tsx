@@ -1,4 +1,4 @@
-import {memo, useEffect, useRef, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import {useInterval} from '../hooks/useInterval';
 
 interface ICountUpTo {
@@ -12,13 +12,14 @@ interface ICountUpTo {
 export const CountUpTo = memo(function CountUpTo({
   delay = 0,
   start = 0,
-  numberToCountUpTo,
-  renderProp,
   onDone,
+  renderProp,
+  numberToCountUpTo,
 }: ICountUpTo): JSX.Element {
   const [count, setCount] = useState(start);
   const [isDone, setIsDone] = useState(false);
   const [startCount, setStartCount] = useState(false);
+  const loopCount = getLoopCount(numberToCountUpTo);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -40,7 +41,7 @@ export const CountUpTo = memo(function CountUpTo({
 
         // just using for loop is too fast and the state updates get batched
         // so we use chunks of for loops in setInterval
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < loopCount; i++) {
           newCount++;
           if (newCount === numberToCountUpTo) {
             cancelInterval();
@@ -57,3 +58,15 @@ export const CountUpTo = memo(function CountUpTo({
 
   return renderProp(count);
 });
+
+function getLoopCount(numberToCountUpTo: number) {
+  if (numberToCountUpTo < 1000) return 10
+  if (numberToCountUpTo < 5000) return 15
+  if (numberToCountUpTo < 10000) return 20
+  if (numberToCountUpTo < 50000) return 25
+  if (numberToCountUpTo < 100000) return 30
+  if (numberToCountUpTo < 500000) return 35
+  if (numberToCountUpTo < 1000000) return 40;
+  if (numberToCountUpTo < 5000000) return 45;
+  return 50;
+}

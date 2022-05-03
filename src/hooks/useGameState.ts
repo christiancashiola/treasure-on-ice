@@ -6,24 +6,25 @@ import {GAMES_LIVES, GAME_TIME} from '../constants/gameConstants';
 import {AppRoutes, REMAINING_TIME_INTERVAL} from '../constants/reactConstants';
 import {GameState} from '../types';
 import {getLevelMaps} from '../util/getLevelMaps';
-import { useHighscoreContext } from './useHighscoreContext';
+import {useHighscoresSubscription} from './useHighscoresSubscription';
 import {useInterval} from './useInterval';
 
 export function useGameState(): GameState {
   const navigate = useNavigate();
-  const {highscores, isLoadingHighscores} = useHighscoreContext();
   const mapsRef = useRef(getLevelMaps());
   const [score, setScore] = useState(0);
+  const highscores = useHighscoresSubscription();
   const [lives, setLives] = useState(GAMES_LIVES);
+  const [currentLevel, setCurrentLevel] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [timeStarted, setTimeStarted] = useState(false);
-  const [currentLevel, setCurrentLevel] = useState(0);
   const [remainingTime, setRemainingTime] = useState(GAME_TIME);
+  const isLoadingHighscores = highscores.length === 0;
 
   const cancelInterval = useInterval(
     () => {
       if (timeStarted) {
-        setRemainingTime((time) => Math.round(((time - 0.01) + Number.EPSILON) * 100) / 100);
+        setRemainingTime((time) => Math.round((time - 0.01 + Number.EPSILON) * 100) / 100);
       }
     },
     [timeStarted],
@@ -66,10 +67,12 @@ export function useGameState(): GameState {
     lives,
     loseLife,
     startLevel,
+    highscores,
     isGameOver,
     updateScore,
     currentLevel,
     completeLevel,
     remainingTime,
+    isLoadingHighscores,
   };
 }

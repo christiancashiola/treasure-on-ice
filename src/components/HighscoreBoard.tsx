@@ -3,12 +3,12 @@ import {css} from '@emotion/react';
 import {v4 as uuidV4} from 'uuid';
 import {HIGHSCORE_CHAR_SPACE} from '../constants/reactConstants';
 import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
-import {useHighscoreContext} from '../hooks/useHighscoreContext';
+import {useGameStateContext} from '../hooks/useGameStateContext';
 import {CenterChildren} from './CenterChildren';
 import {LoadSpinner} from './LoadSpinner';
 
 export function HighscoreBoard() {
-  const {highscores, isLoadingHighscores} = useHighscoreContext();
+  const {highscores, isLoadingHighscores} = useGameStateContext();
 
   return (
     <CenterChildren

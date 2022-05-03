@@ -20,12 +20,14 @@ export type GameState = {
   lives: number;
   score: number;
   loseLife: () => void;
+  highscores: Highscore[];
   startLevel: () => void;
   isGameOver: boolean;
   updateScore: (points: number) => void;
   currentLevel: number;
   completeLevel: () => void;
   remainingTime: number;
+  isLoadingHighscores: boolean;
 };
 
 // where game logic overlaps with React logic, make these update fns explicit

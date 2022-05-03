@@ -9,8 +9,8 @@ export function RemainingTime({remainingTime}: Pick<GameState, 'remainingTime'>)
   const [, centiseconds] = remainingTime.toFixed(2).split('.');
 
   let filterStyles;
-  if ((minutes === 0 && seconds < 30) || remainingTime === 0) filterStyles = RED_HUE;
-  else if (minutes < 1) filterStyles = YELLOW_HUE;
+  if ((minutes === 0 && seconds < 15) || remainingTime === 0) filterStyles = RED_HUE;
+  else if (minutes === 0 && seconds < 30) filterStyles = YELLOW_HUE;
 
   let text;
   if (remainingTime === 0) text = '@#$%!!!';

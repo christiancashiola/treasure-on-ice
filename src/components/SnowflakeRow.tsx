@@ -27,8 +27,9 @@ export function SnowflakeRow({offset}: ISnowflakeRow) {
         const randomNumber = generateRandomNumber(1, NUM_SNOWFLAKES * 2);
 
         let size: number;
-        if (randomNumber % 2 === 0) size = 12;
-        if (randomNumber % 1.5 === 0) size = 14;
+        if (randomNumber % 2 === 0) size = 10;
+        if (randomNumber % 1.5 === 0) size = 12;
+        if (randomNumber % 2.5 === 0) size = 14;
         else size = 16;
 
         return (

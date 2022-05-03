@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 import {Canvas} from '../components/Canvas';
 import {Lives} from '../components/Lives';
 import {RemainingTime} from '../components/RemainingTime';
@@ -11,9 +11,11 @@ import {CANVAS_MEDIA_QUERY, DEFAULT_IN_GAME_TEXT} from '../constants/styleConsta
 import {Countdown} from '../components/Countdown';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {CenterChildren} from '../components/CenterChildren';
+import {useNavigate} from 'react-router-dom';
 
 export default function Game() {
-  const {lives, score, startLevel, remainingTime, currentLevel} = useGameStateContext();
+  const navigate = useNavigate();
+  const {lives, score, startLevel, remainingTime, currentLevel, isGameOver} = useGameStateContext();
 
   const onCountdownDone = useCallback(() => {
     startLevel();
