@@ -9,14 +9,19 @@ export const Lives = memo(function Lives({lives}: Pick<GameState, 'lives'>) {
   return (
     <div
       css={css`
-        ${DEFAULT_IN_GAME_TEXT}
         margin-top: -4px;
         display: flex;
         align-items: center;
         padding-bottom: 2px;
       `}
     >
-      LIVES:&nbsp;
+      <span
+        css={css`
+          ${DEFAULT_IN_GAME_TEXT}>
+        `}
+      >
+        LIVES:&nbsp;
+      </span>
       {[...Array(lives)].map(() => (
         <span
           key={uuidV4()}

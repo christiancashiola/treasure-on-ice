@@ -5,7 +5,7 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {Title} from '../components/Title';
 import {AppRoutes} from '../constants/reactConstants';
-import {FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {FLEX_CENTER, ICE_BLUE, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 
 export default function Instructions() {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ export default function Instructions() {
     <CenterChildren
       isPositionAbsolute
       extraCss={css`
-        ${ICE_GRADIENT_LETTERS}
         margin: 0 auto;
         max-width: 500px;
 
@@ -32,6 +31,7 @@ export default function Instructions() {
           align-self: flex-start;
           font-weight: bold;
           font-family: monospace;
+          color: ${ICE_BLUE}
         `}
       >
         Desktop controls: W, A, S, D or Arrow Keys.

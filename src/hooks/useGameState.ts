@@ -59,6 +59,7 @@ export function useGameState(): GameState {
     setRemainingTime(GAME_TIME);
     new Level({
       map: mapsRef.current[currentLevel],
+      isGameOver,
       reactUpdaters: {loseLife, completeLevel},
     }).start();
     setTimeStarted(true);

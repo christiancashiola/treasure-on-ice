@@ -2,7 +2,6 @@
 import {css} from '@emotion/react';
 import {memo} from 'react';
 import {ICE_GRADIENT_LETTERS, SHINING_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
-import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
 export const Title = memo(function Title() {
   return (
@@ -13,7 +12,6 @@ export const Title = memo(function Title() {
     >
       <h1
         css={css`
-          text-align: center;
           ${ICE_GRADIENT_LETTERS}
           ${SHINING_LETTERS}
           ${TITLE_MEDIA_QUERIES}

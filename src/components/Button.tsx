@@ -26,15 +26,10 @@ export function Button({children, onClick}: IButton) {
         transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
         background-color: #000;
         color: ${ICE_BLUE};
-        ${ICE_GRADIENT}
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
 
         :hover,
         :active {
           color: #000;
-          -webkit-background-clip: auto;
-          -webkit-text-fill-color: #000;
           border: #005366;
           ${ICE_GRADIENT}
         }

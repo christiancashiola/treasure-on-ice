@@ -5,8 +5,9 @@ import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {CountUpTo} from '../components/CountUpTo';
+import { LevelSummaryScore } from '../components/LevelSummaryScore';
 import {AppRoutes, MOTIVATION_DELAY, SCORE_DELAY} from '../constants/reactConstants';
-import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {ICE_GRADIENT_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';
 import {getMotivation} from '../util/getMotivation';
@@ -59,31 +60,18 @@ export default function LevelSummary() {
       <h1
         css={css`
           ${ICE_GRADIENT_LETTERS}
+          ${TITLE_MEDIA_QUERIES}
         `}
       >
-        {`SUMMARY: LEVEL ${currentLevel}`}
+        SUMMARY
+        <br />
+        {`LEVEL ${currentLevel}`}
       </h1>
       <CountUpTo
         delay={SCORE_DELAY}
         onDone={onLevelScoreCountDone}
         numberToCountUpTo={levelScore}
-        renderProp={(count) => (
-          <h2
-            css={css`
-              ${ICE_GRADIENT_LETTERS}
-            `}
-          >
-            LEVEL SCORE:&nbsp;
-            <span
-              css={css`
-                width: 166px;
-                display: inline-block;
-              `}
-            >
-              {count}
-            </span>
-          </h2>
-        )}
+        renderProp={(count) => <LevelSummaryScore score={count} />}
       />
       {isCalculatingLevelScore && (
         <h2
@@ -100,23 +88,7 @@ export default function LevelSummary() {
           start={score}
           onDone={onTotalScoreCountDone}
           numberToCountUpTo={score + levelScore}
-          renderProp={(count) => (
-            <h2
-              css={css`
-                ${ICE_GRADIENT_LETTERS}
-              `}
-            >
-              TOTAL SCORE:&nbsp;
-              <span
-                css={css`
-                  width: 166px;
-                  display: inline-block;
-                `}
-              >
-                {count}
-              </span>
-            </h2>
-          )}
+          renderProp={(count) => <LevelSummaryScore score={count} />}
         />
       )}
       <h1

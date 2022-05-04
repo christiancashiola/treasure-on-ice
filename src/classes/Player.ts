@@ -1,7 +1,5 @@
 import {
   BLOCK_SIZE,
-  PLAYER_ACCELERATION,
-  PLAYER_MAX_SPEED,
   PLAYER_SPEED,
   W as Wall,
   O as Obstacle,
@@ -15,8 +13,9 @@ interface IPlayer {
   ctx: CanvasRenderingContext2D;
   map: Map;
   win: () => void;
-  lose: () => void;
+  loseLife: () => void;
   position: Position;
+  isGameOver: boolean;
 }
 
 export class Player extends GamePiece {
@@ -29,15 +28,23 @@ export class Player extends GamePiece {
   private readonly imageLeftRun: HTMLImageElement;
   private readonly imageRightRun: HTMLImageElement;
   private readonly map: Map;
+  private readonly isGameOver: boolean;
   private speed: number = PLAYER_SPEED;
+  private touchEndX: number = 0;
+  private touchEndY: number = 0;
+  private touchStartX: number = 0;
+  private touchStartY: number = 0;
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
   private timesSlidThroughMap: number = 0;
   private isPaused: boolean = false;
+  // private boundHandleKeydown: (e: KeyboardEvent) => void;
+  // private boundHandleTouchEnd: (e: TouchEvent) => void;
+  // private boundHandleTouchStart: (e: TouchEvent) => void;
   win: () => void;
-  lose: () => void;
+  loseLife: () => void;
 
-  constructor({ctx, map, win, lose, position}: IPlayer) {
+  constructor({ctx, map, win, isGameOver, loseLife, position}: IPlayer) {
     const imageDown = new Image();
     imageDown.src = './images/player-down.png';
     super({
@@ -48,7 +55,8 @@ export class Player extends GamePiece {
 
     this.map = map;
     this.win = win;
-    this.lose = lose;
+    this.loseLife = loseLife;
+    this.isGameOver = isGameOver;
     this.imageUp = new Image();
     this.imageUp.src = './images/player-up.png';
     this.imageDown = imageDown;
@@ -70,41 +78,56 @@ export class Player extends GamePiece {
   }
 
   private addControls() {
-    // desktop controls
-    window.addEventListener('keydown', ({key: direction}) => this.setDirection(direction));
-
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let touchStartY = 0;
-    let touchEndY = 0;
-
-    // mobile/tablet controls
-    window.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    }, {passive: false});
-    window.addEventListener('touchend', (e) => {
-      e.preventDefault();
-      touchEndX = e.changedTouches[0].screenX;
-      touchEndY = e.changedTouches[0].screenY;
-
-      const dx = touchEndX - touchStartX;
-      const dy = touchEndY - touchStartY;
-  
-      let direction: Direction;
-      // user might swipe slightly at angle
-      if (Math.abs(dx) >= Math.abs(dy)) {
-        // moving in X direction
-        direction = dx > 0 ? Direction.Right : Direction.Left;
-      } else {
-        // moving in Y direction
-        direction = dy > 0 ? Direction.Down : Direction.Up;
-      }
-
-      this.setDirection(direction);
-    }, {passive: false});
+    window.addEventListener('keydown', this.boundHandleKeydown);
+    window.addEventListener('touchend', this.boundHandleTouchEnd, {passive: false});
+    window.addEventListener('touchstart', this.boundHandleTouchStart, {passive: false});
   }
+  
+  private removeControls() {
+    window.removeEventListener('keydown', this.boundHandleKeydown);
+    window.removeEventListener('touchend', this.boundHandleTouchEnd);
+    window.removeEventListener('touchstart', this.boundHandleTouchStart);
+  }
+
+  private handleKeydown = ({key: direction}: KeyboardEvent) => {
+    console.log('here')
+    this.setDirection(direction);
+  }
+
+  private boundHandleKeydown = (e: KeyboardEvent) => this.handleKeydown(e);
+
+  private handleTouchStart = (e: TouchEvent) => {
+    // prevent default so the user isn't scrolling their screen while moving character
+    e.preventDefault();
+    this.touchStartX = e.changedTouches[0].screenX;
+    this.touchStartY = e.changedTouches[0].screenY;
+  }
+
+  private boundHandleTouchStart = (e: TouchEvent) => this.handleTouchStart(e);
+
+  private handleTouchEnd = (e: TouchEvent) => {
+    // prevent default so the user isn't scrolling their screen while moving character
+    e.preventDefault();
+    this.touchEndX = e.changedTouches[0].screenX;
+    this.touchEndY = e.changedTouches[0].screenY;
+
+    const dx = this.touchEndX - this.touchStartX;
+    const dy = this.touchEndY - this.touchStartY;
+
+    let direction: Direction;
+    // user might swipe slightly at angle
+    if (Math.abs(dx) >= Math.abs(dy)) {
+      // moving in X direction
+      direction = dx > 0 ? Direction.Right : Direction.Left;
+    } else {
+      // moving in Y direction
+      direction = dy > 0 ? Direction.Down : Direction.Up;
+    }
+
+    this.setDirection(direction);
+  }
+
+  private boundHandleTouchEnd = (e: TouchEvent) => this.handleTouchEnd(e);
 
   private setDirection = (direction: string) => {
     if (this.direction) return;
@@ -131,7 +154,7 @@ export class Player extends GamePiece {
     // it's possible for user to slide themselves into an infinite loop
     // we let it slide 3 times around so player realizes they made the mistake
     if (this.timesSlidThroughMap === 3) {
-      this.lose();
+      this.loseLife();
       this.completeMove();
     }
 
@@ -139,9 +162,8 @@ export class Player extends GamePiece {
     const collisionResult = this.checkCollision({x: dx, y: dy});
     if (collisionResult === CollisionResult.Safe) {
       this.updatePosition(dx, dy);
-      this.accelerateSpeed();
     } else if (collisionResult === CollisionResult.Goal) {
-      this.isPaused = true;
+      this.removeControls();
       this.updatePosition(dx, dy);
       this.completeMove();
       this.win();
@@ -149,25 +171,14 @@ export class Player extends GamePiece {
       this.updatePlayerImage(this.direction as Direction);
       this.completeMove();
     } else if (collisionResult === CollisionResult.Obstacle) {
-      this.isPaused = true;
       this.updatePosition(dx, dy);
       this.completeMove();
-      this.lose();
+      this.loseLife();
     } else {
       // else CollisionResult.Wall
       const prevDirection = this.direction;
       this.completeMove();
       this.updatePlayerImage(prevDirection as Direction);
-    }
-  }
-
-  private accelerateSpeed() {
-    if (this.speed < PLAYER_MAX_SPEED) {
-      this.speed *= PLAYER_ACCELERATION;
-
-      if (this.speed > PLAYER_MAX_SPEED) {
-        this.speed = Math.round(this.speed / PLAYER_MAX_SPEED) * PLAYER_MAX_SPEED;
-      }
     }
   }
 
@@ -265,7 +276,8 @@ export class Player extends GamePiece {
   }
 
   paint() {
-    if (this.direction && !this.isPaused) {
+    if (this.isGameOver) this.removeControls();
+    if (this.direction && !this.isGameOver) {
       this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
       this.move();
       this.ctx.drawImage(

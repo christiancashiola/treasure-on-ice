@@ -63,7 +63,6 @@ export default function ScoreSubmission() {
           ${ICE_GRADIENT_LETTERS}
           ${SHINING_LETTERS}
           font-size: 48px;
-          text-align: center;
         `}
       >
         <div
@@ -96,7 +95,6 @@ export default function ScoreSubmission() {
           ${ICE_GRADIENT_LETTERS}
           width: 300px;
           font-size: 18px;
-          text-align: center;
         `}
       >
         Enter your initials below to submit your score!
@@ -113,7 +111,6 @@ export default function ScoreSubmission() {
           border: none;
           outline: none;
           font-size: 18px;
-          text-align: center;
           background: #fff;
           box-sizing: border-box;
           line-height: 24px;
