@@ -10,6 +10,7 @@ import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {CenterChildren} from '../components/CenterChildren';
 
+// mobile check!
 export default function ScoreSubmission() {
   const navigate = useNavigate();
   const {score} = useGameStateContext();
@@ -38,7 +39,8 @@ export default function ScoreSubmission() {
   const handleScoreSubmit = async () => {
     setIsPostingScore(true);
     await postHighscore({score, initials: inputValue});
-    navigate(AppRoutes.gameOver);
+    window.history.state.usr = null;
+    navigate(AppRoutes.home);
   };
 
   return (
@@ -66,7 +68,7 @@ export default function ScoreSubmission() {
       >
         <div
           css={css`
-            filter: hue-rotate(45deg);
+            filter: hue-rotate(50deg);
             background: none #000;
             -webkit-text-fill-color: #000;
             -webkit-background-clip: text;

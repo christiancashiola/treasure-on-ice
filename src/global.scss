@@ -1,10 +1,12 @@
 body {
   color: #fff;
-  height: 100vh;
   margin: 0;
-  overflow: hidden;
+  display: flex;
   background: #000;
+  min-height: 100vh;
   font-family: 'Press Start 2P', sans-serif;
+  align-items: center;
+  justify-content: center;
 }
 
 input {

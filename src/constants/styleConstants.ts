@@ -108,3 +108,32 @@ export const YELLOW_HUE = css`
 export const RED_HUE = css`
   filter: hue-rotate(170deg);
 `;
+
+export const ICE_BLUE = '#80e8ff';
+
+export const TITLE_MEDIA_QUERIES = css`
+  text-align: center;
+  font-size: 36px;
+  margin: 16px auto;
+  ${mediaQuery(
+    ScreenSize.Phablet,
+    `
+      margin: 20px auto;
+      font-size: 40px;
+    `,
+  )}
+  ${mediaQuery(
+    ScreenSize.Tablet,
+    `
+    margin: 28px auto;
+    font-size: 44px;
+  `,
+  )}
+          ${mediaQuery(
+    ScreenSize.Desktop,
+    `
+    margin: 36px auto;
+    font-size: 48px;
+  `,
+  )}
+`;

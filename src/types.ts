@@ -37,3 +37,9 @@ export type Highscore = {
   score: number;
   initials: string;
 };
+
+export type LocationType = {
+  state: {
+    key: string;
+  } | null;
+};

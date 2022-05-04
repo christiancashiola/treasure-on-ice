@@ -8,6 +8,7 @@ import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
 import {AppRoutes} from '../constants/reactConstants';
 
+// mobile check!
 export default function MainMenu() {
   const navigate = useNavigate();
 

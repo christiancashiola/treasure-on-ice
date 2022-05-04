@@ -13,6 +13,7 @@
 - is color color cool?
 - add lives
 - speed up count up to based on digits
+- update color score submission gem
 
 # Phase 2 (optional)
 

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {css, SerializedStyles} from '@emotion/react';
 import {ReactNode} from 'react';
-import {ABSOLUTE_ZERO, FLEX_CENTER} from '../constants/styleConstants';
+import {FLEX_CENTER} from '../constants/styleConstants';
 
 interface ICenterChildren {
   children: ReactNode;
@@ -11,14 +11,13 @@ interface ICenterChildren {
 
 export function CenterChildren({
   children,
-  isPositionAbsolute = false,
   extraCss = null,
 }: ICenterChildren) {
   return (
     <div
       css={css`
         ${FLEX_CENTER}
-        ${isPositionAbsolute && ABSOLUTE_ZERO}
+        padding-bottom: 48px;
         flex-direction: column;
         ${extraCss}
       `}

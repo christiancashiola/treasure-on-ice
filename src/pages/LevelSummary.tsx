@@ -5,9 +5,8 @@ import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {CountUpTo} from '../components/CountUpTo';
-import {GAME_TIME} from '../constants/gameConstants';
 import {AppRoutes, MOTIVATION_DELAY, SCORE_DELAY} from '../constants/reactConstants';
-import {FLEX_CENTER, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';
 import {getMotivation} from '../util/getMotivation';
@@ -139,34 +138,6 @@ export default function LevelSummary() {
         ) : (
           <span />
         )}
-      </div>
-      <div
-        css={css`
-          font-size: 14px;
-          text-align: center;
-        `}
-      >
-        Score calculation formula
-        <br />
-        <pre
-          css={css`
-            font-size: 12px;
-            text-align: center;
-            ${FLEX_CENTER}
-            flex-direction: column;
-          `}
-        >
-          <div
-            css={css`
-              padding-bottom: 2px;
-              width: fit-content;
-              border-bottom: 1px solid #fff;
-            `}
-          >
-            {`LEVEL (${currentLevel}) × LIVES (${lives}) × SECONDS REMAINING (${remainingTime}) × 1000`}
-          </div>
-          {`SECONDS ALLOTTED (${GAME_TIME})`}
-        </pre>
       </div>
     </CenterChildren>
   );

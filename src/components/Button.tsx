@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {ReactNode} from 'react';
-import {ICE_GRADIENT} from '../constants/styleConstants';
+import {ICE_BLUE, ICE_GRADIENT} from '../constants/styleConstants';
 
 interface IButton {
   children: ReactNode;
@@ -20,12 +20,12 @@ export function Button({children, onClick}: IButton) {
         font-size: 18px;
         font-family: inherit;
         padding: 0 15px;
-        height: 50px;
+        min-height: 50px;
         min-width: 300px;
-        border: 1px solid #00ffff;
+        border: 1px solid ${ICE_BLUE};
         transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
         background-color: #000;
-        color: #00ffff;
+        color: ${ICE_BLUE};
         ${ICE_GRADIENT}
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;

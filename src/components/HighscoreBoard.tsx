@@ -4,6 +4,7 @@ import {v4 as uuidV4} from 'uuid';
 import {HIGHSCORE_CHAR_SPACE} from '../constants/reactConstants';
 import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
+import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 import {CenterChildren} from './CenterChildren';
 import {LoadSpinner} from './LoadSpinner';
 
@@ -21,7 +22,20 @@ export function HighscoreBoard() {
         css={css`
           ${ICE_GRADIENT_LETTERS}
           margin: 0 0 20px;
-          font-size: 27px;
+          font-size: 20px;
+
+          ${mediaQuery(
+            ScreenSize.Tablet,
+            `
+        font-size: 24px;
+      `,
+          )}
+          ${mediaQuery(
+            ScreenSize.Desktop,
+            `
+        font-size: 27px;
+      `,
+          )}
         `}
       >
         HIGH SCORES
@@ -42,8 +56,21 @@ export function HighscoreBoard() {
                 css={css`
                   ${ICE_GRADIENT_LETTERS}
                   margin: 0 0 10px;
-                  font-size: 23px;
                   position: relative;
+                  font-size: 17px;
+
+                  ${mediaQuery(
+                    ScreenSize.Tablet,
+                    `
+        font-size: 20px;
+      `,
+                  )}
+                  ${mediaQuery(
+                    ScreenSize.Desktop,
+                    `
+        font-size: 23px;
+      `,
+                  )}
 
                   :last-child {
                     margin-bottom: 0;

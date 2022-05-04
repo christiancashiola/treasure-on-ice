@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Level} from '../classes/Level';
 import {GAMES_LIVES, GAME_TIME} from '../constants/gameConstants';
-import {AppRoutes, REMAINING_TIME_INTERVAL} from '../constants/reactConstants';
+import {AppRoutes, NAVIGATION_KEY, REMAINING_TIME_INTERVAL} from '../constants/reactConstants';
 import {GameState} from '../types';
 import {getLevelMaps} from '../util/getLevelMaps';
 import {useHighscoresSubscription} from './useHighscoresSubscription';
@@ -41,7 +41,9 @@ export function useGameState(): GameState {
   useEffect(() => {
     if (isGameOver && !isLoadingHighscores) {
       const {score: lowestHighscore} = highscores[highscores.length - 1] ?? [];
-      navigate(score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver);
+      navigate(score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver, {
+        state: {key: NAVIGATION_KEY},
+      });
     }
   }, [isGameOver, isLoadingHighscores]);
 

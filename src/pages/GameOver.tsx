@@ -5,7 +5,7 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
 import {AppRoutes} from '../constants/reactConstants';
-import {ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {ICE_GRADIENT_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 
 export default function GameOver() {
@@ -17,7 +17,8 @@ export default function GameOver() {
       isPositionAbsolute
       extraCss={css`
         h1,
-        h2 {
+        h2,
+        button {
           margin: 20px auto;
         }
       `}
@@ -25,7 +26,7 @@ export default function GameOver() {
       <h1
         css={css`
           ${ICE_GRADIENT_LETTERS}
-          font-size: 36px;
+          ${TITLE_MEDIA_QUERIES}
         `}
       >
         GAME OVER
@@ -48,7 +49,7 @@ export default function GameOver() {
       >
         {`LEVEL: ${currentLevel}`}
       </h2>
-      <Button onClick={() => navigate(AppRoutes.home)}>Main Menu</Button>
+      <Button onClick={() => navigate(AppRoutes.home, {state: null})}>Main Menu</Button>
       <HighscoreBoard />
     </CenterChildren>
   );
