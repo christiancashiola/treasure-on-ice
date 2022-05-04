@@ -11,9 +11,13 @@ export enum CollisionResult {
 
 export enum Direction {
   Up = 'ArrowUp',
+  UpAlt = 'ArrowUp',
   Down = 'ArrowDown',
+  DownAlt = 'ArrowDown',
   Left = 'ArrowLeft',
+  LeftAlt = 'ArrowLeft',
   Right = 'ArrowRight',
+  RightAlt = 'ArrowRight',
 }
 
 export type GameState = {

@@ -33,6 +33,7 @@ export class Player extends GamePiece {
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
   private timesSlidThroughMap: number = 0;
+  private isPaused: boolean = false;
   win: () => void;
   lose: () => void;
 
@@ -79,16 +80,18 @@ export class Player extends GamePiece {
 
     // mobile/tablet controls
     window.addEventListener('touchstart', (e) => {
+      e.preventDefault();
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
-    });
+    }, {passive: false});
     window.addEventListener('touchend', (e) => {
+      e.preventDefault();
       touchEndX = e.changedTouches[0].screenX;
       touchEndY = e.changedTouches[0].screenY;
 
       const dx = touchEndX - touchStartX;
       const dy = touchEndY - touchStartY;
-
+  
       let direction: Direction;
       // user might swipe slightly at angle
       if (Math.abs(dx) >= Math.abs(dy)) {
@@ -100,16 +103,26 @@ export class Player extends GamePiece {
       }
 
       this.setDirection(direction);
-    });
+    }, {passive: false});
   }
 
   private setDirection = (direction: string) => {
     if (this.direction) return;
-    if (direction === Direction.Up) this.direction = Direction.Up;
-    else if (direction === Direction.Down) this.direction = Direction.Down;
-    else if (direction === Direction.Left) this.direction = Direction.Left;
-    else if (direction === Direction.Right) this.direction = Direction.Right;
+    const parsedDirection = this.parseDirection(direction);
+    if (parsedDirection === Direction.Up) this.direction = Direction.Up;
+    else if (parsedDirection === Direction.Down) this.direction = Direction.Down;
+    else if (parsedDirection === Direction.Left) this.direction = Direction.Left;
+    else if (parsedDirection === Direction.Right) this.direction = Direction.Right;
   };
+
+  private parseDirection(direction: string) {
+    if (/^w$/i.test(direction)) return Direction.Up;
+    if (/^s$/i.test(direction)) return Direction.Down;
+    if (/^a$/i.test(direction)) return Direction.Left;
+    if (/^d$/i.test(direction)) return Direction.Right;
+
+    return direction;
+  }
 
   private move() {
     // todo remove let
@@ -128,6 +141,7 @@ export class Player extends GamePiece {
       this.updatePosition(dx, dy);
       this.accelerateSpeed();
     } else if (collisionResult === CollisionResult.Goal) {
+      this.isPaused = true;
       this.updatePosition(dx, dy);
       this.completeMove();
       this.win();
@@ -135,6 +149,7 @@ export class Player extends GamePiece {
       this.updatePlayerImage(this.direction as Direction);
       this.completeMove();
     } else if (collisionResult === CollisionResult.Obstacle) {
+      this.isPaused = true;
       this.updatePosition(dx, dy);
       this.completeMove();
       this.lose();
@@ -250,7 +265,7 @@ export class Player extends GamePiece {
   }
 
   paint() {
-    if (this.direction) {
+    if (this.direction && !this.isPaused) {
       this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
       this.move();
       this.ctx.drawImage(
