@@ -30,7 +30,8 @@ export function Button({children, onClick}: IButton) {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
 
-        :hover {
+        :hover,
+        :active {
           color: #000;
           -webkit-background-clip: auto;
           -webkit-text-fill-color: #000;
