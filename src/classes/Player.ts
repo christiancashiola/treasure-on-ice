@@ -142,8 +142,7 @@ export class Player extends GamePiece {
   }
 
   private move() {
-    // todo remove let
-    let {dx, dy} = this.getDeltas();
+    const {dx, dy} = this.getDeltas();
 
     // it's possible for user to slide themselves into an infinite loop
     // we let it slide 3 times around so player realizes they made the mistake
@@ -167,8 +166,8 @@ export class Player extends GamePiece {
     } else if (collisionResult === CollisionResult.Obstacle) {
       // player could technically move another direction really quickly while `GAME_DELAY`
       // is happening and move through obstacles. Add this to stop movement until new life starts
-      this.isLosingLife = true;
       this.updatePosition(dx, dy);
+      this.isLosingLife = true;
       this.completeMove();
       this.loseLife();
     } else {
