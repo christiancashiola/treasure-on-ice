@@ -5,7 +5,7 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
 import {AppRoutes} from '../constants/reactConstants';
-import {ICE_GRADIENT_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
+import {DEFAULT_IN_GAME_TEXT, ICE_GRADIENT_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 
 export default function GameOver() {
@@ -14,7 +14,6 @@ export default function GameOver() {
 
   return (
     <CenterChildren
-      isPositionAbsolute
       extraCss={css`
         h1,
         h2,
@@ -33,8 +32,7 @@ export default function GameOver() {
       </h1>
       <h2
         css={css`
-          ${ICE_GRADIENT_LETTERS}
-          font-size: 24px;
+          ${DEFAULT_IN_GAME_TEXT}
           margin-bottom: 48px;
         `}
       >
@@ -42,8 +40,7 @@ export default function GameOver() {
       </h2>
       <h2
         css={css`
-          ${ICE_GRADIENT_LETTERS}
-          font-size: 24px;
+          ${DEFAULT_IN_GAME_TEXT}
           margin-bottom: 48px;
         `}
       >

@@ -5,14 +5,13 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {Title} from '../components/Title';
 import {AppRoutes} from '../constants/reactConstants';
-import {FLEX_CENTER, ICE_BLUE, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {FLEX_CENTER, ICE_BLUE} from '../constants/styleConstants';
 
 export default function Instructions() {
   const navigate = useNavigate();
 
   return (
     <CenterChildren
-      isPositionAbsolute
       extraCss={css`
         margin: 0 auto;
         max-width: 500px;

@@ -6,15 +6,13 @@ import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
-import {AppRoutes} from '../constants/reactConstants';
+import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
 
-// mobile check!
 export default function MainMenu() {
   const navigate = useNavigate();
 
   return (
     <CenterChildren
-      isPositionAbsolute
       extraCss={css`
         button:last-of-type {
           margin-bottom: 48px;
@@ -24,7 +22,7 @@ export default function MainMenu() {
       <Title />
       <SnowStorm />
       <Button onClick={() => navigate(AppRoutes.instructions)}>Instructions</Button>
-      <Button onClick={() => navigate(AppRoutes.game)}>Play</Button>
+      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
       <HighscoreBoard />
     </CenterChildren>
   );

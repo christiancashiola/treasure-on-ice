@@ -7,26 +7,23 @@ import {O, P, W, G, BLOCK_SIZE, GAME_SIZE, GAME_DELAY} from '../constants/gameCo
 
 interface ILevel {
   map: Map;
-  isGameOver: boolean;
   reactUpdaters: ReactUpdaters;
 }
 
 export class Level {
   map: Map;
-  isGameOver: boolean;
   animationReq: number;
   reactUpdaters: ReactUpdaters;
+  player: Player;
   readonly lives: number;
-  private player: Player;
   readonly maps: Map;
   protected ctx: CanvasRenderingContext2D;
 
-  constructor({map, isGameOver, reactUpdaters}: ILevel) {
+  constructor({map, reactUpdaters}: ILevel) {
     this.ctx = (document.getElementById('canvas') as HTMLCanvasElement).getContext(
       '2d',
     ) as CanvasRenderingContext2D;
     this.map = map;
-    this.isGameOver = isGameOver;
     this.reactUpdaters = reactUpdaters;
   }
 
@@ -54,7 +51,6 @@ export class Level {
             win: this.win,
             position,
             loseLife: this.loseLife,
-            isGameOver: this.isGameOver,
           });
         }
       }

@@ -6,7 +6,6 @@ import {FLEX_CENTER} from '../constants/styleConstants';
 interface ICenterChildren {
   children: ReactNode;
   extraCss?: SerializedStyles | null;
-  isPositionAbsolute?: boolean;
 }
 
 export function CenterChildren({

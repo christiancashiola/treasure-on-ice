@@ -9,6 +9,7 @@ export function SnowStorm() {
       css={css`
         ${ABSOLUTE_ZERO}
         z-index: -1;
+        overflow: hidden;
       `}
     >
       <SnowflakeRow offset={40} />

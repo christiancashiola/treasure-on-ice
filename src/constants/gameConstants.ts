@@ -12,6 +12,7 @@ export const GAME_TIME = 120;
 export const GAME_DELAY = 500;
 export const GAMES_LIVES = 3;
 export const BASE_SCORE_MULTIPLIER = 1000;
+export const LEVEL_COUNT = 2;
 
 export const WALL_COLOR = '#391b06';
 

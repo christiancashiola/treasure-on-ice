@@ -17,9 +17,10 @@ export function LevelSummaryScore({score}: ILevelSummaryScore) {
       TOTAL SCORE:&nbsp;
       <span
         css={css`
-          width: 166px;
           ${ICE_GRADIENT_LETTERS}
+          width: 166px;
           display: inline-block;
+          text-align: right;
         `}
       >
         {score}

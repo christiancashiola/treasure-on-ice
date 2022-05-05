@@ -48,7 +48,8 @@ export function HighscoreBoard() {
         {isLoadingHighscores && <LoadSpinner />}
         {!isLoadingHighscores &&
           highscores.map(({initials, score}, i) => {
-            const numberOfDigits = score.toString().length;
+            const numberScoreDigits = score.toString().length;
+            const numberInitialsDigits = initials.length;
             const isNumberOnePlayer = i === 0;
 
             return (
@@ -94,7 +95,7 @@ export function HighscoreBoard() {
                   </span>
                 )}
                 <span>{initials}</span>
-                {'.'.repeat(HIGHSCORE_CHAR_SPACE - numberOfDigits)}
+                {'.'.repeat((HIGHSCORE_CHAR_SPACE + (3 - numberInitialsDigits)) - numberScoreDigits)}
                 <span>{score}</span>
               </h2>
             );

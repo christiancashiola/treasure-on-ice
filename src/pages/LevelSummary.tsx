@@ -5,9 +5,14 @@ import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {CountUpTo} from '../components/CountUpTo';
-import { LevelSummaryScore } from '../components/LevelSummaryScore';
-import {AppRoutes, MOTIVATION_DELAY, SCORE_DELAY} from '../constants/reactConstants';
-import {ICE_GRADIENT_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
+import {LevelSummaryScore} from '../components/LevelSummaryScore';
+import {LEVEL_COUNT} from '../constants/gameConstants';
+import {AppRoutes, MOTIVATION_DELAY, NAVIGATION_KEY, SCORE_DELAY} from '../constants/reactConstants';
+import {
+  DEFAULT_IN_GAME_TEXT,
+  ICE_GRADIENT_LETTERS,
+  TITLE_MEDIA_QUERIES,
+} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';
 import {getMotivation} from '../util/getMotivation';
@@ -17,8 +22,9 @@ export default function LevelSummary() {
   const [isCalculatingLevelScore, setIsCalculatingLevelScore] = useState(true);
   const [isCalculatingTotalScore, setIsCalculatingTotalScore] = useState(true);
   const [showMotivation, setShowMotivation] = useState(false);
-  const {lives, score, currentLevel, remainingTime, updateScore} = useGameStateContext();
+  const {lives, score, currentLevel, remainingTime, updateScore, endGame} = useGameStateContext();
   const levelScore = calculateLevelScore(currentLevel, remainingTime, lives);
+  const wasLastLevel = currentLevel === LEVEL_COUNT;
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
@@ -40,23 +46,16 @@ export default function LevelSummary() {
 
   const handlePlayNextLevel = () => {
     updateScore(levelScore);
-    navigate(AppRoutes.game);
+    navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}});
+  };
+
+  const handleEndGame = () => {
+    updateScore(levelScore);
+    endGame();
   };
 
   return (
-    <CenterChildren
-      isPositionAbsolute
-      extraCss={css`
-        button {
-          margin-bottom: 99px;
-
-          h1,
-          h2 {
-            margin: 20px auto;
-          }
-        }
-      `}
-    >
+    <CenterChildren>
       <h1
         css={css`
           ${ICE_GRADIENT_LETTERS}
@@ -76,7 +75,7 @@ export default function LevelSummary() {
       {isCalculatingLevelScore && (
         <h2
           css={css`
-            ${ICE_GRADIENT_LETTERS}
+            ${DEFAULT_IN_GAME_TEXT}
           `}
         >
           &nbsp;
@@ -93,20 +92,25 @@ export default function LevelSummary() {
       )}
       <h1
         css={css`
-          ${ICE_GRADIENT_LETTERS}
+          ${DEFAULT_IN_GAME_TEXT}
           margin: 25px 0 50px;
         `}
       >
-        {showMotivation ? getMotivation() : <>&nbsp;</>}
+        {showMotivation ? wasLastLevel ? 'YOU BEAT THE GAME!' : getMotivation() : <>&nbsp;</>}
       </h1>
       <div
         css={css`
-          height: 50px;
+          height: 100px;
           margin-bottom: 64px;
         `}
       >
         {showMotivation ? (
-          <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
+          <>
+            {!wasLastLevel && (
+              <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
+            )}
+            <Button onClick={handleEndGame}>End Game</Button>
+          </>
         ) : (
           <span />
         )}

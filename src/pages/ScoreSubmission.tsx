@@ -2,7 +2,7 @@
 import {css} from '@emotion/react';
 import {FormEvent, useEffect, useRef, useState} from 'react';
 import {Button} from '../components/Button';
-import {SHINING_LETTERS, ICE_GRADIENT_LETTERS} from '../constants/styleConstants';
+import {SHINING_LETTERS, ICE_GRADIENT_LETTERS, DEFAULT_IN_GAME_TEXT} from '../constants/styleConstants';
 import {postHighscore} from '../api/postHighscore';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {LoadSpinner} from '../components/LoadSpinner';
@@ -10,21 +10,31 @@ import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {CenterChildren} from '../components/CenterChildren';
 
-// mobile check!
 export default function ScoreSubmission() {
   const navigate = useNavigate();
-  const {score} = useGameStateContext();
+  const {score, currentLevel} = useGameStateContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isSubmissionEnabled, setIsSubmissionEnabled] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isPostingScore, setIsPostingScore] = useState(false);
 
+  const sendUserToHomeScreen = () => {
+    // quick & dirty way to clear all game state
+    navigate(AppRoutes.home, {state: null});
+    window.location.reload();
+  }
+  
+  useEffect(() => {
+    if (!score) sendUserToHomeScreen();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [score]);
+  
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
   }, []);
 
   useEffect(() => {
-    setIsSubmissionEnabled(inputValue.length === 3);
+    setIsSubmissionEnabled(inputValue.length > 0);
   }, [inputValue.length]);
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
@@ -39,13 +49,12 @@ export default function ScoreSubmission() {
   const handleScoreSubmit = async () => {
     setIsPostingScore(true);
     await postHighscore({score, initials: inputValue});
-    window.history.state.usr = null;
-    navigate(AppRoutes.home);
+    sendUserToHomeScreen();
   };
+
 
   return (
     <CenterChildren
-      isPositionAbsolute
       extraCss={css`
         z-index: 100;
         background: #000;
@@ -83,18 +92,26 @@ export default function ScoreSubmission() {
       </h1>
       <h2
         css={css`
-          ${ICE_GRADIENT_LETTERS}
-          font-size: 24px;
+          ${DEFAULT_IN_GAME_TEXT}
           margin-bottom: 48px;
         `}
       >
         {`SCORE: ${score}`}
       </h2>
+      <h2
+        css={css`
+          ${DEFAULT_IN_GAME_TEXT}
+          margin-bottom: 48px;
+        `}
+      >
+        {`LEVEL: ${currentLevel}`}
+      </h2>
       <p
         css={css`
-          ${ICE_GRADIENT_LETTERS}
+          ${DEFAULT_IN_GAME_TEXT}
           width: 300px;
           font-size: 18px;
+          text-align: center;
         `}
       >
         Enter your initials below to submit your score!
@@ -105,9 +122,9 @@ export default function ScoreSubmission() {
         value={inputValue}
         onChange={handleInputChange}
         css={css`
-          width: 72px;
+          width: 74px;
           height: 36px;
-          padding: 2px 0;
+          padding: 2px 10px;
           border: none;
           outline: none;
           font-size: 18px;

@@ -9,8 +9,3 @@ root.render(
     <App />
   </BrowserRouter>,
 );
-
-// prevent user from using browser back button to go back and resubmit a score
-// window.addEventListener('popstate', (ev) => {
-//   ev.state.usr = null;
-// });

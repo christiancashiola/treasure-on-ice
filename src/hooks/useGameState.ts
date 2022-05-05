@@ -11,8 +11,9 @@ import {useInterval} from './useInterval';
 
 export function useGameState(): GameState {
   const navigate = useNavigate();
-  const mapsRef = useRef(getLevelMaps());
   const [score, setScore] = useState(0);
+  const mapsRef = useRef(getLevelMaps());
+  const levelRef = useRef<Level | null>(null);
   const highscores = useHighscoresSubscription();
   const [lives, setLives] = useState(GAMES_LIVES);
   const [currentLevel, setCurrentLevel] = useState(0);
@@ -31,10 +32,16 @@ export function useGameState(): GameState {
     REMAINING_TIME_INTERVAL,
   );
 
+  const endGame = () => {
+    // remove previous level event listeners
+    levelRef.current?.player.removeControls();
+    cancelInterval();
+    setIsGameOver(true);
+  }
+  
   useEffect(() => {
     if (!lives || remainingTime === 0) {
-      cancelInterval();
-      setIsGameOver(true);
+      endGame();
     }
   }, [lives, remainingTime]);
 
@@ -48,26 +55,30 @@ export function useGameState(): GameState {
   }, [isGameOver, isLoadingHighscores]);
 
   const updateScore = (points: number) => setScore((prevScore) => prevScore + points);
+
   const loseLife = () => setLives((prevLives) => prevLives - 1);
+
   const completeLevel = () => {
     cancelInterval();
     setTimeStarted(false);
     setCurrentLevel((prevLevel) => prevLevel + 1);
-    navigate(AppRoutes.levelSummary, {state: {lives, remainingTime, score}});
+    navigate(AppRoutes.levelSummary, {state: {key: NAVIGATION_KEY}});
   };
+
   const startLevel = () => {
     setRemainingTime(GAME_TIME);
-    new Level({
+    levelRef.current = new Level({
       map: mapsRef.current[currentLevel],
-      isGameOver,
       reactUpdaters: {loseLife, completeLevel},
-    }).start();
+    });
+    levelRef.current.start();
     setTimeStarted(true);
   };
 
   return {
     score,
     lives,
+    endGame,
     loseLife,
     startLevel,
     highscores,

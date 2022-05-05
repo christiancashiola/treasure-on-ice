@@ -15,7 +15,6 @@ interface IPlayer {
   win: () => void;
   loseLife: () => void;
   position: Position;
-  isGameOver: boolean;
 }
 
 export class Player extends GamePiece {
@@ -37,14 +36,11 @@ export class Player extends GamePiece {
   private direction: Direction | null = null;
   private currentImage: HTMLImageElement;
   private timesSlidThroughMap: number = 0;
-  private isPaused: boolean = false;
-  // private boundHandleKeydown: (e: KeyboardEvent) => void;
-  // private boundHandleTouchEnd: (e: TouchEvent) => void;
-  // private boundHandleTouchStart: (e: TouchEvent) => void;
+  private isLosingLife: boolean = false;
   win: () => void;
   loseLife: () => void;
 
-  constructor({ctx, map, win, isGameOver, loseLife, position}: IPlayer) {
+  constructor({ctx, map, win, loseLife, position}: IPlayer) {
     const imageDown = new Image();
     imageDown.src = './images/player-down.png';
     super({
@@ -56,7 +52,6 @@ export class Player extends GamePiece {
     this.map = map;
     this.win = win;
     this.loseLife = loseLife;
-    this.isGameOver = isGameOver;
     this.imageUp = new Image();
     this.imageUp.src = './images/player-up.png';
     this.imageDown = imageDown;
@@ -83,14 +78,13 @@ export class Player extends GamePiece {
     window.addEventListener('touchstart', this.boundHandleTouchStart, {passive: false});
   }
   
-  private removeControls() {
+  removeControls() {
     window.removeEventListener('keydown', this.boundHandleKeydown);
     window.removeEventListener('touchend', this.boundHandleTouchEnd);
     window.removeEventListener('touchstart', this.boundHandleTouchStart);
   }
 
   private handleKeydown = ({key: direction}: KeyboardEvent) => {
-    console.log('here')
     this.setDirection(direction);
   }
 
@@ -171,6 +165,9 @@ export class Player extends GamePiece {
       this.updatePlayerImage(this.direction as Direction);
       this.completeMove();
     } else if (collisionResult === CollisionResult.Obstacle) {
+      // player could technically move another direction really quickly while `GAME_DELAY`
+      // is happening and move through obstacles. Add this to stop movement until new life starts
+      this.isLosingLife = true;
       this.updatePosition(dx, dy);
       this.completeMove();
       this.loseLife();
@@ -277,7 +274,7 @@ export class Player extends GamePiece {
 
   paint() {
     if (this.isGameOver) this.removeControls();
-    if (this.direction && !this.isGameOver) {
+    if (this.direction && !this.isLosingLife) {
       this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
       this.move();
       this.ctx.drawImage(

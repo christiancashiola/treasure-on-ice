@@ -23,7 +23,6 @@ export default function Game() {
     <>
       <Countdown onCountdownDone={onCountdownDone} />
       <CenterChildren
-        isPositionAbsolute
         extraCss={css`
           padding-bottom: 10vh;
           justify-self: flex-start;
