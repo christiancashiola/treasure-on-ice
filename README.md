@@ -1,19 +1,10 @@
 # TODOs
 
-- instructions................`1hr`
-- mobile/tablet integration...`2-3hr`
-- initials form...............`2hr`
 - sounds......................`2-3hr`
 - seo.........................`1hr`
 - social links.......`1hr`
 - update personal site.......`1hr`
-- user pressing back button? send to main menu
-- protected routes
 - Readme
-- is color color cool?
-- add lives
-- speed up count up to based on digits
-- update color score submission gem
 
 # Phase 2 (optional)
 
