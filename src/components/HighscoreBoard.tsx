@@ -82,8 +82,8 @@ export function HighscoreBoard() {
                 {isNumberOnePlayer && (
                   <span
                     css={css`
-                      top: -19px;
-                      left: -16px;
+                      top: -21px;
+                      left: -18px;
                       position: absolute;
                       transform: rotate(-45deg);
                       background: none #000;
