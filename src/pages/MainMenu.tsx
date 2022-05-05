@@ -7,8 +7,11 @@ import {HighscoreBoard} from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
+import { useSound } from '../hooks/useSound';
 
 export default function MainMenu() {
+  useSound('arctic.mp3');
+  useSound('wind.mp3');
   const navigate = useNavigate();
 
   return (
