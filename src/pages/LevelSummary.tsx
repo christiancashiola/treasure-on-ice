@@ -6,10 +6,12 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {CountUpTo} from '../components/CountUpTo';
 import {LevelSummaryScore} from '../components/LevelSummaryScore';
-import {LEVEL_COUNT} from '../constants/gameConstants';
+import {GAME_TIME, LEVEL_COUNT} from '../constants/gameConstants';
 import {AppRoutes, MOTIVATION_DELAY, NAVIGATION_KEY, SCORE_DELAY} from '../constants/reactConstants';
 import {
   DEFAULT_IN_GAME_TEXT,
+  FLEX_CENTER,
+  ICE_BLUE,
   ICE_GRADIENT_LETTERS,
   TITLE_MEDIA_QUERIES,
 } from '../constants/styleConstants';
@@ -114,6 +116,18 @@ export default function LevelSummary() {
         ) : (
           <span />
         )}
+      </div>
+      <div
+        css={css`
+          ${DEFAULT_IN_GAME_TEXT}
+          text-align: center;
+          padding: 0 10px;
+        `}
+      >
+        Speed matters!
+        <br />
+        <br />
+        {'Score = (level × lives × time remaining × 1000) ÷ 120'}
       </div>
     </CenterChildren>
   );

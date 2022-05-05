@@ -11,14 +11,13 @@ export function LevelSummaryScore({score}: ILevelSummaryScore) {
     <h2
       css={css`
         ${DEFAULT_IN_GAME_TEXT}
-        align-self: flex-end;
       `}
     >
       TOTAL SCORE:&nbsp;
       <span
         css={css`
           ${ICE_GRADIENT_LETTERS}
-          width: 166px;
+          width: 160px;
           display: inline-block;
           text-align: right;
         `}
