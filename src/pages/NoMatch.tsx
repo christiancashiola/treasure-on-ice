@@ -7,7 +7,7 @@ export default function NoMatch() {
 
   useEffect(() => {
     navigate(AppRoutes.home, {state: null});
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

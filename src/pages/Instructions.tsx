@@ -30,7 +30,7 @@ export default function Instructions() {
           align-self: flex-start;
           font-weight: bold;
           font-family: monospace;
-          color: ${ICE_BLUE}
+          color: ${ICE_BLUE};
         `}
       >
         Desktop controls: W, A, S, D or Arrow Keys.
@@ -88,7 +88,7 @@ export default function Instructions() {
           <span>&nbsp;=&nbsp;SLIPPERY</span>
         </div>
       </div>
-      <Button onClick={() => navigate(AppRoutes.home, {state: null})}>Main Menu</Button>
+      <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Main Menu</Button>
     </CenterChildren>
   );
 }

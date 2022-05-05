@@ -7,7 +7,12 @@ import {CenterChildren} from '../components/CenterChildren';
 import {CountUpTo} from '../components/CountUpTo';
 import {LevelSummaryScore} from '../components/LevelSummaryScore';
 import {GAME_TIME, LEVEL_COUNT} from '../constants/gameConstants';
-import {AppRoutes, MOTIVATION_DELAY, NAVIGATION_KEY, SCORE_DELAY} from '../constants/reactConstants';
+import {
+  AppRoutes,
+  MOTIVATION_DELAY,
+  NAVIGATION_KEY,
+  SCORE_DELAY,
+} from '../constants/reactConstants';
 import {
   DEFAULT_IN_GAME_TEXT,
   FLEX_CENTER,

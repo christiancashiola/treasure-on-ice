@@ -7,12 +7,15 @@ import {HighscoreBoard} from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
-import { useSound } from '../hooks/useSound';
+import { useGameStateContext } from '../hooks/useGameStateContext';
+import {useSound} from '../hooks/useSound';
 
 export default function MainMenu() {
-  useSound('arctic.mp3');
-  useSound('wind.mp3');
   const navigate = useNavigate();
+  const {soundPreference} = useGameStateContext();
+
+  useSound('wind.mp3', 0.1, soundPreference);
+  useSound('arctic.mp3', 0.1, soundPreference);
 
   return (
     <CenterChildren

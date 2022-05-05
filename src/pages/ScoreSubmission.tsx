@@ -2,7 +2,11 @@
 import {css} from '@emotion/react';
 import {FormEvent, useEffect, useRef, useState} from 'react';
 import {Button} from '../components/Button';
-import {SHINING_LETTERS, ICE_GRADIENT_LETTERS, DEFAULT_IN_GAME_TEXT} from '../constants/styleConstants';
+import {
+  SHINING_LETTERS,
+  ICE_GRADIENT_LETTERS,
+  DEFAULT_IN_GAME_TEXT,
+} from '../constants/styleConstants';
 import {postHighscore} from '../api/postHighscore';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {LoadSpinner} from '../components/LoadSpinner';
@@ -18,17 +22,17 @@ export default function ScoreSubmission() {
   const [inputValue, setInputValue] = useState('');
   const [isPostingScore, setIsPostingScore] = useState(false);
 
-  const sendUserToHomeScreen = () => {
+  const sendUserToMainMenu = () => {
     // quick & dirty way to clear all game state
-    navigate(AppRoutes.home, {state: null});
+    navigate(AppRoutes.mainMenu, {state: null});
     window.location.reload();
-  }
-  
+  };
+
   useEffect(() => {
-    if (!score) sendUserToHomeScreen();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!score) sendUserToMainMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score]);
-  
+
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
   }, []);
@@ -49,9 +53,8 @@ export default function ScoreSubmission() {
   const handleScoreSubmit = async () => {
     setIsPostingScore(true);
     await postHighscore({score, initials: inputValue});
-    sendUserToHomeScreen();
+    sendUserToMainMenu();
   };
-
 
   return (
     <CenterChildren

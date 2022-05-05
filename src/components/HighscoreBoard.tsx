@@ -95,7 +95,7 @@ export function HighscoreBoard() {
                   </span>
                 )}
                 <span>{initials}</span>
-                {'.'.repeat((HIGHSCORE_CHAR_SPACE + (3 - numberInitialsDigits)) - numberScoreDigits)}
+                {'.'.repeat(HIGHSCORE_CHAR_SPACE + (3 - numberInitialsDigits) - numberScoreDigits)}
                 <span>{score}</span>
               </h2>
             );

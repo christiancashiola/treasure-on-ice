@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type Map = Symbol[][];
 export type Position = {x: number; y: number};
 
@@ -32,6 +34,8 @@ export type GameState = {
   currentLevel: number;
   completeLevel: () => void;
   remainingTime: number;
+  soundPreference: boolean;
+  setSoundPreference: Dispatch<SetStateAction<boolean>>;
   isLoadingHighscores: boolean;
 };
 

@@ -8,10 +8,7 @@ interface ICenterChildren {
   extraCss?: SerializedStyles | null;
 }
 
-export function CenterChildren({
-  children,
-  extraCss = null,
-}: ICenterChildren) {
+export function CenterChildren({children, extraCss = null}: ICenterChildren) {
   return (
     <div
       css={css`

@@ -11,9 +11,10 @@ import {useInterval} from './useInterval';
 
 export function useGameState(): GameState {
   const navigate = useNavigate();
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0); 
   const mapsRef = useRef(getLevelMaps());
   const levelRef = useRef<Level | null>(null);
+  const [soundPreference, setSoundPreference] = useState(false); 
   const highscores = useHighscoresSubscription();
   const [lives, setLives] = useState(GAMES_LIVES);
   const [currentLevel, setCurrentLevel] = useState(0);
@@ -37,8 +38,8 @@ export function useGameState(): GameState {
     levelRef.current?.player.removeControls();
     cancelInterval();
     setIsGameOver(true);
-  }
-  
+  };
+
   useEffect(() => {
     if (!lives || remainingTime === 0) {
       endGame();
@@ -87,6 +88,8 @@ export function useGameState(): GameState {
     currentLevel,
     completeLevel,
     remainingTime,
+    soundPreference,
+    setSoundPreference,
     isLoadingHighscores,
   };
 }

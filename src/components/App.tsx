@@ -4,7 +4,7 @@ import {AppRoutes} from '../constants/reactConstants';
 import {GameStateContext} from '../contexts/GameStateContext';
 import {withNullSuspense} from '../hocs/withNullSuspense';
 import {withRouteProtection} from '../hocs/withRouteProtection';
-import { useBrowserRoutingProtection } from '../hooks/useBrowserRoutingProtection';
+import {useBrowserRoutingProtection} from '../hooks/useBrowserRoutingProtection';
 import {useGameState} from '../hooks/useGameState';
 
 const ProtectedLazyGame = withRouteProtection(
@@ -26,7 +26,7 @@ const LazyNoMatch = withNullSuspense(lazy(() => import('../pages/NoMatch')));
 
 export function App() {
   const gameState = useGameState();
-  useBrowserRoutingProtection()
+  useBrowserRoutingProtection();
 
   return (
     <GameStateContext.Provider value={gameState}>

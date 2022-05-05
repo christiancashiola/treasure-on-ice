@@ -77,7 +77,7 @@ export class Player extends GamePiece {
     window.addEventListener('touchend', this.boundHandleTouchEnd, {passive: false});
     window.addEventListener('touchstart', this.boundHandleTouchStart, {passive: false});
   }
-  
+
   removeControls() {
     window.removeEventListener('keydown', this.boundHandleKeydown);
     window.removeEventListener('touchend', this.boundHandleTouchEnd);
@@ -86,7 +86,7 @@ export class Player extends GamePiece {
 
   private handleKeydown = ({key: direction}: KeyboardEvent) => {
     this.setDirection(direction);
-  }
+  };
 
   private boundHandleKeydown = (e: KeyboardEvent) => this.handleKeydown(e);
 
@@ -95,7 +95,7 @@ export class Player extends GamePiece {
     e.preventDefault();
     this.touchStartX = e.changedTouches[0].screenX;
     this.touchStartY = e.changedTouches[0].screenY;
-  }
+  };
 
   private boundHandleTouchStart = (e: TouchEvent) => this.handleTouchStart(e);
 
@@ -119,7 +119,7 @@ export class Player extends GamePiece {
     }
 
     this.setDirection(direction);
-  }
+  };
 
   private boundHandleTouchEnd = (e: TouchEvent) => this.handleTouchEnd(e);
 
@@ -166,8 +166,8 @@ export class Player extends GamePiece {
     } else if (collisionResult === CollisionResult.Obstacle) {
       // player could technically move another direction really quickly while `GAME_DELAY`
       // is happening and move through obstacles. Add this to stop movement until new life starts
-      this.updatePosition(dx, dy);
       this.isLosingLife = true;
+      this.updatePosition(dx, dy);
       this.completeMove();
       this.loseLife();
     } else {

@@ -1,7 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {memo} from 'react';
-import {ICE_GRADIENT_LETTERS, SHINING_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
+import {
+  ICE_GRADIENT_LETTERS,
+  SHINING_LETTERS,
+  TITLE_MEDIA_QUERIES,
+} from '../constants/styleConstants';
 
 export const Title = memo(function Title() {
   return (

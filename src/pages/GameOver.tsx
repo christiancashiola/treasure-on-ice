@@ -5,7 +5,11 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
 import {AppRoutes} from '../constants/reactConstants';
-import {DEFAULT_IN_GAME_TEXT, ICE_GRADIENT_LETTERS, TITLE_MEDIA_QUERIES} from '../constants/styleConstants';
+import {
+  DEFAULT_IN_GAME_TEXT,
+  ICE_GRADIENT_LETTERS,
+  TITLE_MEDIA_QUERIES,
+} from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 
 export default function GameOver() {
@@ -46,7 +50,7 @@ export default function GameOver() {
       >
         {`LEVEL: ${currentLevel}`}
       </h2>
-      <Button onClick={() => navigate(AppRoutes.home, {state: null})}>Main Menu</Button>
+      <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Main Menu</Button>
       <HighscoreBoard />
     </CenterChildren>
   );
