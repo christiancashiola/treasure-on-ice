@@ -7,7 +7,7 @@ import {HighscoreBoard} from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
-import { useGameStateContext } from '../hooks/useGameStateContext';
+import {useGameStateContext} from '../hooks/useGameStateContext';
 import {useSound} from '../hooks/useSound';
 
 export default function MainMenu() {

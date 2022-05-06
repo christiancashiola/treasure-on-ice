@@ -5,7 +5,7 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {Title} from '../components/Title';
 import {AppRoutes} from '../constants/reactConstants';
-import { useGameStateContext } from '../hooks/useGameStateContext';
+import {useGameStateContext} from '../hooks/useGameStateContext';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -14,8 +14,8 @@ export default function Home() {
   const handleButtonClick = (soundPreference: boolean) => {
     setSoundPreference(soundPreference);
     navigate(AppRoutes.mainMenu, {state: null});
-  }
-  
+  };
+
   return (
     <CenterChildren>
       <Title />

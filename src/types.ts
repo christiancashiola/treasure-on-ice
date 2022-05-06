@@ -1,9 +1,10 @@
 import {Dispatch, SetStateAction} from 'react';
-import {GamePiece} from './classes/GamePiece';
+import {GamePiece, IGamePiece} from './classes/GamePiece';
 
 export type Level = Symbol[][];
-export type GamePieces = GamePiece[][];
 export type Position = {x: number; y: number};
+export type GamePieces = GamePiece[][];
+export type GamePieceExtension = Omit<IGamePiece, 'image'>;
 
 export enum Axis {
   X = 'X',

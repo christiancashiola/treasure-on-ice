@@ -14,7 +14,6 @@ import {
   GAME_DELAY,
   T,
   L,
-  EMPTY_GAME_PIECES,
   X,
   Y,
 } from '../constants/gameConstants';
@@ -35,7 +34,7 @@ export class Game {
   player: Player;
   monsters: Monster[] = [];
   goalCount: number = 0;
-  gamePieces: GamePieces = EMPTY_GAME_PIECES;
+  gamePieces: GamePieces;
   animationReq: number;
   reactUpdaters: ReactUpdaters;
   readonly lives: number;
@@ -53,15 +52,18 @@ export class Game {
   private generateGamePieces() {
     this.ctx.clearRect(0, 0, GAME_SIZE, GAME_SIZE);
     this.monsters = [];
+    this.gamePieces = [...Array(GAME_SIZE / BLOCK_SIZE)].map(() => [
+      ...Array(GAME_SIZE / BLOCK_SIZE),
+    ]);
 
-    const levelMap = LEVEL_MAP[this.currentLevel];
-    const rowLength = levelMap.length;
-    const colLength = levelMap[0].length;
+    const level = LEVEL_MAP[this.currentLevel];
+    const rowLength = level.length;
+    const colLength = level[0].length;
     // we cannot initialize the monsters until we have initialized the player
     const monsterPositions: Omit<MonsterType, 'playerPosition'>[] = [];
 
     for (let rowI = 0; rowI < rowLength; rowI++) {
-      const row = levelMap[rowI];
+      const row = level[rowI];
       for (let colI = 0; colI < colLength; colI++) {
         const col = row[colI];
         const y = rowI * BLOCK_SIZE;
@@ -87,9 +89,9 @@ export class Game {
         } else if (col === K) {
           this.gamePieces[rowI][colI] = new Key({ctx: this.ctx, position});
         } else if (col === L) {
-          this.gamePieces[rowI][colI] = new Life({ctx: this.ctx, position, level: LEVEL_MAP[this.currentLevel]});
+          this.gamePieces[rowI][colI] = new Life({ctx: this.ctx, position, level});
         } else if (col === T) {
-          this.gamePieces[rowI][colI] = new Treasure({ctx: this.ctx, position});
+          this.gamePieces[rowI][colI] = new Treasure({ctx: this.ctx, position, level});
         } else if (col === D) {
           this.door = new Door({ctx: this.ctx, position});
           this.gamePieces[rowI][colI] = this.door;
@@ -109,12 +111,12 @@ export class Game {
     }
 
     monsterPositions.forEach((monsterOptions) => {
-      const monster = new Monster({ ...monsterOptions, playerPosition: this.player.position});
+      const monster = new Monster({...monsterOptions, playerPosition: this.player.position});
       this.monsters.push(monster);
       this.gamePieces[monster.position.y / BLOCK_SIZE][monster.position.x / BLOCK_SIZE] = monster;
-    })
+    });
 
-    console.log(this.monsters)
+    console.log(this.monsters);
   }
 
   private completeLevel = () => {

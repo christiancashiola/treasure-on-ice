@@ -13,7 +13,7 @@ import {LoadSpinner} from '../components/LoadSpinner';
 import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {CenterChildren} from '../components/CenterChildren';
-import { Gem } from '../components/Gem';
+import {Gem} from '../components/Gem';
 
 export default function ScoreSubmission() {
   const navigate = useNavigate();

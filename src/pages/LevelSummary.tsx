@@ -114,7 +114,7 @@ export default function LevelSummary() {
           margin-bottom: 64px;
 
           // will only apply if !wasLastLevel
-          button:nth-child(2) {
+          button:nth-of-type(2) {
             color: ${MOLTEN_ORANGE};
             margin-top: 32px;
             border-color: ${MOLTEN_ORANGE};

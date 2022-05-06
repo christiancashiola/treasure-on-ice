@@ -3,7 +3,12 @@ import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Game} from '../classes/Game';
 import {GAMES_LIVES, GAME_TIME} from '../constants/gameConstants';
-import {AppRoutes, MAX_HIGHSCORES, NAVIGATION_KEY, REMAINING_TIME_INTERVAL} from '../constants/reactConstants';
+import {
+  AppRoutes,
+  MAX_HIGHSCORES,
+  NAVIGATION_KEY,
+  REMAINING_TIME_INTERVAL,
+} from '../constants/reactConstants';
 import {GameState} from '../types';
 import {getLevelMaps} from '../util/getLevelMaps';
 import {useHighscoresSubscription} from './useHighscoresSubscription';
@@ -11,11 +16,11 @@ import {useInterval} from './useInterval';
 
 export function useGameState(): GameState {
   const navigate = useNavigate();
-  const [score, setScore] = useState(0); 
+  const [score, setScore] = useState(0);
   const mapsRef = useRef(getLevelMaps());
   const gameRef = useRef<Game | null>(null);
-  const [soundPreference, setSoundPreference] = useState(false); 
-  const [treasureCollected, setTreasureCollected] = useState(0); 
+  const [soundPreference, setSoundPreference] = useState(false);
+  const [treasureCollected, setTreasureCollected] = useState(0);
   const highscores = useHighscoresSubscription();
   const [lives, setLives] = useState(GAMES_LIVES);
   const [currentLevel, setCurrentLevel] = useState(0);

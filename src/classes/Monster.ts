@@ -1,14 +1,14 @@
 import {BLOCK_SIZE, GAME_SIZE, MONSTER_SPEED} from '../constants/gameConstants';
-import {Axis, CollisionResult, Direction, GamePieces, Position} from '../types';
-import {GamePiece, IGamePiece} from './GamePiece';
-import { Player } from './Player';
+import {Axis, CollisionResult, Direction, GamePieceExtension, GamePieces, Position} from '../types';
+import {GamePiece} from './GamePiece';
+import {Player} from './Player';
 
 export type MonsterType = {
   axis: Axis;
   gamePieces: GamePieces;
   playerPosition: Position;
   destroyPlayer: () => void;
-} & Omit<IGamePiece, 'image'>
+} & GamePieceExtension;
 
 // todo refactor make new piece type Movable
 export class Monster extends GamePiece {
@@ -23,13 +23,13 @@ export class Monster extends GamePiece {
   constructor({ctx, position, axis, gamePieces, playerPosition, destroyPlayer}: MonsterType) {
     const imageRight = new Image();
     imageRight.src = './images/game/monster/monster-right.png';
-    
+
     super({
       ctx,
       image: imageRight,
       position,
     });
-    
+
     this.axis = axis;
     this.direction = axis === Axis.X ? Direction.Right : Direction.Down;
     this.imageLeft = new Image();
@@ -64,7 +64,7 @@ export class Monster extends GamePiece {
     return {dx, dy};
   }
 
-  private checkCollision(futurePosition: Position): CollisionResult {    
+  private checkCollision(futurePosition: Position): CollisionResult {
     let gamePiece: GamePiece | undefined;
 
     if (this.axis === Axis.X) {
@@ -82,7 +82,11 @@ export class Monster extends GamePiece {
       gamePiece = this.gamePieces[futureRowIndex]?.[futureColIndex];
     }
 
-    if (gamePiece instanceof GamePiece && !(gamePiece instanceof Player) && !(gamePiece instanceof Monster)) {
+    if (
+      gamePiece instanceof GamePiece &&
+      !(gamePiece instanceof Player) &&
+      !(gamePiece instanceof Monster)
+    ) {
       // for all intents and purposes, everything is a wall to a monster
       return CollisionResult.Wall;
     }

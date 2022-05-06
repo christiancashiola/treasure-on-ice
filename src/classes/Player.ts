@@ -1,16 +1,12 @@
-import {
-  GAME_SIZE,
-  BLOCK_SIZE,
-  PLAYER_SPEED,
-} from '../constants/gameConstants';
-import {CollisionResult, Direction, GamePieces, Level, Position} from '../types';
-import { Door } from './Door';
+import {GAME_SIZE, BLOCK_SIZE, PLAYER_SPEED} from '../constants/gameConstants';
+import {CollisionResult, Direction, GamePieces, Position} from '../types';
+import {Door} from './Door';
 import {GamePiece} from './GamePiece';
-import { Key } from './Key';
-import { Life } from './Life';
-import { Obstacle } from './Obstacle';
+import {Key} from './Key';
+import {Life} from './Life';
+import {Obstacle} from './Obstacle';
 import {Treasure} from './Treasure';
-import { Wall } from './Wall';
+import {Wall} from './Wall';
 
 interface IPlayer {
   ctx: CanvasRenderingContext2D;
@@ -260,7 +256,7 @@ export class Player extends GamePiece {
     if (gamePiece instanceof Obstacle) return CollisionResult.Obstacle;
     if (gamePiece instanceof Door) {
       if (gamePiece.isLocked) {
-        return CollisionResult.DoorLocked
+        return CollisionResult.DoorLocked;
       }
       return CollisionResult.DoorUnlocked;
     }

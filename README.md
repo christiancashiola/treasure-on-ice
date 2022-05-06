@@ -18,6 +18,7 @@
 - moving enemies
 - different textures for each level
 - refactor Movable piece
+- do we need collisions to be this.gamePieces?
 
 # Highlights
 
