@@ -66,25 +66,25 @@ export default function Instructions() {
         `}
       >
         <div>
-          <img src="/images/goal.png" alt="Lilac gem" width={50} height={50} loading="lazy" />
+          {/* <img src="/images/goal.png" alt="Lilac gem" width={50} height={50} loading="lazy" /> */}
           <span>&nbsp;=&nbsp;GOOD</span>
         </div>
         <div>
-          <img
+          {/* <img
             src="/images/obstacle.png"
             alt="Spikey obstacle"
             width={50}
             height={50}
             loading="lazy"
-          />
+          /> */}
           <span>&nbsp;=&nbsp;BAD</span>
         </div>
         <div>
-          <img src="/images/wall.png" alt="Wall" width={50} height={50} loading="lazy" />
+          {/* <img src="/images/wall.png" alt="Wall" width={50} height={50} loading="lazy" /> */}
           <span>&nbsp;=&nbsp;SAFE</span>
         </div>
         <div>
-          <img src="/images/ice.png" alt="Ice" width={50} height={50} loading="lazy" />
+          {/* <img src="/images/ice.png" alt="Ice" width={50} height={50} loading="lazy" /> */}
           <span>&nbsp;=&nbsp;SLIPPERY</span>
         </div>
       </div>

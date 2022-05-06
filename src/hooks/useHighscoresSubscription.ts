@@ -6,25 +6,25 @@ import {Highscore} from '../types';
 
 export function useHighscoresSubscription() {
   const [highscores, setHighscores] = useState<Highscore[]>([]);
-  const highscoresRef = useRef(
-    query(ref(DATABASE, DATABASE_PATH), orderByChild('score'), limitToLast(MAX_HIGHSCORES)),
-  );
+  // const highscoresRef = useRef(
+  //   query(ref(DATABASE, DATABASE_PATH), orderByChild('score'), limitToLast(MAX_HIGHSCORES)),
+  // );
 
-  useEffect(() => {
-    // subscribes to realtime database
-    const unsubscribe = onValue(highscoresRef.current, (snapshot) => {
-      // calling snapshot.val() serialize the data and undo our query sort, therefor use forEach
-      const sortedAscResults: Highscore[] = [];
-      snapshot.forEach((child) => {
-        sortedAscResults.push(child.val());
-      });
+  // useEffect(() => {
+  //   // subscribes to realtime database
+  //   const unsubscribe = onValue(highscoresRef.current, (snapshot) => {
+  //     // calling snapshot.val() serialize the data and undo our query sort, therefor use forEach
+  //     const sortedAscResults: Highscore[] = [];
+  //     snapshot.forEach((child) => {
+  //       sortedAscResults.push(child.val());
+  //     });
 
-      // we cannot order by DESC via firebase query, therefore we reverse the ASC results
-      setHighscores(sortedAscResults.reverse());
-    });
+  //     // we cannot order by DESC via firebase query, therefore we reverse the ASC results
+  //     setHighscores(sortedAscResults.reverse());
+  //   });
 
-    return unsubscribe;
-  }, []);
+  //   return unsubscribe;
+  // }, []);
 
   return highscores;
 }

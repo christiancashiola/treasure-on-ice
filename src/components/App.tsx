@@ -26,7 +26,7 @@ const LazyNoMatch = withNullSuspense(lazy(() => import('../pages/NoMatch')));
 
 export function App() {
   const gameState = useGameState();
-  useBrowserRoutingProtection();
+  // useBrowserRoutingProtection();
 
   return (
     <GameStateContext.Provider value={gameState}>

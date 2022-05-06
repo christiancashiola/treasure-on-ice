@@ -62,6 +62,7 @@ export function useGameState(): GameState {
   const loseLife = () => setLives((prevLives) => prevLives - 1);
 
   const completeLevel = () => {
+    levelRef.current?.player.removeControls();
     cancelInterval();
     setTimeStarted(false);
     setCurrentLevel((prevLevel) => prevLevel + 1);
@@ -72,6 +73,7 @@ export function useGameState(): GameState {
     setRemainingTime(GAME_TIME);
     levelRef.current = new Level({
       map: mapsRef.current[currentLevel],
+      currentLevel: currentLevel + 1,
       reactUpdaters: {loseLife, completeLevel},
     });
     levelRef.current.start();

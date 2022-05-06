@@ -9,8 +9,8 @@ export interface IGamePiece {
 
 export abstract class GamePiece {
   position: Position;
-  protected image: HTMLImageElement;
   protected ctx: CanvasRenderingContext2D;
+  protected image: HTMLImageElement;
 
   constructor({ctx, image, position}: IGamePiece) {
     this.ctx = ctx;

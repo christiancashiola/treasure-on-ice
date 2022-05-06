@@ -14,8 +14,8 @@ export default function MainMenu() {
   const navigate = useNavigate();
   const {soundPreference} = useGameStateContext();
 
-  useSound('wind.mp3', 0.1, soundPreference);
-  useSound('arctic.mp3', 0.1, soundPreference);
+  // useSound('wind.mp3', 0.1, soundPreference);
+  // useSound('arctic.mp3', 0.1, soundPreference);
 
   return (
     <CenterChildren

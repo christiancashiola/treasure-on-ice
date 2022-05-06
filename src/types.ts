@@ -4,9 +4,11 @@ export type Map = Symbol[][];
 export type Position = {x: number; y: number};
 
 export enum CollisionResult {
+  Key,
   Safe,
-  Goal,
+  Door,
   Wall,
+  Treasure,
   Obstacle,
   OffTheIce,
 }

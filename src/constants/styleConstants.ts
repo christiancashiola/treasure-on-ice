@@ -67,7 +67,7 @@ export const CANVAS_MEDIA_QUERY = css`
     width: 449px;
   }
   @media (min-width: 501px) {
-    width: 500px;
+    width: 650px;
   }
 `;
 
@@ -110,6 +110,7 @@ export const RED_HUE = css`
 `;
 
 export const ICE_BLUE = '#80e8ff';
+export const MOLTEN_ORANGE = '#ff9b44';
 
 export const TITLE_MEDIA_QUERIES = css`
   text-align: center;

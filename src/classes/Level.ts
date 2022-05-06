@@ -1,29 +1,35 @@
 import {Map, Position, ReactUpdaters} from '../types';
 import {Obstacle} from './Obstacle';
-import {Goal} from './Goal';
+import {Door} from './Door';
 import {Player} from './Player';
 import {Wall} from './Wall';
-import {O, P, W, G, BLOCK_SIZE, GAME_SIZE, GAME_DELAY} from '../constants/gameConstants';
+import {O, P, W, D, K, BLOCK_SIZE, GAME_SIZE, GAME_DELAY} from '../constants/gameConstants';
+import { Key } from './Key';
 
 interface ILevel {
   map: Map;
+  currentLevel: number;
   reactUpdaters: ReactUpdaters;
 }
 
 export class Level {
   map: Map;
+  door: Door;
+  player: Player;
+  goalCount: number = 0;
   animationReq: number;
   reactUpdaters: ReactUpdaters;
-  player: Player;
   readonly lives: number;
   readonly maps: Map;
+  readonly currentLevel: number;
   protected ctx: CanvasRenderingContext2D;
 
-  constructor({map, reactUpdaters}: ILevel) {
+  constructor({map, reactUpdaters, currentLevel}: ILevel) {
     this.ctx = (document.getElementById('canvas') as HTMLCanvasElement).getContext(
       '2d',
     ) as CanvasRenderingContext2D;
     this.map = map;
+    this.currentLevel = currentLevel;
     this.reactUpdaters = reactUpdaters;
   }
 
@@ -41,16 +47,19 @@ export class Level {
         const x = colIndex * BLOCK_SIZE;
         const position: Position = {x, y};
 
-        if (col === W) new Wall({ctx: this.ctx, position});
+        if (col === K) new Key({ctx: this.ctx, position});
+        else if (col === W) new Wall({ctx: this.ctx, position, currentLevel: this.currentLevel});
         else if (col === O) new Obstacle({ctx: this.ctx, position});
-        else if (col === G) new Goal({ctx: this.ctx, position});
-        else if (col === P) {
+        else if (col === D) {
+          this.door = new Door({ctx: this.ctx, position});
+        } else if (col === P) {
           this.player = new Player({
             ctx: this.ctx,
             map: this.map,
             win: this.win,
             position,
             loseLife: this.loseLife,
+            unlockDoor: this.unlockDoor,
           });
         }
       }
@@ -61,6 +70,10 @@ export class Level {
     this.stopAnimationFrame();
     this.reactUpdaters.completeLevel();
   };
+
+  private unlockDoor = () => {
+    this.door.unlockDoor();
+  }
 
   private loseLife = () => {
     setTimeout(() => {
@@ -74,7 +87,7 @@ export class Level {
   private runRenderLoop = () => {
     try {
       this.animationReq = window.requestAnimationFrame(this.runRenderLoop);
-      this.player.paint();
+      this.player.checkCharacterMovement();
     } catch (e) {
       this.stopAnimationFrame();
       console.error(e);

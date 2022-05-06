@@ -18,6 +18,7 @@ import {
   FLEX_CENTER,
   ICE_BLUE,
   ICE_GRADIENT_LETTERS,
+  MOLTEN_ORANGE,
   TITLE_MEDIA_QUERIES,
 } from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
@@ -99,16 +100,30 @@ export default function LevelSummary() {
       )}
       <h1
         css={css`
-          ${DEFAULT_IN_GAME_TEXT}
+          ${ICE_GRADIENT_LETTERS}
           margin: 25px 0 50px;
+          font-size: 18px;
         `}
       >
         {showMotivation ? wasLastLevel ? 'YOU BEAT THE GAME!' : getMotivation() : <>&nbsp;</>}
       </h1>
       <div
         css={css`
-          height: 50px;
+          height: 100px;
           margin-bottom: 64px;
+
+          // will only apply if !wasLastLevel
+          button:nth-child(2) {
+            color: ${MOLTEN_ORANGE};
+            margin-top: 32px;
+            border-color: ${MOLTEN_ORANGE};
+
+            :hover,
+            :active {
+              color: #000;
+              background: none ${MOLTEN_ORANGE};
+            }
+          }
         `}
       >
         {showMotivation ? (
@@ -116,7 +131,7 @@ export default function LevelSummary() {
             {!wasLastLevel && (
               <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
             )}
-            
+            <Button onClick={handleEndGame}>End Game</Button>
           </>
         ) : (
           <span />
@@ -124,9 +139,10 @@ export default function LevelSummary() {
       </div>
       <div
         css={css`
-          ${DEFAULT_IN_GAME_TEXT}
-          text-align: center;
+          ${ICE_GRADIENT_LETTERS}
           padding: 0 10px;
+          font-size: 14px;
+          text-align: center;
         `}
       >
         Speed matters!
@@ -134,7 +150,6 @@ export default function LevelSummary() {
         <br />
         {'Score = (level × lives × time remaining × 1000) ÷ 120'}
       </div>
-      <Button onClick={handleEndGame}>End Game</Button>
     </CenterChildren>
   );
 }

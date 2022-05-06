@@ -1,10 +1,11 @@
 import {
+  GAME_SIZE,
   BLOCK_SIZE,
   PLAYER_SPEED,
   W as Wall,
+  K as Key,
+  D as Door,
   O as Obstacle,
-  G as Goal,
-  GAME_SIZE,
 } from '../constants/gameConstants';
 import {CollisionResult, Direction, Map, Position} from '../types';
 import {GamePiece} from './GamePiece';
@@ -15,6 +16,7 @@ interface IPlayer {
   win: () => void;
   loseLife: () => void;
   position: Position;
+  unlockDoor: () => void;
 }
 
 export class Player extends GamePiece {
@@ -27,8 +29,7 @@ export class Player extends GamePiece {
   private readonly imageLeftRun: HTMLImageElement;
   private readonly imageRightRun: HTMLImageElement;
   private readonly map: Map;
-  private readonly isGameOver: boolean;
-  private speed: number = PLAYER_SPEED;
+  private hasKey: boolean = false;
   private touchEndX: number = 0;
   private touchEndY: number = 0;
   private touchStartX: number = 0;
@@ -39,10 +40,11 @@ export class Player extends GamePiece {
   private isLosingLife: boolean = false;
   win: () => void;
   loseLife: () => void;
+  unlockDoor: () => void;
 
-  constructor({ctx, map, win, loseLife, position}: IPlayer) {
+  constructor({ctx, map, win, loseLife, position, unlockDoor}: IPlayer) {
     const imageDown = new Image();
-    imageDown.src = './images/player-down.png';
+    imageDown.src = './images/game/player/player-down.png';
     super({
       ctx,
       image: imageDown,
@@ -52,24 +54,29 @@ export class Player extends GamePiece {
     this.map = map;
     this.win = win;
     this.loseLife = loseLife;
+    this.unlockDoor = unlockDoor;
     this.imageUp = new Image();
-    this.imageUp.src = './images/player-up.png';
+    this.imageUp.src = './images/game/player/player-up.png';
     this.imageDown = imageDown;
     this.imageLeft = new Image();
-    this.imageLeft.src = './images/player-left.png';
+    this.imageLeft.src = './images/game/player/player-left.png';
     this.imageRight = new Image();
-    this.imageRight.src = './images/player-right.png';
+    this.imageRight.src = './images/game/player/player-right.png';
     this.currentImage = this.imageDown;
     this.imageUpRun = new Image();
-    this.imageUpRun.src = './images/player-up-run.png';
+    this.imageUpRun.src = './images/game/player/player-up-run.png';
     this.imageDownRun = new Image();
-    this.imageDownRun.src = './images/player-down-run.png';
+    this.imageDownRun.src = './images/game/player/player-down-run.png';
     this.imageLeftRun = new Image();
-    this.imageLeftRun.src = './images/player-left-run.png';
+    this.imageLeftRun.src = './images/game/player/player-left-run.png';
     this.imageRightRun = new Image();
-    this.imageRightRun.src = './images/player-right-run.png';
+    this.imageRightRun.src = './images/game/player/player-right-run.png';
 
     this.addControls();
+  }
+
+  private get isMovingLeftRight() {
+    return this.direction === Direction.Right || this.direction === Direction.Left
   }
 
   private addControls() {
@@ -153,12 +160,15 @@ export class Player extends GamePiece {
 
     this.updatePlayerImage();
     const collisionResult = this.checkCollision({x: dx, y: dy});
+    
     if (collisionResult === CollisionResult.Safe) {
       this.updatePosition(dx, dy);
-    } else if (collisionResult === CollisionResult.Goal) {
-      this.removeControls();
+    } else if (collisionResult === CollisionResult.Key) {
+      this.hasKey = true;
+      this.unlockDoor();
       this.updatePosition(dx, dy);
-      this.completeMove();
+    } else if (collisionResult === CollisionResult.Door) {
+      this.updatePosition(dx, dy);
       this.win();
     } else if (collisionResult === CollisionResult.OffTheIce) {
       this.updatePlayerImage(this.direction as Direction);
@@ -173,8 +183,8 @@ export class Player extends GamePiece {
     } else {
       // else CollisionResult.Wall
       const prevDirection = this.direction;
-      this.completeMove();
       this.updatePlayerImage(prevDirection as Direction);
+      this.completeMove();
     }
   }
 
@@ -200,10 +210,10 @@ export class Player extends GamePiece {
     let dy = this.position.y;
 
     // first increment/decrement position by speed
-    if (this.direction === Direction.Up) dy -= this.speed;
-    else if (this.direction === Direction.Down) dy += this.speed;
-    else if (this.direction === Direction.Left) dx -= this.speed;
-    else dx += this.speed;
+    if (this.direction === Direction.Up) dy -= PLAYER_SPEED;
+    else if (this.direction === Direction.Down) dy += PLAYER_SPEED;
+    else if (this.direction === Direction.Left) dx -= PLAYER_SPEED;
+    else dx += PLAYER_SPEED;
 
     // next update the deltas based on if player is sliding off one side to the other
     if (dx > GAME_SIZE) {
@@ -227,27 +237,34 @@ export class Player extends GamePiece {
   private checkCollision(futurePosition: Position): CollisionResult {
     let spaceAboutToMoveInto: Symbol | undefined;
 
-    if (this.direction === Direction.Right || this.direction === Direction.Left) {
-      const currentRowIndex = Math.floor(futurePosition.y / BLOCK_SIZE);
-      const currentRow = this.map[currentRowIndex];
+    let futureColIndex: number;
+    let futureRowIndex: number;
+    
+    if (this.isMovingLeftRight) {
+      futureRowIndex = Math.floor(futurePosition.y / BLOCK_SIZE);
+      const futureRow = this.map[futureRowIndex];
       const futureColIndexDelta =
         futurePosition.x + (this.direction === Direction.Right ? BLOCK_SIZE : 0);
-      const futureColIndex = Math.floor((futureColIndexDelta % GAME_SIZE) / BLOCK_SIZE);
-      spaceAboutToMoveInto = currentRow[futureColIndex];
+      futureColIndex = Math.floor((futureColIndexDelta % GAME_SIZE) / BLOCK_SIZE);
+      spaceAboutToMoveInto = futureRow[futureColIndex];
     } else {
-      const currentColIndex = Math.floor(futurePosition.x / BLOCK_SIZE);
+      futureColIndex = Math.floor(futurePosition.x / BLOCK_SIZE);
       const futureRowIndexDelta =
         futurePosition.y + (this.direction === Direction.Down ? BLOCK_SIZE : 0);
-      const futureRowIndex = Math.floor((futureRowIndexDelta % GAME_SIZE) / BLOCK_SIZE);
-      spaceAboutToMoveInto = this.map[futureRowIndex]?.[currentColIndex];
+      futureRowIndex = Math.floor((futureRowIndexDelta % GAME_SIZE) / BLOCK_SIZE);
+      spaceAboutToMoveInto = this.map[futureRowIndex]?.[futureColIndex];
     }
-
+    
+    if (spaceAboutToMoveInto === Key) return CollisionResult.Key;
     if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
-    if (spaceAboutToMoveInto === Goal) return CollisionResult.Goal;
+    if (spaceAboutToMoveInto === Door) {
+      if (this.isMovingLeftRight) delete this.map[futureRowIndex];
+      else delete this.map[futureRowIndex][futureColIndex];
+      return CollisionResult.Door;
+    }
     if (spaceAboutToMoveInto === Wall) return CollisionResult.Wall;
     // this situation happens when user slides through one side but there is a wall
     // immediately blocking the path on the other side
-    // if (spaceAboutToMoveInto === undefined) return CollisionResult.OffTheIce;
     else return CollisionResult.Safe;
   }
 
@@ -257,7 +274,7 @@ export class Player extends GamePiece {
   }
 
   private completeMove() {
-    if (this.direction === Direction.Right || this.direction === Direction.Left) {
+    if (this.isMovingLeftRight) {
       this.position.x =
         Math[this.direction === Direction.Right ? 'ceil' : 'floor'](this.position.x / BLOCK_SIZE) *
         BLOCK_SIZE;
@@ -267,22 +284,30 @@ export class Player extends GamePiece {
         BLOCK_SIZE;
     }
     this.direction = null;
-    this.speed = PLAYER_SPEED;
     this.timesSlidThroughMap = 0;
+    this.clearRect();
+    this.paint();
   }
 
-  paint() {
-    if (this.isGameOver) this.removeControls();
+  private clearRect() {
+    this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+  }
+
+  checkCharacterMovement() {
     if (this.direction && !this.isLosingLife) {
-      this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+      this.clearRect();
       this.move();
-      this.ctx.drawImage(
-        this.currentImage,
-        this.position.x,
-        this.position.y,
-        BLOCK_SIZE,
-        BLOCK_SIZE,
-      );
+      this.paint();
     }
+  }
+
+  private paint() {
+    this.ctx.drawImage(
+      this.currentImage,
+      this.position.x,
+      this.position.y,
+      BLOCK_SIZE,
+      BLOCK_SIZE,
+    );
   }
 }
