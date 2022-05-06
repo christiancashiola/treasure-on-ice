@@ -6,6 +6,7 @@ import {
   K as Key,
   D as Door,
   O as Obstacle,
+  T as Treasure,
 } from '../constants/gameConstants';
 import {CollisionResult, Direction, Map, Position} from '../types';
 import {GamePiece} from './GamePiece';
@@ -161,7 +162,7 @@ export class Player extends GamePiece {
     this.updatePlayerImage();
     const collisionResult = this.checkCollision({x: dx, y: dy});
     
-    if (collisionResult === CollisionResult.Safe) {
+    if (collisionResult === CollisionResult.Safe || collisionResult === CollisionResult.Treasure) {
       this.updatePosition(dx, dy);
     } else if (collisionResult === CollisionResult.Key) {
       this.hasKey = true;
@@ -257,11 +258,11 @@ export class Player extends GamePiece {
     
     if (spaceAboutToMoveInto === Key) return CollisionResult.Key;
     if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
-    if (spaceAboutToMoveInto === Door) {
-      if (this.isMovingLeftRight) delete this.map[futureRowIndex];
-      else delete this.map[futureRowIndex][futureColIndex];
-      return CollisionResult.Door;
-    }
+    // if (spaceAboutToMoveInto === Treasure) {
+    //   if (this.isMovingLeftRight) delete this.map[futureRowIndex];
+    //   else delete this.map[futureRowIndex][futureColIndex];
+    //   return CollisionResult.Treasure;
+    // }
     if (spaceAboutToMoveInto === Wall) return CollisionResult.Wall;
     // this situation happens when user slides through one side but there is a wall
     // immediately blocking the path on the other side

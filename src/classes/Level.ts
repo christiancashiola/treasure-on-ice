@@ -3,8 +3,9 @@ import {Obstacle} from './Obstacle';
 import {Door} from './Door';
 import {Player} from './Player';
 import {Wall} from './Wall';
-import {O, P, W, D, K, BLOCK_SIZE, GAME_SIZE, GAME_DELAY} from '../constants/gameConstants';
+import {O, P, W, D, K, BLOCK_SIZE, GAME_SIZE, GAME_DELAY, T} from '../constants/gameConstants';
 import { Key } from './Key';
+import { Treasure } from './Treasure';
 
 interface ILevel {
   map: Map;
@@ -50,6 +51,7 @@ export class Level {
         if (col === K) new Key({ctx: this.ctx, position});
         else if (col === W) new Wall({ctx: this.ctx, position, currentLevel: this.currentLevel});
         else if (col === O) new Obstacle({ctx: this.ctx, position});
+        else if (col === T) new Treasure({ctx: this.ctx, position});
         else if (col === D) {
           this.door = new Door({ctx: this.ctx, position});
         } else if (col === P) {

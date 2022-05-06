@@ -6,6 +6,7 @@ import {withNullSuspense} from '../hocs/withNullSuspense';
 import {withRouteProtection} from '../hocs/withRouteProtection';
 import {useBrowserRoutingProtection} from '../hooks/useBrowserRoutingProtection';
 import {useGameState} from '../hooks/useGameState';
+import { Title } from './Title';
 
 const ProtectedLazyGame = withRouteProtection(
   withNullSuspense(lazy(() => import('../pages/Game'))),
@@ -30,7 +31,9 @@ export function App() {
 
   return (
     <GameStateContext.Provider value={gameState}>
-      <Routes>
+      <Title />
+      <h1>Coming soon to a theatre near you!</h1>
+      {/* <Routes>
         <Route path={AppRoutes.home} element={<LazyHome />} />
         <Route path={AppRoutes.game} element={<ProtectedLazyGame />} />
         <Route path={AppRoutes.gameOver} element={<ProtectedLazyGameOver />} />
@@ -39,7 +42,7 @@ export function App() {
         <Route path={AppRoutes.instructions} element={<LazyInstructions />} />
         <Route path={AppRoutes.scoreSubmission} element={<ProtectedScoreSubmission />} />
         <Route path="*" element={<LazyNoMatch />} />
-      </Routes>
+      </Routes> */}
     </GameStateContext.Provider>
   );
 }
