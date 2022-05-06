@@ -4,54 +4,30 @@ import {useCallback, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
-import {CountUpTo} from '../components/CountUpTo';
-import {LevelSummaryScore} from '../components/LevelSummaryScore';
-import {GAME_TIME, LEVEL_COUNT} from '../constants/gameConstants';
+import {LevelSummaryScores} from '../components/LevelSummaryScores';
+import {BASE_MULTIPLIER, GAME_TIME, LEVEL_COUNT, TIME_MULTIPLIER} from '../constants/gameConstants';
 import {
   AppRoutes,
-  MOTIVATION_DELAY,
   NAVIGATION_KEY,
-  SCORE_CALC,
-  SCORE_DELAY,
+  MOTIVATION_DELAY,
 } from '../constants/reactConstants';
 import {
-  DEFAULT_IN_GAME_TEXT,
-  FLEX_CENTER,
-  ICE_BLUE,
-  ICE_GRADIENT_LETTERS,
   MOLTEN_ORANGE,
   TITLE_MEDIA_QUERIES,
+  ICE_GRADIENT_LETTERS,
+  ABSOLUTE_ZERO,
 } from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';
 import {getMotivation} from '../util/getMotivation';
+import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
 export default function LevelSummary() {
   const navigate = useNavigate();
-  const [isCalculatingLevelScore, setIsCalculatingLevelScore] = useState(true);
-  const [isCalculatingTotalScore, setIsCalculatingTotalScore] = useState(true);
-  const [showMotivation, setShowMotivation] = useState(false);
-  const {lives, score, currentLevel, remainingTime, updateScore, endGame} = useGameStateContext();
-  const levelScore = calculateLevelScore(currentLevel, remainingTime, lives);
+  const {lives, score, currentLevel, remainingTime, treasureCollected, updateScore, endGame} =
+    useGameStateContext();
+  const levelScore = calculateLevelScore(lives, currentLevel, remainingTime, treasureCollected);
   const wasLastLevel = currentLevel === LEVEL_COUNT;
-
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-    if (!isCalculatingTotalScore) {
-      timeoutId = setTimeout(() => setShowMotivation(true), MOTIVATION_DELAY);
-    }
-
-    if (timeoutId) return () => clearTimeout(timeoutId as ReturnType<typeof setTimeout>);
-  }, [isCalculatingTotalScore]);
-
-  const onLevelScoreCountDone = useCallback(() => {
-    setIsCalculatingLevelScore(false);
-  }, []);
-
-  const onTotalScoreCountDone = useCallback(() => {
-    setIsCalculatingTotalScore(false);
-  }, []);
 
   const handlePlayNextLevel = () => {
     updateScore(levelScore);
@@ -75,39 +51,15 @@ export default function LevelSummary() {
         <br />
         {`LEVEL ${currentLevel}`}
       </h1>
-      <CountUpTo
-        delay={SCORE_DELAY}
-        onDone={onLevelScoreCountDone}
-        numberToCountUpTo={levelScore}
-        renderProp={(count) => <LevelSummaryScore score={count} />}
+      <LevelSummaryScores
+        scores={[
+          {title: 'Speed Bonus:', score: (remainingTime / GAME_TIME) * TIME_MULTIPLIER},
+          {title: 'Level Bonus:', score: currentLevel * BASE_MULTIPLIER},
+          {title: 'Treasure Bonus:', score: treasureCollected * BASE_MULTIPLIER},
+          {title: 'Level Score:', score: score + levelScore},
+          {title: 'New Score:', score: score + levelScore},
+        ]}
       />
-      {isCalculatingLevelScore && (
-        <h2
-          css={css`
-            ${DEFAULT_IN_GAME_TEXT}
-          `}
-        >
-          &nbsp;
-        </h2>
-      )}
-      {!isCalculatingLevelScore && (
-        <CountUpTo
-          delay={SCORE_DELAY}
-          start={score}
-          onDone={onTotalScoreCountDone}
-          numberToCountUpTo={score + levelScore}
-          renderProp={(count) => <LevelSummaryScore score={count} />}
-        />
-      )}
-      <h1
-        css={css`
-          ${ICE_GRADIENT_LETTERS}
-          margin: 25px 0 50px;
-          font-size: 18px;
-        `}
-      >
-        {showMotivation ? wasLastLevel ? 'YOU BEAT THE GAME!' : getMotivation() : <>&nbsp;</>}
-      </h1>
       <div
         css={css`
           height: 100px;
@@ -115,8 +67,9 @@ export default function LevelSummary() {
 
           // will only apply if !wasLastLevel
           button:nth-of-type(2) {
+            position: absolute;
+            bottom: 0;
             color: ${MOLTEN_ORANGE};
-            margin-top: 32px;
             border-color: ${MOLTEN_ORANGE};
 
             :hover,
@@ -127,29 +80,44 @@ export default function LevelSummary() {
           }
         `}
       >
-        {showMotivation ? (
-          <>
-            {!wasLastLevel && (
-              <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
+        <h1
+          css={css`
+            ${ICE_GRADIENT_LETTERS}
+            font-size: 18px;
+            margin: 32px 0 32px;
+
+            ${mediaQuery(
+              ScreenSize.Phone,
+              `
+                font-size: 20px;
+              `,
             )}
-            <Button onClick={handleEndGame}>End Game</Button>
-          </>
-        ) : (
-          <span />
+            ${mediaQuery(
+              ScreenSize.Phablet,
+              `
+                font-size: 22px;
+              `,
+            )}
+            ${mediaQuery(
+              ScreenSize.Tablet,
+              `
+                font-size: 26px;
+              `,
+            )}
+            ${mediaQuery(
+              ScreenSize.Desktop,
+              `
+                font-size: 30px;
+              `,
+            )}
+          `}
+        >
+          {wasLastLevel ? 'YOU BEAT THE GAME!' : getMotivation()}
+        </h1>
+        {!wasLastLevel && (
+          <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
         )}
-      </div>
-      <div
-        css={css`
-          ${ICE_GRADIENT_LETTERS}
-          padding: 0 10px;
-          font-size: 14px;
-          text-align: center;
-        `}
-      >
-        Speed matters!
-        <br />
-        <br />
-        {SCORE_CALC}
+        <Button onClick={handleEndGame}>End Game</Button>
       </div>
     </CenterChildren>
   );

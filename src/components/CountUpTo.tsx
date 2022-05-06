@@ -16,6 +16,7 @@ export const CountUpTo = memo(function CountUpTo({
   renderProp,
   numberToCountUpTo,
 }: ICountUpTo): JSX.Element {
+  console.log(numberToCountUpTo)
   const [count, setCount] = useState(start);
   const [isDone, setIsDone] = useState(false);
   const [startCount, setStartCount] = useState(false);
