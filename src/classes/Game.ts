@@ -53,6 +53,8 @@ export class Game {
           this.gamePieces[rowI][colI] = new Wall({ctx: this.ctx, position, currentLevel: this.currentLevel});
         } else if (col === O) {
           this.gamePieces[rowI][colI] = new Obstacle({ctx: this.ctx, position});
+        } else if (col === O) {
+          this.gamePieces[rowI][colI] = new Obstacle({ctx: this.ctx, position});
         } else if (col === K) {
           this.gamePieces[rowI][colI] = new Key({ctx: this.ctx, position});
         } else if (col === L) {
@@ -70,7 +72,7 @@ export class Game {
             gainLife: this.reactUpdaters.gainLife,
             gamePieces: this.gamePieces,
             unlockDoor: this.unlockDoor,
-            tryCompleteLevel: this.tryCompleteLevel,
+            completeLevel: this.completeLevel,
             collectTreasure: this.reactUpdaters.collectTreasure,
           });
         }
@@ -78,12 +80,9 @@ export class Game {
     }
   }
 
-  private tryCompleteLevel = () => {
-    // todo
-    // if (this.door.isUnlocked) {
-    //   this.stopAnimationFrame();
-    //   this.reactUpdaters.completeLevel();
-    // }
+  private completeLevel = () => {
+    this.stopAnimationFrame();
+    this.reactUpdaters.completeLevel();
   };
 
   private unlockDoor = () => {

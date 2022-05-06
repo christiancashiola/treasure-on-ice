@@ -21,6 +21,7 @@
 # Highlights
 
 React profiling to view re-renders
+Only repaints parts of the canvas that need to, not the entire canvas
 
 # Bug Bash Test Cases
 

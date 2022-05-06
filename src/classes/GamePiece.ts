@@ -9,8 +9,8 @@ export interface IGamePiece {
 
 export abstract class GamePiece {
   position: Position;
-  protected ctx: CanvasRenderingContext2D;
   protected image: HTMLImageElement;
+  protected ctx: CanvasRenderingContext2D;
 
   constructor({ctx, image, position}: IGamePiece) {
     this.ctx = ctx;
@@ -18,7 +18,15 @@ export abstract class GamePiece {
     this.position = position;
 
     this.image.onload = () => {
-      this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+      this.paint();
     };
+  }
+
+  paint() {
+    this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
+  }
+
+  clearRect() {
+    this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
   }
 }

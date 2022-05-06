@@ -20,7 +20,7 @@ interface IPlayer {
   gamePieces: GamePieces;
   unlockDoor: () => void;
   collectTreasure: () => void;
-  tryCompleteLevel: () => void;
+  completeLevel: () => void;
 }
 
 export class Player extends GamePiece {
@@ -38,13 +38,12 @@ export class Player extends GamePiece {
   private touchStartX: number = 0;
   private touchStartY: number = 0;
   private direction: Direction | null = null;
-  private currentImage: HTMLImageElement;
   private timesSlidThroughMap: number = 0;
   private isLosingLife: boolean = false;
-  tryCompleteLevel: () => void;
   loseLife: () => void;
   gainLife: () => void;
   unlockDoor: () => void;
+  completeLevel: () => void;
   collectTreasure: () => void;
 
   constructor({
@@ -54,8 +53,8 @@ export class Player extends GamePiece {
     position,
     gamePieces,
     unlockDoor,
+    completeLevel,
     collectTreasure,
-    tryCompleteLevel,
   }: IPlayer) {
     const imageDown = new Image();
     imageDown.src = './images/game/player/player-down.png';
@@ -66,7 +65,7 @@ export class Player extends GamePiece {
     });
 
     this.gamePieces = gamePieces;
-    this.tryCompleteLevel = tryCompleteLevel;
+    this.completeLevel = completeLevel;
     this.loseLife = loseLife;
     this.gainLife = gainLife;
     this.unlockDoor = unlockDoor;
@@ -78,7 +77,6 @@ export class Player extends GamePiece {
     this.imageLeft.src = './images/game/player/player-left.png';
     this.imageRight = new Image();
     this.imageRight.src = './images/game/player/player-right.png';
-    this.currentImage = this.imageDown;
     this.imageUpRun = new Image();
     this.imageUpRun.src = './images/game/player/player-up-run.png';
     this.imageDownRun = new Image();
@@ -177,11 +175,11 @@ export class Player extends GamePiece {
     this.updatePlayerImage();
     const collisionResult = this.checkCollision({x: dx, y: dy});
 
-    if (collisionResult === CollisionResult.Safe) {
+    if (collisionResult === CollisionResult.Safe || collisionResult === CollisionResult.Key) {
       this.updatePosition(dx, dy);
-    } else if (collisionResult === CollisionResult.Door) {
+    } else if (collisionResult === CollisionResult.DoorUnlocked) {
       this.updatePosition(dx, dy);
-      this.tryCompleteLevel();
+      this.completeLevel();
     } else if (collisionResult === CollisionResult.OffTheIce) {
       this.updatePlayerImage(this.direction as Direction);
       this.completeMove();
@@ -192,7 +190,7 @@ export class Player extends GamePiece {
       this.updatePosition(dx, dy);
       this.loseLife();
     } else {
-      // else CollisionResult.Wall
+      // else CollisionResult.Wall || CollisionResult.DoorLocked
       const prevDirection = this.direction;
       this.updatePlayerImage(prevDirection as Direction);
       this.completeMove();
@@ -202,18 +200,18 @@ export class Player extends GamePiece {
   private updatePlayerImage(prevDirection?: Direction) {
     // non-running image
     if (prevDirection) {
-      if (prevDirection === Direction.Up) this.currentImage = this.imageUp;
-      else if (prevDirection === Direction.Down) this.currentImage = this.imageDown;
-      else if (prevDirection === Direction.Left) this.currentImage = this.imageLeft;
-      else this.currentImage = this.imageRight;
+      if (prevDirection === Direction.Up) this.image = this.imageUp;
+      else if (prevDirection === Direction.Down) this.image = this.imageDown;
+      else if (prevDirection === Direction.Left) this.image = this.imageLeft;
+      else this.image = this.imageRight;
       return;
     }
 
     // running image
-    if (this.direction === Direction.Up) this.currentImage = this.imageUpRun;
-    else if (this.direction === Direction.Down) this.currentImage = this.imageDownRun;
-    else if (this.direction === Direction.Left) this.currentImage = this.imageLeftRun;
-    else this.currentImage = this.imageRightRun;
+    if (this.direction === Direction.Up) this.image = this.imageUpRun;
+    else if (this.direction === Direction.Down) this.image = this.imageDownRun;
+    else if (this.direction === Direction.Left) this.image = this.imageLeftRun;
+    else this.image = this.imageRightRun;
   }
 
   private getDeltas() {
@@ -265,14 +263,17 @@ export class Player extends GamePiece {
 
     if (gamePiece instanceof Obstacle) return CollisionResult.Obstacle;
     if (gamePiece instanceof Door) {
-      return CollisionResult.Door;
+      if (gamePiece.isLocked) {
+        return CollisionResult.DoorLocked
+      }
+      return CollisionResult.DoorUnlocked;
     }
     if (gamePiece instanceof Key) {
       if (!gamePiece.isCollected) {
         gamePiece.collect();
         this.unlockDoor();
       }
-      return CollisionResult.Safe
+      return CollisionResult.Key;
     }
     if (gamePiece instanceof Life) {
       if (!gamePiece.isCollected) {
@@ -295,7 +296,6 @@ export class Player extends GamePiece {
   }
 
   private updatePosition(dx: number, dy: number) {
-    console.log(this.gamePieces)
     this.position.x = dx;
     this.position.y = dy;
   }
@@ -312,23 +312,15 @@ export class Player extends GamePiece {
     }
     this.direction = null;
     this.timesSlidThroughMap = 0;
-    this.clearRect();
+    super.clearRect();
     this.paint();
-  }
-
-  private clearRect() {
-    this.ctx.clearRect(this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
   }
 
   checkCharacterMovement() {
     if (this.direction && !this.isLosingLife) {
-      this.clearRect();
+      super.clearRect();
       this.move();
-      this.paint();
+      super.paint();
     }
-  }
-
-  private paint() {
-    this.ctx.drawImage(this.currentImage, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
   }
 }

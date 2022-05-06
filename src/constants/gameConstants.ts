@@ -7,6 +7,7 @@ export const L = Symbol('LIFE');
 export const _ = Symbol('EMPTY');
 export const P = Symbol('PLAYER');
 export const O = Symbol('OBSTACLE');
+export const M = Symbol('MONSTER');
 export const T = Symbol('TREASURE');
 
 export const GAME_SIZE = 650;

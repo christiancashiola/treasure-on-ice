@@ -6,11 +6,13 @@ export type GamePieces = GamePiece[][];
 export type Position = {x: number; y: number};
 
 export enum CollisionResult {
+  Key,
   Safe,
-  Door,
   Wall,
   Obstacle,
   OffTheIce,
+  DoorLocked,
+  DoorUnlocked,
 }
 
 export enum Direction {
