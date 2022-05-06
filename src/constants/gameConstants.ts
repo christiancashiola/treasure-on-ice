@@ -1,6 +1,7 @@
 export const K = Symbol('KEY');
 export const D = Symbol('DOOR');
 export const W = Symbol('WALL');
+export const L = Symbol('LIFE');
 export const _ = Symbol('EMPTY');
 export const P = Symbol('PLAYER');
 export const O = Symbol('OBSTACLE');

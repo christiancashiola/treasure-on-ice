@@ -4,6 +4,9 @@
 - seo.........................`1hr`
 - social links.......`1hr`
 - update personal site.......`1hr`
+- add lives
+- check memos
+- refactor usegame state to pass methods directly to player - IT gens pieces, not Level
 - Readme
 
 # Phase 2 (optional)

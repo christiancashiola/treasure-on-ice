@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {Title} from '../components/Title';
-import {AppRoutes} from '../constants/reactConstants';
+import {AppRoutes, SCORE_CALC} from '../constants/reactConstants';
 import {FLEX_CENTER, ICE_BLUE} from '../constants/styleConstants';
 
 export default function Instructions() {
@@ -50,7 +50,7 @@ export default function Instructions() {
         <br />
         Score formula:
         <br />
-        (level × lives × time remaining × 1000) ÷ 120
+        {SCORE_CALC}
       </p>
       <div
         css={css`

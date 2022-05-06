@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {Level} from '../classes/Level';
+import {Game} from '../classes/Game';
 import {GAMES_LIVES, GAME_TIME} from '../constants/gameConstants';
 import {AppRoutes, MAX_HIGHSCORES, NAVIGATION_KEY, REMAINING_TIME_INTERVAL} from '../constants/reactConstants';
 import {GameState} from '../types';
@@ -13,8 +13,9 @@ export function useGameState(): GameState {
   const navigate = useNavigate();
   const [score, setScore] = useState(0); 
   const mapsRef = useRef(getLevelMaps());
-  const levelRef = useRef<Level | null>(null);
+  const gameRef = useRef<Game | null>(null);
   const [soundPreference, setSoundPreference] = useState(false); 
+  const [treasureCollected, setTreasureCollected] = useState(0); 
   const highscores = useHighscoresSubscription();
   const [lives, setLives] = useState(GAMES_LIVES);
   const [currentLevel, setCurrentLevel] = useState(0);
@@ -35,7 +36,7 @@ export function useGameState(): GameState {
 
   const endGame = () => {
     // remove previous level event listeners
-    levelRef.current?.player.removeControls();
+    gameRef.current?.player.removeControls();
     cancelInterval();
     setIsGameOver(true);
   };
@@ -59,10 +60,13 @@ export function useGameState(): GameState {
 
   const updateScore = (points: number) => setScore((prevScore) => prevScore + points);
 
+  const gainLife = () => setLives((prevLives) => prevLives + 1);
   const loseLife = () => setLives((prevLives) => prevLives - 1);
 
+  const collectTreasure = () => setTreasureCollected((prevTreasures) => prevTreasures + 1);
+
   const completeLevel = () => {
-    levelRef.current?.player.removeControls();
+    gameRef.current?.player.removeControls();
     cancelInterval();
     setTimeStarted(false);
     setCurrentLevel((prevLevel) => prevLevel + 1);
@@ -71,12 +75,12 @@ export function useGameState(): GameState {
 
   const startLevel = () => {
     setRemainingTime(GAME_TIME);
-    levelRef.current = new Level({
-      map: mapsRef.current[currentLevel],
+    gameRef.current = new Game({
+      level: mapsRef.current[currentLevel],
       currentLevel: currentLevel + 1,
-      reactUpdaters: {loseLife, completeLevel},
+      reactUpdaters: {gainLife, loseLife, collectTreasure, completeLevel},
     });
-    levelRef.current.start();
+    gameRef.current.start();
     setTimeStarted(true);
   };
 
@@ -84,6 +88,7 @@ export function useGameState(): GameState {
     score,
     lives,
     endGame,
+    gainLife,
     loseLife,
     startLevel,
     highscores,
@@ -92,7 +97,9 @@ export function useGameState(): GameState {
     currentLevel,
     completeLevel,
     remainingTime,
+    collectTreasure,
     soundPreference,
+    treasureCollected,
     setSoundPreference,
     isLoadingHighscores,
   };

@@ -19,7 +19,7 @@ export class Door extends GamePiece {
     this.unlockedImage.src = './images/game/doors/door-opened.png';
   }
 
-  unlockDoor() {
+  unlock() {
     this.ctx.fillStyle = '#000';
     this.ctx.fillRect(this.position.x, this.position.y, 50, 50);
     this.ctx.drawImage(this.unlockedImage, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);

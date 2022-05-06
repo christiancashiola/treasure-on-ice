@@ -3,21 +3,25 @@ import {
   BLOCK_SIZE,
   PLAYER_SPEED,
   W as Wall,
-  K as Key,
-  D as Door,
   O as Obstacle,
-  T as Treasure,
+  // T as Treasure,
 } from '../constants/gameConstants';
-import {CollisionResult, Direction, Map, Position} from '../types';
+import {CollisionResult, Direction, Level, Position} from '../types';
+import { Door } from './Door';
 import {GamePiece} from './GamePiece';
+import { Key } from './Key';
+import { Life } from './Life';
+import {Treasure} from './Treasure';
 
 interface IPlayer {
   ctx: CanvasRenderingContext2D;
-  map: Map;
-  win: () => void;
+  tryCompleteLevel: () => void;
+  level: Level;
   loseLife: () => void;
+  gainLife: () => void;
   position: Position;
   unlockDoor: () => void;
+  collectTreasure: () => void;
 }
 
 export class Player extends GamePiece {
@@ -29,7 +33,7 @@ export class Player extends GamePiece {
   private readonly imageDownRun: HTMLImageElement;
   private readonly imageLeftRun: HTMLImageElement;
   private readonly imageRightRun: HTMLImageElement;
-  private readonly map: Map;
+  private readonly level: Level;
   private hasKey: boolean = false;
   private touchEndX: number = 0;
   private touchEndY: number = 0;
@@ -39,11 +43,22 @@ export class Player extends GamePiece {
   private currentImage: HTMLImageElement;
   private timesSlidThroughMap: number = 0;
   private isLosingLife: boolean = false;
-  win: () => void;
+  tryCompleteLevel: () => void;
   loseLife: () => void;
+  gainLife: () => void;
   unlockDoor: () => void;
+  collectTreasure: () => void;
 
-  constructor({ctx, map, win, loseLife, position, unlockDoor}: IPlayer) {
+  constructor({
+    ctx,
+    level,
+    gainLife,
+    loseLife,
+    position,
+    unlockDoor,
+    collectTreasure,
+    tryCompleteLevel,
+  }: IPlayer) {
     const imageDown = new Image();
     imageDown.src = './images/game/player/player-down.png';
     super({
@@ -52,10 +67,12 @@ export class Player extends GamePiece {
       position,
     });
 
-    this.map = map;
-    this.win = win;
+    this.level = level;
+    this.tryCompleteLevel = tryCompleteLevel;
     this.loseLife = loseLife;
+    this.gainLife = gainLife;
     this.unlockDoor = unlockDoor;
+    this.collectTreasure = collectTreasure;
     this.imageUp = new Image();
     this.imageUp.src = './images/game/player/player-up.png';
     this.imageDown = imageDown;
@@ -77,7 +94,7 @@ export class Player extends GamePiece {
   }
 
   private get isMovingLeftRight() {
-    return this.direction === Direction.Right || this.direction === Direction.Left
+    return this.direction === Direction.Right || this.direction === Direction.Left;
   }
 
   private addControls() {
@@ -161,16 +178,12 @@ export class Player extends GamePiece {
 
     this.updatePlayerImage();
     const collisionResult = this.checkCollision({x: dx, y: dy});
-    
-    if (collisionResult === CollisionResult.Safe || collisionResult === CollisionResult.Treasure) {
-      this.updatePosition(dx, dy);
-    } else if (collisionResult === CollisionResult.Key) {
-      this.hasKey = true;
-      this.unlockDoor();
+
+    if (collisionResult === CollisionResult.Safe) {
       this.updatePosition(dx, dy);
     } else if (collisionResult === CollisionResult.Door) {
       this.updatePosition(dx, dy);
-      this.win();
+      this.tryCompleteLevel();
     } else if (collisionResult === CollisionResult.OffTheIce) {
       this.updatePlayerImage(this.direction as Direction);
       this.completeMove();
@@ -236,33 +249,48 @@ export class Player extends GamePiece {
   }
 
   private checkCollision(futurePosition: Position): CollisionResult {
-    let spaceAboutToMoveInto: Symbol | undefined;
+    let spaceAboutToMoveInto: GamePiece | Symbol | undefined;
 
-    let futureColIndex: number;
-    let futureRowIndex: number;
-    
     if (this.isMovingLeftRight) {
-      futureRowIndex = Math.floor(futurePosition.y / BLOCK_SIZE);
-      const futureRow = this.map[futureRowIndex];
+      const futureRowIndex = Math.floor(futurePosition.y / BLOCK_SIZE);
+      const futureRow = this.level[futureRowIndex];
       const futureColIndexDelta =
         futurePosition.x + (this.direction === Direction.Right ? BLOCK_SIZE : 0);
-      futureColIndex = Math.floor((futureColIndexDelta % GAME_SIZE) / BLOCK_SIZE);
+      const futureColIndex = Math.floor((futureColIndexDelta % GAME_SIZE) / BLOCK_SIZE);
       spaceAboutToMoveInto = futureRow[futureColIndex];
     } else {
-      futureColIndex = Math.floor(futurePosition.x / BLOCK_SIZE);
+      const futureColIndex = Math.floor(futurePosition.x / BLOCK_SIZE);
       const futureRowIndexDelta =
         futurePosition.y + (this.direction === Direction.Down ? BLOCK_SIZE : 0);
-      futureRowIndex = Math.floor((futureRowIndexDelta % GAME_SIZE) / BLOCK_SIZE);
-      spaceAboutToMoveInto = this.map[futureRowIndex]?.[futureColIndex];
+      const futureRowIndex = Math.floor((futureRowIndexDelta % GAME_SIZE) / BLOCK_SIZE);
+      spaceAboutToMoveInto = this.level[futureRowIndex]?.[futureColIndex];
     }
-    
-    if (spaceAboutToMoveInto === Key) return CollisionResult.Key;
+
     if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
-    // if (spaceAboutToMoveInto === Treasure) {
-    //   if (this.isMovingLeftRight) delete this.map[futureRowIndex];
-    //   else delete this.map[futureRowIndex][futureColIndex];
-    //   return CollisionResult.Treasure;
-    // }
+    if (spaceAboutToMoveInto instanceof Door) {
+      return CollisionResult.Door;
+    }
+    if (spaceAboutToMoveInto instanceof Key) {
+      if (!spaceAboutToMoveInto.isCollected) {
+        spaceAboutToMoveInto.collect();
+        this.unlockDoor();
+      }
+      return CollisionResult.Safe
+    }
+    if (spaceAboutToMoveInto instanceof Life) {
+      if (!spaceAboutToMoveInto.isCollected) {
+        spaceAboutToMoveInto.collect();
+        this.gainLife();
+      }
+      return CollisionResult.Safe;
+    }
+    if (spaceAboutToMoveInto instanceof Treasure) {
+      if (!spaceAboutToMoveInto.isCollected) {
+        this.collectTreasure();
+        spaceAboutToMoveInto.collect();
+      }
+      return CollisionResult.Safe;
+    }
     if (spaceAboutToMoveInto === Wall) return CollisionResult.Wall;
     // this situation happens when user slides through one side but there is a wall
     // immediately blocking the path on the other side
@@ -303,12 +331,6 @@ export class Player extends GamePiece {
   }
 
   private paint() {
-    this.ctx.drawImage(
-      this.currentImage,
-      this.position.x,
-      this.position.y,
-      BLOCK_SIZE,
-      BLOCK_SIZE,
-    );
+    this.ctx.drawImage(this.currentImage, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
   }
 }

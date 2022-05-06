@@ -13,6 +13,7 @@ import {LoadSpinner} from '../components/LoadSpinner';
 import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {CenterChildren} from '../components/CenterChildren';
+import { Gem } from '../components/Gem';
 
 export default function ScoreSubmission() {
   const navigate = useNavigate();
@@ -77,16 +78,7 @@ export default function ScoreSubmission() {
           font-size: 48px;
         `}
       >
-        <div
-          css={css`
-            filter: hue-rotate(50deg);
-            background: none #000;
-            -webkit-text-fill-color: #000;
-            -webkit-background-clip: text;
-          `}
-        >
-          💎
-        </div>
+        <Gem />
         NEW
         <br />
         HIGH

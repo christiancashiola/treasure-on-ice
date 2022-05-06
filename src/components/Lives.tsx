@@ -28,6 +28,10 @@ export const Lives = memo(function Lives({lives}: Pick<GameState, 'lives'>) {
           css={css`
             ${DEFAULT_IN_GAME_TEXT}
             font-weight: bold;
+            background: none #000;
+            -webkit-text-fill-color: #000;
+            -webkit-background-clip: text;
+            transform: translateY(-1px);
           `}
         >
           ❄️&nbsp;

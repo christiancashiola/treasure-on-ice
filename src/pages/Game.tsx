@@ -11,9 +11,10 @@ import {CANVAS_MEDIA_QUERY, DEFAULT_IN_GAME_TEXT} from '../constants/styleConsta
 import {Countdown} from '../components/Countdown';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {CenterChildren} from '../components/CenterChildren';
+import { TreasureCollected } from '../components/TreasureCollected';
 
 export default function Game() {
-  const {lives, score, startLevel, remainingTime, currentLevel} = useGameStateContext();
+  const {lives, score, startLevel, remainingTime, currentLevel, treasureCollected} = useGameStateContext();
 
   const onCountdownDone = useCallback(() => {
     startLevel();
@@ -45,6 +46,7 @@ export default function Game() {
           <RemainingTime remainingTime={remainingTime} />
           <Score score={score} />
           <Lives lives={lives} />
+          <TreasureCollected treasureCollected={treasureCollected} />
         </CenterChildren>
       </CenterChildren>
     </>

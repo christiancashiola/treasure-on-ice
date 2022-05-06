@@ -1,14 +1,13 @@
-import { Dispatch, SetStateAction } from "react";
+import {Dispatch, SetStateAction} from 'react';
+import {GamePiece} from './classes/GamePiece';
 
-export type Map = Symbol[][];
+export type Level = (Symbol | GamePiece)[][];
 export type Position = {x: number; y: number};
 
 export enum CollisionResult {
-  Key,
   Safe,
   Door,
   Wall,
-  Treasure,
   Obstacle,
   OffTheIce,
 }
@@ -28,6 +27,7 @@ export type GameState = {
   lives: number;
   score: number;
   endGame: () => void;
+  gainLife: () => void;
   loseLife: () => void;
   highscores: Highscore[];
   startLevel: () => void;
@@ -37,12 +37,17 @@ export type GameState = {
   completeLevel: () => void;
   remainingTime: number;
   soundPreference: boolean;
+  collectTreasure: () => void;
+  treasureCollected: number;
   setSoundPreference: Dispatch<SetStateAction<boolean>>;
   isLoadingHighscores: boolean;
 };
 
 // where game logic overlaps with React logic, make these update fns explicit
-export type ReactUpdaters = Pick<GameState, 'loseLife' | 'completeLevel'>;
+export type ReactUpdaters = Pick<
+  GameState,
+  'gainLife' | 'loseLife' | 'completeLevel' | 'collectTreasure'
+>;
 
 export type Highscore = {
   score: number;

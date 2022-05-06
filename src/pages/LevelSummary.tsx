@@ -11,6 +11,7 @@ import {
   AppRoutes,
   MOTIVATION_DELAY,
   NAVIGATION_KEY,
+  SCORE_CALC,
   SCORE_DELAY,
 } from '../constants/reactConstants';
 import {
@@ -148,7 +149,7 @@ export default function LevelSummary() {
         Speed matters!
         <br />
         <br />
-        {'Score = (level × lives × time remaining × 1000) ÷ 120'}
+        {SCORE_CALC}
       </div>
     </CenterChildren>
   );

@@ -1,6 +1,6 @@
-import {MAP_1} from '../maps/map-1';
-import {Map} from '../types';
+import {MAP_1} from '../levels/level-1';
+import {Level} from '../types';
 
-export function getLevelMaps(): Map[] {
+export function getLevelMaps(): Level[] {
   return [MAP_1];
 }
