@@ -107,7 +107,7 @@ export default function LevelSummary() {
       </h1>
       <div
         css={css`
-          height: 100px;
+          height: 50px;
           margin-bottom: 64px;
         `}
       >
@@ -116,7 +116,7 @@ export default function LevelSummary() {
             {!wasLastLevel && (
               <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
             )}
-            <Button onClick={handleEndGame}>End Game</Button>
+            
           </>
         ) : (
           <span />
@@ -134,6 +134,7 @@ export default function LevelSummary() {
         <br />
         {'Score = (level × lives × time remaining × 1000) ÷ 120'}
       </div>
+      <Button onClick={handleEndGame}>End Game</Button>
     </CenterChildren>
   );
 }
