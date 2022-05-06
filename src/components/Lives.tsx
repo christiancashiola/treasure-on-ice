@@ -9,7 +9,6 @@ export const Lives = memo(function Lives({lives}: Pick<GameState, 'lives'>) {
   return (
     <div
       css={css`
-        margin-top: -4px;
         display: flex;
         align-items: center;
         padding-bottom: 2px;
@@ -23,19 +22,20 @@ export const Lives = memo(function Lives({lives}: Pick<GameState, 'lives'>) {
         LIVES:&nbsp;
       </span>
       {[...Array(lives)].map(() => (
-        <span
+        <img
           key={uuidV4()}
+          alt="heart"
+          src="/images/game/heart.png"
+          loading="lazy"
           css={css`
-            ${DEFAULT_IN_GAME_TEXT}
-            font-weight: bold;
-            background: none #000;
-            -webkit-text-fill-color: #000;
-            -webkit-background-clip: text;
             transform: translateY(-1px);
+            display: block;
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+            filter: brightness(0.85);
           `}
-        >
-          ❄️&nbsp;
-        </span>
+        />
       ))}
     </div>
   );

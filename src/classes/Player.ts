@@ -312,7 +312,7 @@ export class Player extends GamePiece {
     this.paint();
   }
 
-  checkCharacterMovement() {
+  update() {
     if (this.direction) {
       super.clearRect();
       this.move();

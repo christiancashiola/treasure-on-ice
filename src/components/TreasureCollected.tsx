@@ -13,7 +13,6 @@ export const TreasureCollected = memo(function TreasureCollected({
   return (
     <div
       css={css`
-        margin-top: -6px;
         display: flex;
         align-items: center;
         padding-bottom: 2px;

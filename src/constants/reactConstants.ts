@@ -18,4 +18,4 @@ export const SPACE_BETWEEN_SNOWFLAKES = 100 / NUM_SNOWFLAKES;
 export const HIGHSCORE_CHAR_SPACE = 10;
 export const NAVIGATION_KEY = 'INTERNAL_ROUTING';
 export const MAX_HIGHSCORES = 5;
-export const SCORE_CALC = '((time remaining × 5000) ÷ time allotted) + (level × 1000) + (treasure × 1000)';
+export const SCORE_CALC = '((time remaining × 5000) ÷ time allotted) + (level × 1000) + (all treasure × 1000)';

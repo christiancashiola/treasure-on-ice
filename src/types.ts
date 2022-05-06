@@ -5,6 +5,11 @@ export type Level = Symbol[][];
 export type GamePieces = GamePiece[][];
 export type Position = {x: number; y: number};
 
+export enum Axis {
+  X = 'X',
+  Y = 'Y',
+}
+
 export enum CollisionResult {
   Key,
   Safe,

@@ -17,6 +17,7 @@
 - teleport/warp squares
 - moving enemies
 - different textures for each level
+- refactor Movable piece
 
 # Highlights
 
