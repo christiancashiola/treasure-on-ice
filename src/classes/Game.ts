@@ -1,12 +1,13 @@
-import {Level, Position, ReactUpdaters} from '../types';
+import {GamePieces, Level, Position, ReactUpdaters} from '../types';
 import {Obstacle} from './Obstacle';
 import {Door} from './Door';
 import {Player} from './Player';
 import {Wall} from './Wall';
-import {O, P, W, D, K, BLOCK_SIZE, GAME_SIZE, GAME_DELAY, T, L} from '../constants/gameConstants';
+import {O, P, W, D, K, BLOCK_SIZE, GAME_SIZE, GAME_DELAY, T, L, EMPTY_GAME_PIECES} from '../constants/gameConstants';
 import { Key } from './Key';
 import { Treasure } from './Treasure';
 import { Life } from './Life';
+import { LEVEL_MAP } from '../levels/levelMap';
 
 interface IGame {
   level: Level;
@@ -16,9 +17,9 @@ interface IGame {
 
 export class Game {
   door: Door;
-  level: Level;
   player: Player;
   goalCount: number = 0;
+  gamePieces: GamePieces = EMPTY_GAME_PIECES;
   animationReq: number;
   reactUpdaters: ReactUpdaters;
   readonly lives: number;
@@ -29,7 +30,6 @@ export class Game {
     this.ctx = (document.getElementById('canvas') as HTMLCanvasElement).getContext(
       '2d',
     ) as CanvasRenderingContext2D;
-    this.level = level;
     this.currentLevel = currentLevel;
     this.reactUpdaters = reactUpdaters;
   }
@@ -37,38 +37,38 @@ export class Game {
   private generateGamePieces() {
     this.ctx.clearRect(0, 0, GAME_SIZE, GAME_SIZE);
 
-    const rowLength = this.level.length;
-    const colLength = this.level[0].length;
+    const levelMap = LEVEL_MAP[this.currentLevel];
+    const rowLength = levelMap.length;
+    const colLength = levelMap[0].length;
 
-    for (let rowIndex = 0; rowIndex < rowLength; rowIndex++) {
-      const row = this.level[rowIndex];
-      for (let colIndex = 0; colIndex < colLength; colIndex++) {
-        const col = row[colIndex];
-        const y = rowIndex * BLOCK_SIZE;
-        const x = colIndex * BLOCK_SIZE;
+    for (let rowI = 0; rowI < rowLength; rowI++) {
+      const row = levelMap[rowI];
+      for (let colI = 0; colI < colLength; colI++) {
+        const col = row[colI];
+        const y = rowI * BLOCK_SIZE;
+        const x = colI * BLOCK_SIZE;
         const position: Position = {x, y};
 
-        if (col === W) new Wall({ctx: this.ctx, position, currentLevel: this.currentLevel});
-        else if (col === O) new Obstacle({ctx: this.ctx, position});
-        else if (col === K) {
-          this.level[rowIndex][colIndex] = new Key({ctx: this.ctx, position});
-        }
-        else if (col === L) {
-          this.level[rowIndex][colIndex] = new Life({ctx: this.ctx, position});
-        }
-        else if (col === T) {
-          this.level[rowIndex][colIndex] = new Treasure({ctx: this.ctx, position});
-        }
-        else if (col === D) {
+        if (col === W) {
+          this.gamePieces[rowI][colI] = new Wall({ctx: this.ctx, position, currentLevel: this.currentLevel});
+        } else if (col === O) {
+          this.gamePieces[rowI][colI] = new Obstacle({ctx: this.ctx, position});
+        } else if (col === K) {
+          this.gamePieces[rowI][colI] = new Key({ctx: this.ctx, position});
+        } else if (col === L) {
+          this.gamePieces[rowI][colI] = new Life({ctx: this.ctx, position});
+        } else if (col === T) {
+          this.gamePieces[rowI][colI] = new Treasure({ctx: this.ctx, position});
+        } else if (col === D) {
           this.door = new Door({ctx: this.ctx, position});
-          this.level[rowIndex][colIndex] = this.door;
+          this.gamePieces[rowI][colI] = this.door;
         } else if (col === P) {
           this.player = new Player({
             ctx: this.ctx,
-            level: this.level,
             position,
             loseLife: this.loseLife,
             gainLife: this.reactUpdaters.gainLife,
+            gamePieces: this.gamePieces,
             unlockDoor: this.unlockDoor,
             tryCompleteLevel: this.tryCompleteLevel,
             collectTreasure: this.reactUpdaters.collectTreasure,

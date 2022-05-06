@@ -1,7 +1,8 @@
 import {Dispatch, SetStateAction} from 'react';
 import {GamePiece} from './classes/GamePiece';
 
-export type Level = (Symbol | GamePiece)[][];
+export type Level = Symbol[][];
+export type GamePieces = GamePiece[][];
 export type Position = {x: number; y: number};
 
 export enum CollisionResult {

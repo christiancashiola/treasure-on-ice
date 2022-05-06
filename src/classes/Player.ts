@@ -2,26 +2,25 @@ import {
   GAME_SIZE,
   BLOCK_SIZE,
   PLAYER_SPEED,
-  W as Wall,
-  O as Obstacle,
-  // T as Treasure,
 } from '../constants/gameConstants';
-import {CollisionResult, Direction, Level, Position} from '../types';
+import {CollisionResult, Direction, GamePieces, Level, Position} from '../types';
 import { Door } from './Door';
 import {GamePiece} from './GamePiece';
 import { Key } from './Key';
 import { Life } from './Life';
+import { Obstacle } from './Obstacle';
 import {Treasure} from './Treasure';
+import { Wall } from './Wall';
 
 interface IPlayer {
   ctx: CanvasRenderingContext2D;
-  tryCompleteLevel: () => void;
-  level: Level;
   loseLife: () => void;
   gainLife: () => void;
   position: Position;
+  gamePieces: GamePieces;
   unlockDoor: () => void;
   collectTreasure: () => void;
+  tryCompleteLevel: () => void;
 }
 
 export class Player extends GamePiece {
@@ -33,8 +32,7 @@ export class Player extends GamePiece {
   private readonly imageDownRun: HTMLImageElement;
   private readonly imageLeftRun: HTMLImageElement;
   private readonly imageRightRun: HTMLImageElement;
-  private readonly level: Level;
-  private hasKey: boolean = false;
+  private readonly gamePieces: GamePieces;
   private touchEndX: number = 0;
   private touchEndY: number = 0;
   private touchStartX: number = 0;
@@ -51,10 +49,10 @@ export class Player extends GamePiece {
 
   constructor({
     ctx,
-    level,
     gainLife,
     loseLife,
     position,
+    gamePieces,
     unlockDoor,
     collectTreasure,
     tryCompleteLevel,
@@ -67,7 +65,7 @@ export class Player extends GamePiece {
       position,
     });
 
-    this.level = level;
+    this.gamePieces = gamePieces;
     this.tryCompleteLevel = tryCompleteLevel;
     this.loseLife = loseLife;
     this.gainLife = gainLife;
@@ -192,7 +190,6 @@ export class Player extends GamePiece {
       // is happening and move through obstacles. Add this to stop movement until new life starts
       this.isLosingLife = true;
       this.updatePosition(dx, dy);
-      this.completeMove();
       this.loseLife();
     } else {
       // else CollisionResult.Wall
@@ -249,55 +246,56 @@ export class Player extends GamePiece {
   }
 
   private checkCollision(futurePosition: Position): CollisionResult {
-    let spaceAboutToMoveInto: GamePiece | Symbol | undefined;
+    let gamePiece: GamePiece | undefined;
 
     if (this.isMovingLeftRight) {
       const futureRowIndex = Math.floor(futurePosition.y / BLOCK_SIZE);
-      const futureRow = this.level[futureRowIndex];
+      const futureRow = this.gamePieces[futureRowIndex];
       const futureColIndexDelta =
         futurePosition.x + (this.direction === Direction.Right ? BLOCK_SIZE : 0);
       const futureColIndex = Math.floor((futureColIndexDelta % GAME_SIZE) / BLOCK_SIZE);
-      spaceAboutToMoveInto = futureRow[futureColIndex];
+      gamePiece = futureRow[futureColIndex];
     } else {
       const futureColIndex = Math.floor(futurePosition.x / BLOCK_SIZE);
       const futureRowIndexDelta =
         futurePosition.y + (this.direction === Direction.Down ? BLOCK_SIZE : 0);
       const futureRowIndex = Math.floor((futureRowIndexDelta % GAME_SIZE) / BLOCK_SIZE);
-      spaceAboutToMoveInto = this.level[futureRowIndex]?.[futureColIndex];
+      gamePiece = this.gamePieces[futureRowIndex]?.[futureColIndex];
     }
 
-    if (spaceAboutToMoveInto === Obstacle) return CollisionResult.Obstacle;
-    if (spaceAboutToMoveInto instanceof Door) {
+    if (gamePiece instanceof Obstacle) return CollisionResult.Obstacle;
+    if (gamePiece instanceof Door) {
       return CollisionResult.Door;
     }
-    if (spaceAboutToMoveInto instanceof Key) {
-      if (!spaceAboutToMoveInto.isCollected) {
-        spaceAboutToMoveInto.collect();
+    if (gamePiece instanceof Key) {
+      if (!gamePiece.isCollected) {
+        gamePiece.collect();
         this.unlockDoor();
       }
       return CollisionResult.Safe
     }
-    if (spaceAboutToMoveInto instanceof Life) {
-      if (!spaceAboutToMoveInto.isCollected) {
-        spaceAboutToMoveInto.collect();
+    if (gamePiece instanceof Life) {
+      if (!gamePiece.isCollected) {
+        gamePiece.collect();
         this.gainLife();
       }
       return CollisionResult.Safe;
     }
-    if (spaceAboutToMoveInto instanceof Treasure) {
-      if (!spaceAboutToMoveInto.isCollected) {
+    if (gamePiece instanceof Treasure) {
+      if (!gamePiece.isCollected) {
         this.collectTreasure();
-        spaceAboutToMoveInto.collect();
+        gamePiece.collect();
       }
       return CollisionResult.Safe;
     }
-    if (spaceAboutToMoveInto === Wall) return CollisionResult.Wall;
+    if (gamePiece instanceof Wall) return CollisionResult.Wall;
     // this situation happens when user slides through one side but there is a wall
     // immediately blocking the path on the other side
     else return CollisionResult.Safe;
   }
 
   private updatePosition(dx: number, dy: number) {
+    console.log(this.gamePieces)
     this.position.x = dx;
     this.position.y = dy;
   }
