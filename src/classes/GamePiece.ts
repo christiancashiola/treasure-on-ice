@@ -23,6 +23,7 @@ export abstract class GamePiece {
   }
 
   paint() {
+    this.ctx.imageSmoothingEnabled = false;
     this.ctx.drawImage(this.image, this.position.x, this.position.y, BLOCK_SIZE, BLOCK_SIZE);
   }
 

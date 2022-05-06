@@ -77,13 +77,13 @@ export class Player extends GamePiece {
     this.imageRight = new Image();
     this.imageRight.src = './images/game/player/player-right.png';
     this.imageUpRun = new Image();
-    this.imageUpRun.src = './images/game/player/player-up-run.png';
+    this.imageUpRun.src = './images/game/player/player-up-m.png';
     this.imageDownRun = new Image();
-    this.imageDownRun.src = './images/game/player/player-down-run.png';
+    this.imageDownRun.src = './images/game/player/player-down-m.png';
     this.imageLeftRun = new Image();
-    this.imageLeftRun.src = './images/game/player/player-left-run.png';
+    this.imageLeftRun.src = './images/game/player/player-left-m.png';
     this.imageRightRun = new Image();
-    this.imageRightRun.src = './images/game/player/player-right-run.png';
+    this.imageRightRun.src = './images/game/player/player-right-m.png';
 
     this.addControls();
   }
