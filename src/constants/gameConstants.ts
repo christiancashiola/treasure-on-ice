@@ -21,5 +21,6 @@ export const BASE_SCORE_MULTIPLIER = 1000;
 export const LEVEL_COUNT = 10;
 
 export const PLAYER_SPEED = 15;
+export const MONSTER_SPEED = 1;
 
 export const EMPTY_GAME_PIECES: GamePieces = [...Array(GAME_SIZE / BLOCK_SIZE)].map(() => [...Array(GAME_SIZE / BLOCK_SIZE)]);

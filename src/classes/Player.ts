@@ -39,7 +39,6 @@ export class Player extends GamePiece {
   private touchStartY: number = 0;
   private direction: Direction | null = null;
   private timesSlidThroughMap: number = 0;
-  private isLosingLife: boolean = false;
   loseLife: () => void;
   gainLife: () => void;
   unlockDoor: () => void;
@@ -184,9 +183,6 @@ export class Player extends GamePiece {
       this.updatePlayerImage(this.direction as Direction);
       this.completeMove();
     } else if (collisionResult === CollisionResult.Obstacle) {
-      // player could technically move another direction really quickly while `GAME_DELAY`
-      // is happening and move through obstacles. Add this to stop movement until new life starts
-      this.isLosingLife = true;
       this.updatePosition(dx, dy);
       this.loseLife();
     } else {
@@ -317,7 +313,7 @@ export class Player extends GamePiece {
   }
 
   checkCharacterMovement() {
-    if (this.direction && !this.isLosingLife) {
+    if (this.direction) {
       super.clearRect();
       this.move();
       super.paint();

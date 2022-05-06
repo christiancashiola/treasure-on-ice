@@ -3,11 +3,12 @@ import {Obstacle} from './Obstacle';
 import {Door} from './Door';
 import {Player} from './Player';
 import {Wall} from './Wall';
-import {O, P, W, D, K, BLOCK_SIZE, GAME_SIZE, GAME_DELAY, T, L, EMPTY_GAME_PIECES} from '../constants/gameConstants';
+import {O, P, W, D, K, BLOCK_SIZE, GAME_SIZE, GAME_DELAY, T, L, EMPTY_GAME_PIECES, M} from '../constants/gameConstants';
 import { Key } from './Key';
 import { Treasure } from './Treasure';
 import { Life } from './Life';
 import { LEVEL_MAP } from '../levels/levelMap';
+import { Monster } from './Monster';
 
 interface IGame {
   level: Level;
@@ -18,6 +19,7 @@ interface IGame {
 export class Game {
   door: Door;
   player: Player;
+  monster: Monster;
   goalCount: number = 0;
   gamePieces: GamePieces = EMPTY_GAME_PIECES;
   animationReq: number;
@@ -40,6 +42,7 @@ export class Game {
     const levelMap = LEVEL_MAP[this.currentLevel];
     const rowLength = levelMap.length;
     const colLength = levelMap[0].length;
+    let monsterPosition: Position | undefined;
 
     for (let rowI = 0; rowI < rowLength; rowI++) {
       const row = levelMap[rowI];
@@ -51,8 +54,8 @@ export class Game {
 
         if (col === W) {
           this.gamePieces[rowI][colI] = new Wall({ctx: this.ctx, position, currentLevel: this.currentLevel});
-        } else if (col === O) {
-          this.gamePieces[rowI][colI] = new Obstacle({ctx: this.ctx, position});
+        } else if (col === M) {
+          monsterPosition = position;
         } else if (col === O) {
           this.gamePieces[rowI][colI] = new Obstacle({ctx: this.ctx, position});
         } else if (col === K) {
@@ -78,6 +81,11 @@ export class Game {
         }
       }
     }
+
+    if (monsterPosition) {
+      this.monster = new Monster({ctx: this.ctx, position: monsterPosition, playerPostion: this.player.position, destroyPlayer: this.loseLife});
+      this.gamePieces[monsterPosition.y / BLOCK_SIZE][monsterPosition.x  / BLOCK_SIZE] = this.monster;
+    }
   }
 
   private completeLevel = () => {
@@ -90,9 +98,9 @@ export class Game {
   }
 
   private loseLife = () => {
+    this.stopAnimationFrame();
     setTimeout(() => {
       this.reactUpdaters.loseLife();
-      this.stopAnimationFrame();
       this.generateGamePieces();
       this.runRenderLoop();
     }, GAME_DELAY);
@@ -102,6 +110,8 @@ export class Game {
     try {
       this.animationReq = window.requestAnimationFrame(this.runRenderLoop);
       this.player.checkCharacterMovement();
+
+      if (this.monster) this.monster.hauntPlayer();
     } catch (e) {
       this.stopAnimationFrame();
       console.error(e);
