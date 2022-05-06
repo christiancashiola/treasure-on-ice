@@ -83,7 +83,7 @@ export class Game {
     }
 
     if (monsterPosition) {
-      this.monster = new Monster({ctx: this.ctx, position: monsterPosition, playerPostion: this.player.position, destroyPlayer: this.loseLife});
+      this.monster = new Monster({ctx: this.ctx, position: monsterPosition, playerPosition: this.player.position, destroyPlayer: this.loseLife});
       this.gamePieces[monsterPosition.y / BLOCK_SIZE][monsterPosition.x  / BLOCK_SIZE] = this.monster;
     }
   }

@@ -3,69 +3,67 @@ import {Position} from '../types';
 import {GamePiece, IGamePiece} from './GamePiece';
 
 interface IMonster {
-  playerPostion: Position;
+  playerPosition: Position;
   destroyPlayer: () => void;
 }
 
 export class Monster extends GamePiece {
-  playerPostion: Position;
   destroyPlayer: () => void;
-  dx: number = 0;
-  dy: number = 0;
+  playerPosition: Position;
+  private readonly imageLeft: HTMLImageElement;
+  private readonly imageRight: HTMLImageElement;
 
-  constructor({ctx, position, playerPostion, destroyPlayer}: Omit<IGamePiece, 'image'> & IMonster) {
-    const image = new Image();
-    image.src = './images/game/monster.png';
-
+  constructor({ctx, position, playerPosition, destroyPlayer}: Omit<IGamePiece, 'image'> & IMonster) {
+    const imageRight = new Image();
+    imageRight.src = './images/game/monster/monster-right.png';
+    
     super({
       ctx,
-      image,
+      image: imageRight,
       position,
     });
-
-    this.playerPostion = playerPostion;
+    
+    this.imageLeft = new Image();
+    this.imageLeft.src = './images/game/monster/monster-left.png';
+    this.imageRight = imageRight;
+    this.playerPosition = playerPosition;
     this.destroyPlayer = destroyPlayer;
   }
 
   hauntPlayer() {
-    // todo use constant
-    this.dx =
-      this.position.x === this.playerPostion.x
-        ? 0
-        : this.position.x < this.playerPostion.x
-        ? MONSTER_SPEED
-        : -MONSTER_SPEED;
-    this.dy =
-      this.position.y === this.playerPostion.y
-        ? 0
-        : this.position.y < this.playerPostion.y
-        ? MONSTER_SPEED
-        : -MONSTER_SPEED;
-
-    const shouldMove =
-      Math.abs(this.position.x - this.playerPostion.x) > 1 ||
-      Math.abs(this.position.y - this.playerPostion.y) > 1;
-
-    if (shouldMove) {
-      super.clearRect();
-      this.position.x += this.dx;
-      this.position.y += this.dy;
-    } else {
-      this.dx = 0;
-      this.dy = 0;
-    }
-
+    const {dx, dy} = this.getDeltas();
+    super.clearRect();
+    this.image = dx > 0 ? this.imageRight : this.imageLeft;
+    this.position.x += dx;
+    this.position.y += dy;
     super.paint();
     this.checkCollision();
+  }
+
+  getDeltas() {
+    const dx =
+      this.position.x === this.playerPosition.x
+        ? 0
+        : this.position.x < this.playerPosition.x
+        ? MONSTER_SPEED
+        : -MONSTER_SPEED;
+    const dy =
+      this.position.y === this.playerPosition.y
+        ? 0
+        : this.position.y < this.playerPosition.y
+        ? MONSTER_SPEED
+        : -MONSTER_SPEED;
+
+    return {dx, dy};
   }
 
   checkCollision() {
     // todo helpers
     if (
-      this.position.x <= this.playerPostion.x + BLOCK_SIZE &&
-      this.position.x + BLOCK_SIZE >= this.playerPostion.x &&
-      this.position.y <= this.playerPostion.y + BLOCK_SIZE &&
-      this.position.y + BLOCK_SIZE >= this.playerPostion.y
+      this.position.x < this.playerPosition.x + BLOCK_SIZE &&
+      this.position.x + BLOCK_SIZE > this.playerPosition.x &&
+      this.position.y < this.playerPosition.y + BLOCK_SIZE &&
+      this.position.y + BLOCK_SIZE > this.playerPosition.y
     ) {
       this.destroyPlayer();
     }
