@@ -8,6 +8,11 @@
 - check memos
 - refactor usegame state to pass methods directly to player - IT gens pieces, not Level
 - Readme
+- refactor Movable piece
+- do we need collisions to be this.gamePieces?
+- add special ending
+- last level summary end game button should not be negative
+- sound not working mobile
 
 # Phase 2 (optional)
 
@@ -17,10 +22,7 @@
 - teleport/warp squares
 - moving enemies
 - different textures for each level
-- refactor Movable piece
-- do we need collisions to be this.gamePieces?
-- add special ending
-- last level summary end game button should not be negative
+
 
 # Highlights
 

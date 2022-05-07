@@ -51,9 +51,7 @@ export default function Instructions() {
         </Instruction>
         <Instruction imagePath="walls/wall-2.png" alt="Wall">
           This is a wall and they come in many colors. Slide into these to position yourself
-          advantageously and complete the level. If there is not a wall on the edge of the map, you
-          can go through one side and come out the other. Just be careful you don't get stuck in an
-          infinite loop or you'll lose a life.
+          advantageously and complete the level.
         </Instruction>
         <Instruction imagePath="life.png" alt="Potion">
           Collect these to replenish your life. You'll notice a couple of red hearts below the game
