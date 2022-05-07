@@ -97,7 +97,7 @@ export default function LevelSummary() {
         {!wasLastLevel && (
           <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
         )}
-        <Button extraCss={NEGATIVE_BUTTON} onClick={handleEndGame}>
+        <Button extraCss={wasLastLevel ? null : NEGATIVE_BUTTON} onClick={handleEndGame}>
           End Game
         </Button>
       </div>

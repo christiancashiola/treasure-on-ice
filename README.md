@@ -4,7 +4,6 @@
 - seo.........................`1hr`
 - social links.......`1hr`
 - update personal site.......`1hr`
-- add lives
 - check memos
 - refactor usegame state to pass methods directly to player - IT gens pieces, not Level
 - Readme
@@ -13,6 +12,8 @@
 - add special ending
 - last level summary end game button should not be negative
 - sound not working mobile
+- sound not working after ending game
+- mobile margin gems cut off
 
 # Phase 2 (optional)
 
