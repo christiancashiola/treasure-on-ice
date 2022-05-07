@@ -62,12 +62,13 @@ export const CountUpTo = memo(function CountUpTo({
 
 function getLoopCount(numberToCountUpTo: number) {
   if (numberToCountUpTo < 1000) return 10;
-  if (numberToCountUpTo < 5000) return 15;
-  if (numberToCountUpTo < 10000) return 20;
-  if (numberToCountUpTo < 50000) return 25;
-  if (numberToCountUpTo < 100000) return 30;
-  if (numberToCountUpTo < 500000) return 35;
-  if (numberToCountUpTo < 1000000) return 40;
-  if (numberToCountUpTo < 5000000) return 45;
-  return 50;
+  if (numberToCountUpTo < 5000) return 20;
+  if (numberToCountUpTo < 10000) return 30;
+  if (numberToCountUpTo < 50000) return 40;
+  if (numberToCountUpTo < 100000) return 50;
+  if (numberToCountUpTo < 500000) return 60;
+  if (numberToCountUpTo < 1000000) return 70;
+  if (numberToCountUpTo < 5000000) return 80;
+  if (numberToCountUpTo < 10000000) return 90;
+  return 100;
 }

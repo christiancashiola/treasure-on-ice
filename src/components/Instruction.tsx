@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {ReactNode} from 'react';
-import {FLEX_CENTER} from '../constants/styleConstants';
 
 interface IInstruction {
   alt: string;

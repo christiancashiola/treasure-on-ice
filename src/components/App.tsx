@@ -1,5 +1,5 @@
-import {lazy, useEffect} from 'react';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {lazy} from 'react';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {GameStateContext} from '../contexts/GameStateContext';
 import {withNullSuspense} from '../hocs/withNullSuspense';
@@ -26,7 +26,7 @@ const LazyNoMatch = withNullSuspense(lazy(() => import('../pages/NoMatch')));
 
 export function App() {
   const gameState = useGameState();
-  // useBrowserRoutingProtection();
+  useBrowserRoutingProtection();
 
   return (
     <GameStateContext.Provider value={gameState}>

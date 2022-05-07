@@ -7,10 +7,9 @@ import {LevelSummaryScores} from '../components/LevelSummaryScores';
 import {BASE_MULTIPLIER, GAME_TIME, LEVEL_COUNT, TIME_MULTIPLIER} from '../constants/gameConstants';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
 import {
-  MOLTEN_ORANGE,
+  NEGATIVE_BUTTON,
   TITLE_MEDIA_QUERIES,
   ICE_GRADIENT_LETTERS,
-  NEGATIVE_BUTTON,
 } from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';

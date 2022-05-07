@@ -2,7 +2,6 @@
 import {css, keyframes} from '@emotion/react';
 import {useEffect, useState} from 'react';
 import {DEFAULT_IN_GAME_TEXT, FLEX_CENTER} from '../constants/styleConstants';
-import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 import {CountUpTo} from './CountUpTo';
 
 const fadeInAnimation = keyframes`
