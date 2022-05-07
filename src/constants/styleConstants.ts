@@ -57,17 +57,22 @@ export const DEFAULT_IN_GAME_TEXT = css`
 
 export const CANVAS_MEDIA_QUERY = css`
   width: 320px;
+
   @media (min-width: 375px) {
     width: 374px;
+    margin-bottom: 5px;
   }
   @media (min-width: 400px) {
     width: 399px;
+    margin-bottom: 10px;
   }
   @media (min-width: 450px) {
     width: 449px;
+    margin-bottom: 15px;
   }
   @media (min-width: 501px) {
     width: 650px;
+    margin-bottom: 20px;
   }
 `;
 

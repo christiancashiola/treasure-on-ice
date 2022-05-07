@@ -30,7 +30,6 @@ export const TreasureCollected = memo(function TreasureCollected({
           key={uuidV4()}
           extraCss={css`
             font-size: 16px;
-            line-height: 0.8em;
             transform: translateY(-4px);
 
             ${mediaQuery(

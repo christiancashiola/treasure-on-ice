@@ -11,7 +11,6 @@ export const Canvas = memo(function Canvas() {
       width={GAME_SIZE}
       height={GAME_SIZE}
       css={css`
-        margin-bottom: 20px;
         ${ICE_GRADIENT}
         ${CANVAS_MEDIA_QUERY}
       `}

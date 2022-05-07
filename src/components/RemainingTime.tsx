@@ -17,8 +17,10 @@ export function RemainingTime({remainingTime}: Pick<GameState, 'remainingTime'>)
   else text = `${minutes}m ${seconds}s ${centiseconds}`;
 
   return (
-    <div css={css(DEFAULT_IN_GAME_TEXT)}>
-      TIMER:&nbsp;
+    <div>
+      <span css={css(DEFAULT_IN_GAME_TEXT)}>
+        TIMER:&nbsp;
+      </span>
       <span css={css(DEFAULT_IN_GAME_TEXT, filterStyles)}>{text}</span>
     </div>
   );
