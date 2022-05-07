@@ -82,8 +82,7 @@ export class Player extends GamePiece {
     this.imageLeftRun.src = './images/game/player/player-left-m.png';
     this.imageRightRun = new Image();
     this.imageRightRun.src = './images/game/player/player-right-m.png';
-    
-    // this.addControls();
+
     self = this;
   }
 
@@ -92,12 +91,11 @@ export class Player extends GamePiece {
   }
 
   addControls() {
-    console.log('adding')
     window.addEventListener('keydown', this.handleKeydown);
     window.addEventListener('touchend', this.handleTouchEnd, {passive: false});
     window.addEventListener('touchstart', this.handleTouchStart, {passive: false});
   }
-  
+
   removeControls() {
     window.removeEventListener('keydown', this.handleKeydown);
     window.removeEventListener('touchend', this.handleTouchEnd);
@@ -106,15 +104,15 @@ export class Player extends GamePiece {
 
   private handleKeydown({key: direction}: KeyboardEvent) {
     self.setDirection(direction);
-  };
+  }
 
   private handleTouchStart(e: TouchEvent) {
     // prevent default so the user isn't scrolling their screen while moving character
     e.preventDefault();
     self.touchStartX = e.changedTouches[0].screenX;
     self.touchStartY = e.changedTouches[0].screenY;
-  };
-  
+  }
+
   private handleTouchEnd(e: TouchEvent) {
     // prevent default so the user isn't scrolling their screen while moving character
     e.preventDefault();
@@ -135,7 +133,7 @@ export class Player extends GamePiece {
     }
 
     self.setDirection(direction);
-  };
+  }
 
   private setDirection = (direction: string) => {
     if (this.direction) return;

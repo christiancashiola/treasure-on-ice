@@ -2,7 +2,7 @@
 import {css, SerializedStyles} from '@emotion/react';
 import {ReactNode} from 'react';
 import {ICE_BLUE, ICE_GRADIENT} from '../constants/styleConstants';
-import { mediaQuery, ScreenSize } from '../util/mediaQuery';
+import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
 interface IButton {
   children: ReactNode;
@@ -27,7 +27,7 @@ export function Button({children, onClick, extraCss = null}: IButton) {
         width: 300px;
         height: 50px;
         font-size: 14px;
-        
+
         ${mediaQuery(
           ScreenSize.Phablet,
           `
@@ -35,7 +35,7 @@ export function Button({children, onClick, extraCss = null}: IButton) {
             height: 53px;
             width: 315px;
             `,
-            )}
+        )}
         ${mediaQuery(
           ScreenSize.Tablet,
           `
@@ -43,7 +43,7 @@ export function Button({children, onClick, extraCss = null}: IButton) {
           height: 57px;
           width: 335px;
           `,
-          )}
+        )}
         ${mediaQuery(
           ScreenSize.Desktop,
           `

@@ -5,10 +5,7 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {LevelSummaryScores} from '../components/LevelSummaryScores';
 import {BASE_MULTIPLIER, GAME_TIME, LEVEL_COUNT, TIME_MULTIPLIER} from '../constants/gameConstants';
-import {
-  AppRoutes,
-  NAVIGATION_KEY,
-} from '../constants/reactConstants';
+import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
 import {
   MOLTEN_ORANGE,
   TITLE_MEDIA_QUERIES,
@@ -101,7 +98,9 @@ export default function LevelSummary() {
         {!wasLastLevel && (
           <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
         )}
-        <Button extraCss={NEGATIVE_BUTTON} onClick={handleEndGame}>End Game</Button>
+        <Button extraCss={NEGATIVE_BUTTON} onClick={handleEndGame}>
+          End Game
+        </Button>
       </div>
     </CenterChildren>
   );

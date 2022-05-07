@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import { useState } from 'react';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
@@ -30,15 +30,14 @@ export default function Home() {
       <button
         onClick={() => setHideButtons(false)}
         css={css`
-        background: transparent;
-        border: transparent;
-        width: 300px;
-        height: 100px;
-        position: fixed;
-        bottom: 0;
-      `}>
-
-      </button>
+          background: transparent;
+          border: transparent;
+          width: 300px;
+          height: 100px;
+          position: fixed;
+          bottom: 0;
+        `}
+      ></button>
     </CenterChildren>
   );
 }

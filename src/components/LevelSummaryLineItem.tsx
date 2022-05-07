@@ -57,7 +57,7 @@ export function LevelSummaryLineItem({delay, title, score}: ILevelSummaryLineIte
                 animation-name: ${fadeInAnimation};
                 animation-duration: 0.3s;
                 animation-iteration-count: 1;
-                animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53);;
+                animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53); ;
               `}
             >
               {count}

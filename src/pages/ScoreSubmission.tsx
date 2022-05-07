@@ -15,7 +15,7 @@ import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {CenterChildren} from '../components/CenterChildren';
 import {Gem} from '../components/Gem';
-import { resetGameState } from '../util/resetGameState';
+import {resetGameState} from '../util/resetGameState';
 
 export default function ScoreSubmission() {
   const navigate = useNavigate();
@@ -138,7 +138,9 @@ export default function ScoreSubmission() {
       >
         {isSubmissionEnabled && <Button onClick={handleScoreSubmit}>Submit Score</Button>}
       </div>
-      <Button onClick={sendUserToMainMenu} extraCss={NEGATIVE_BUTTON}>Nah, I'm Good</Button>
+      <Button onClick={sendUserToMainMenu} extraCss={NEGATIVE_BUTTON}>
+        Nah, I'm Good
+      </Button>
     </CenterChildren>
   );
 }

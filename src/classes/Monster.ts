@@ -6,8 +6,8 @@ import {Player} from './Player';
 export type MonsterType = {
   axis: Axis;
   gamePieces: GamePieces;
-  playerPosition: Position;
   destroyPlayer: () => void;
+  playerPosition: Position;
 } & GamePieceExtension;
 
 // todo refactor make new piece type Movable
@@ -96,10 +96,10 @@ export class Monster extends GamePiece {
 
   checkPlayerCollision() {
     if (
-      this.position.x <= this.playerPosition.x + BLOCK_SIZE &&
-      this.position.x + BLOCK_SIZE >= this.playerPosition.x &&
-      this.position.y <= this.playerPosition.y + BLOCK_SIZE &&
-      this.position.y + BLOCK_SIZE >= this.playerPosition.y
+      this.position.x < this.playerPosition.x + BLOCK_SIZE &&
+      this.position.x + BLOCK_SIZE > this.playerPosition.x &&
+      this.position.y < this.playerPosition.y + BLOCK_SIZE &&
+      this.position.y + BLOCK_SIZE > this.playerPosition.y
     ) {
       this.destroyPlayer();
     }

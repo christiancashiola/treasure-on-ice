@@ -57,9 +57,12 @@ export function useGameState(): GameState {
       // it's possible there are less than MAX_HIGHSCORES
       const {score: lowestHighscore = 0} = highscores[MAX_HIGHSCORES - 1] ?? [];
 
-      navigate(score > 0 && score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver, {
-        state: {key: NAVIGATION_KEY},
-      });
+      navigate(
+        score > 0 && score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver,
+        {
+          state: {key: NAVIGATION_KEY},
+        },
+      );
     }
   }, [isGameOver, isLoadingHighscores]);
 

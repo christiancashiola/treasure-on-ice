@@ -28,9 +28,7 @@ export function Instruction({alt, children, imagePath}: IInstruction) {
       `}
     >
       <img src={`/images/game/${imagePath}`} alt={alt} width={50} height={50} loading="lazy" />
-      <span>
-        {children}
-      </span>
+      <span>{children}</span>
     </div>
   );
 }
