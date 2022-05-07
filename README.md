@@ -13,7 +13,6 @@
 - last level summary end game button should not be negative
 - sound not working mobile
 - sound not working after ending game
-- mobile margin gems cut off
 
 # Phase 2 (optional)
 

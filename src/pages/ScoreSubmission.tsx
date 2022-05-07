@@ -25,13 +25,13 @@ export default function ScoreSubmission() {
   const [inputValue, setInputValue] = useState('');
   const [isPostingScore, setIsPostingScore] = useState(false);
 
-  const sendUserToMainMenu = () => {
-    navigate(AppRoutes.mainMenu, {state: null});
+  const sendUserHome = () => {
+    navigate(AppRoutes.home, {state: null});
     resetGameState();
   };
 
   useEffect(() => {
-    if (!score) sendUserToMainMenu();
+    if (!score) sendUserHome();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score]);
 
@@ -55,7 +55,7 @@ export default function ScoreSubmission() {
   const handleScoreSubmit = async () => {
     setIsPostingScore(true);
     await postHighscore({score, initials: inputValue});
-    sendUserToMainMenu();
+    sendUserHome();
   };
 
   return (
@@ -138,7 +138,7 @@ export default function ScoreSubmission() {
       >
         {isSubmissionEnabled && <Button onClick={handleScoreSubmit}>Submit Score</Button>}
       </div>
-      <Button onClick={sendUserToMainMenu} extraCss={NEGATIVE_BUTTON}>
+      <Button onClick={sendUserHome} extraCss={NEGATIVE_BUTTON}>
         Nah, I'm Good
       </Button>
     </CenterChildren>

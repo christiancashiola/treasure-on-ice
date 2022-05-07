@@ -81,7 +81,6 @@ export default function Instructions() {
         </Instruction>
       </div>
       <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
-      <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Main Menu</Button>
     </CenterChildren>
   );
 }

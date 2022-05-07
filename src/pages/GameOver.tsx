@@ -15,7 +15,7 @@ export default function GameOver() {
   const {score, currentLevel} = useGameStateContext();
 
   const handleEndGame = () => {
-    navigate(AppRoutes.mainMenu, {state: null});
+    navigate(AppRoutes.home, {state: null});
     resetGameState();
   };
 
@@ -45,7 +45,7 @@ export default function GameOver() {
           {title: 'Total Score:', score},
         ]}
       />
-      <Button onClick={handleEndGame}>Main Menu</Button>
+      <Button onClick={handleEndGame}>Home</Button>
       <HighscoreBoard />
     </CenterChildren>
   );
