@@ -17,12 +17,13 @@ const fadeInAnimation = keyframes`
 `;
 
 interface ILevelSummaryLineItem {
+  start?: number;
   delay: number;
   score: number;
   title: string;
 }
 
-export function LevelSummaryLineItem({delay, title, score}: ILevelSummaryLineItem) {
+export function LevelSummaryLineItem({start = 0, delay, title, score}: ILevelSummaryLineItem) {
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export function LevelSummaryLineItem({delay, title, score}: ILevelSummaryLineIte
       <div css={css(DEFAULT_IN_GAME_TEXT)}>{title}</div>
       {shouldRender && (
         <CountUpTo
+          start={start}
           numberToCountUpTo={score}
           renderProp={(count) => (
             <div

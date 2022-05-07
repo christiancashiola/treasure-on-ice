@@ -51,7 +51,7 @@ export default function LevelSummary() {
           {title: 'Level Bonus:', score: currentLevel * BASE_MULTIPLIER},
           {title: 'Treasure Bonus:', score: treasureCollected * BASE_MULTIPLIER},
           {title: 'Level Score:', score: levelScore},
-          {title: 'New Score:', score: score + levelScore},
+          {title: 'New Score:', score: score + levelScore, start: score},
         ]}
       />
       <div

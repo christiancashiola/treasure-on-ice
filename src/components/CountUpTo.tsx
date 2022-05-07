@@ -54,7 +54,7 @@ export const CountUpTo = memo(function CountUpTo({
       });
     },
     [startCount],
-    3,
+    5,
   );
 
   return renderProp(count);
