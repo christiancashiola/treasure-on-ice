@@ -4,23 +4,28 @@ import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
+import {LevelSummaryScores} from '../components/LevelSummaryScores';
 import {AppRoutes} from '../constants/reactConstants';
 import {
-  DEFAULT_IN_GAME_TEXT,
   ICE_GRADIENT_LETTERS,
   TITLE_MEDIA_QUERIES,
 } from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
+import { resetGameState } from '../util/resetGameState';
 
 export default function GameOver() {
   const navigate = useNavigate();
   const {score, currentLevel} = useGameStateContext();
 
+  const handleEndGame = () => {
+    navigate(AppRoutes.mainMenu, {state: null})
+    resetGameState();
+  }
+
   return (
     <CenterChildren
       extraCss={css`
-        h1,
-        h2,
+        h1:first-of-type,
         button {
           margin: 20px auto;
         }
@@ -34,23 +39,16 @@ export default function GameOver() {
       >
         GAME OVER
       </h1>
-      <h2
-        css={css`
-          ${DEFAULT_IN_GAME_TEXT}
-          margin-bottom: 48px;
+      <LevelSummaryScores
+        extraCss={css`
+          margin: 48px;
         `}
-      >
-        {`SCORE: ${score}`}
-      </h2>
-      <h2
-        css={css`
-          ${DEFAULT_IN_GAME_TEXT}
-          margin-bottom: 48px;
-        `}
-      >
-        {`LEVEL: ${currentLevel}`}
-      </h2>
-      <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Main Menu</Button>
+        scores={[
+          {title: 'Final Level:', score: currentLevel},
+          {title: 'Total Score:', score},
+        ]}
+      />
+      <Button onClick={handleEndGame}>Main Menu</Button>
       <HighscoreBoard />
     </CenterChildren>
   );

@@ -19,6 +19,8 @@ interface IPlayer {
   completeLevel: () => void;
 }
 
+let self: Player;
+
 export class Player extends GamePiece {
   private readonly imageUp: HTMLImageElement;
   private readonly imageDown: HTMLImageElement;
@@ -80,49 +82,47 @@ export class Player extends GamePiece {
     this.imageLeftRun.src = './images/game/player/player-left-m.png';
     this.imageRightRun = new Image();
     this.imageRightRun.src = './images/game/player/player-right-m.png';
-
-    this.addControls();
+    
+    // this.addControls();
+    self = this;
   }
 
   private get isMovingLeftRight() {
     return this.direction === Direction.Right || this.direction === Direction.Left;
   }
 
-  private addControls() {
-    window.addEventListener('keydown', this.boundHandleKeydown);
-    window.addEventListener('touchend', this.boundHandleTouchEnd, {passive: false});
-    window.addEventListener('touchstart', this.boundHandleTouchStart, {passive: false});
+  addControls() {
+    console.log('adding')
+    window.addEventListener('keydown', this.handleKeydown);
+    window.addEventListener('touchend', this.handleTouchEnd, {passive: false});
+    window.addEventListener('touchstart', this.handleTouchStart, {passive: false});
   }
-
+  
   removeControls() {
-    window.removeEventListener('keydown', this.boundHandleKeydown);
-    window.removeEventListener('touchend', this.boundHandleTouchEnd);
-    window.removeEventListener('touchstart', this.boundHandleTouchStart);
+    window.removeEventListener('keydown', this.handleKeydown);
+    window.removeEventListener('touchend', this.handleTouchEnd);
+    window.removeEventListener('touchstart', this.handleTouchStart);
   }
 
-  private handleKeydown = ({key: direction}: KeyboardEvent) => {
-    this.setDirection(direction);
+  private handleKeydown({key: direction}: KeyboardEvent) {
+    self.setDirection(direction);
   };
 
-  private boundHandleKeydown = (e: KeyboardEvent) => this.handleKeydown(e);
-
-  private handleTouchStart = (e: TouchEvent) => {
+  private handleTouchStart(e: TouchEvent) {
     // prevent default so the user isn't scrolling their screen while moving character
     e.preventDefault();
-    this.touchStartX = e.changedTouches[0].screenX;
-    this.touchStartY = e.changedTouches[0].screenY;
+    self.touchStartX = e.changedTouches[0].screenX;
+    self.touchStartY = e.changedTouches[0].screenY;
   };
-
-  private boundHandleTouchStart = (e: TouchEvent) => this.handleTouchStart(e);
-
-  private handleTouchEnd = (e: TouchEvent) => {
+  
+  private handleTouchEnd(e: TouchEvent) {
     // prevent default so the user isn't scrolling their screen while moving character
     e.preventDefault();
-    this.touchEndX = e.changedTouches[0].screenX;
-    this.touchEndY = e.changedTouches[0].screenY;
+    self.touchEndX = e.changedTouches[0].screenX;
+    self.touchEndY = e.changedTouches[0].screenY;
 
-    const dx = this.touchEndX - this.touchStartX;
-    const dy = this.touchEndY - this.touchStartY;
+    const dx = self.touchEndX - self.touchStartX;
+    const dy = self.touchEndY - self.touchStartY;
 
     let direction: Direction;
     // user might swipe slightly at angle
@@ -134,10 +134,8 @@ export class Player extends GamePiece {
       direction = dy > 0 ? Direction.Down : Direction.Up;
     }
 
-    this.setDirection(direction);
+    self.setDirection(direction);
   };
-
-  private boundHandleTouchEnd = (e: TouchEvent) => this.handleTouchEnd(e);
 
   private setDirection = (direction: string) => {
     if (this.direction) return;

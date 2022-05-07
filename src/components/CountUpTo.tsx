@@ -16,9 +16,8 @@ export const CountUpTo = memo(function CountUpTo({
   renderProp,
   numberToCountUpTo,
 }: ICountUpTo): JSX.Element {
-  console.log(numberToCountUpTo)
   const [count, setCount] = useState(start);
-  const [isDone, setIsDone] = useState(false);
+  const [isDone, setIsDone] = useState(numberToCountUpTo === start);
   const [startCount, setStartCount] = useState(false);
   const loopCount = getLoopCount(numberToCountUpTo);
 
@@ -36,7 +35,8 @@ export const CountUpTo = memo(function CountUpTo({
 
   const cancelInterval = useInterval(
     () => {
-      if (!startCount) return;
+      if (!startCount || isDone) return;
+
       setCount((prevCount) => {
         let newCount = prevCount;
 

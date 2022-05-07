@@ -1,17 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import {css} from '@emotion/react';
-import {DEFAULT_IN_GAME_TEXT, FLEX_CENTER} from '../constants/styleConstants';
+import {css, SerializedStyles} from '@emotion/react';
+import {v4 as uuidV4} from 'uuid';
 import { mediaQuery, ScreenSize } from '../util/mediaQuery';
+import { LevelSummaryLineItem } from './LevelSummaryLineItem';
 
 interface ILevelSummaryScores {
   scores: {title: string; score: number}[];
+  extraCss?: SerializedStyles | null;
 }
 
 
-export function LevelSummaryScores({scores}: ILevelSummaryScores) {
+export function LevelSummaryScores({scores, extraCss = null}: ILevelSummaryScores) {
   return (
     <div css={css`
       width: 300px;
+      ${extraCss}
 
       ${mediaQuery(
         ScreenSize.Phone,
@@ -38,23 +41,7 @@ export function LevelSummaryScores({scores}: ILevelSummaryScores) {
         `,
       )}
     `}>
-      {scores.map(({title, score}) => {
-        return (
-          <div
-            css={css`
-              ${FLEX_CENTER}
-              justify-content: space-between;
-
-              :not(:last-child) {
-                margin-bottom: 10px;
-              }
-            `}
-          >
-            <div css={css(DEFAULT_IN_GAME_TEXT)}>{title}</div>
-            <div css={css(DEFAULT_IN_GAME_TEXT)}>{score}</div>
-          </div>
-        );
-      })}
+      {scores.map(({title, score}, i) => <LevelSummaryLineItem key={uuidV4()} delay={i * 1000} title={title} score={score} />)}
     </div>
   );
 }

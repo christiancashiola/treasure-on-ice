@@ -138,3 +138,17 @@ export const TITLE_MEDIA_QUERIES = css`
   `,
   )}
 `;
+
+export const NEGATIVE_BUTTON = css`
+  position: absolute;
+  bottom: 0;
+  color: ${MOLTEN_ORANGE};
+  border-color: ${MOLTEN_ORANGE};
+  
+  :hover,
+  :active {
+    color: #000;
+    border-color: ${MOLTEN_ORANGE};
+    background: none ${MOLTEN_ORANGE};
+  }
+`;

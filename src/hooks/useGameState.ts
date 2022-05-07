@@ -57,7 +57,7 @@ export function useGameState(): GameState {
       // it's possible there are less than MAX_HIGHSCORES
       const {score: lowestHighscore = 0} = highscores[MAX_HIGHSCORES - 1] ?? [];
 
-      navigate(score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver, {
+      navigate(score > 0 && score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver, {
         state: {key: NAVIGATION_KEY},
       });
     }
@@ -71,7 +71,7 @@ export function useGameState(): GameState {
   const collectTreasure = () => setTreasureCollected((prevTreasures) => prevTreasures + 1);
 
   const completeLevel = () => {
-    gameRef.current?.player.removeControls();
+    gameRef.current!.player.removeControls();
     cancelInterval();
     setTimeStarted(false);
     setCurrentLevel((prevLevel) => prevLevel + 1);
@@ -86,6 +86,7 @@ export function useGameState(): GameState {
       reactUpdaters: {gainLife, loseLife, collectTreasure, completeLevel},
     });
     gameRef.current.start();
+    gameRef.current.player.addControls();
     setTimeStarted(true);
   };
 

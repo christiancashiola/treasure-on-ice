@@ -6,6 +6,7 @@ import {
   SHINING_LETTERS,
   ICE_GRADIENT_LETTERS,
   DEFAULT_IN_GAME_TEXT,
+  NEGATIVE_BUTTON,
 } from '../constants/styleConstants';
 import {postHighscore} from '../api/postHighscore';
 import {useGameStateContext} from '../hooks/useGameStateContext';
@@ -14,6 +15,7 @@ import {useNavigate} from 'react-router-dom';
 import {AppRoutes} from '../constants/reactConstants';
 import {CenterChildren} from '../components/CenterChildren';
 import {Gem} from '../components/Gem';
+import { resetGameState } from '../util/resetGameState';
 
 export default function ScoreSubmission() {
   const navigate = useNavigate();
@@ -24,9 +26,8 @@ export default function ScoreSubmission() {
   const [isPostingScore, setIsPostingScore] = useState(false);
 
   const sendUserToMainMenu = () => {
-    // quick & dirty way to clear all game state
     navigate(AppRoutes.mainMenu, {state: null});
-    window.location.reload();
+    resetGameState();
   };
 
   useEffect(() => {
@@ -137,6 +138,7 @@ export default function ScoreSubmission() {
       >
         {isSubmissionEnabled && <Button onClick={handleScoreSubmit}>Submit Score</Button>}
       </div>
+      <Button onClick={sendUserToMainMenu} extraCss={NEGATIVE_BUTTON}>Nah, I'm Good</Button>
     </CenterChildren>
   );
 }

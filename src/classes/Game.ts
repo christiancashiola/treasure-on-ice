@@ -106,6 +106,8 @@ export class Game {
             completeLevel: this.completeLevel,
             collectTreasure: this.reactUpdaters.collectTreasure,
           });
+          // @ts-ignore todo
+          window.__player = this.player;
         }
       }
     }
@@ -115,8 +117,6 @@ export class Game {
       this.monsters.push(monster);
       this.gamePieces[monster.position.y / BLOCK_SIZE][monster.position.x / BLOCK_SIZE] = monster;
     });
-
-    console.log(this.monsters);
   }
 
   private completeLevel = () => {

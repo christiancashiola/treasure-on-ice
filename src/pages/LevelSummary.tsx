@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {useCallback, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
@@ -9,13 +8,12 @@ import {BASE_MULTIPLIER, GAME_TIME, LEVEL_COUNT, TIME_MULTIPLIER} from '../const
 import {
   AppRoutes,
   NAVIGATION_KEY,
-  MOTIVATION_DELAY,
 } from '../constants/reactConstants';
 import {
   MOLTEN_ORANGE,
   TITLE_MEDIA_QUERIES,
   ICE_GRADIENT_LETTERS,
-  ABSOLUTE_ZERO,
+  NEGATIVE_BUTTON,
 } from '../constants/styleConstants';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {calculateLevelScore} from '../util/calculateLevelScore';
@@ -53,10 +51,10 @@ export default function LevelSummary() {
       </h1>
       <LevelSummaryScores
         scores={[
-          {title: 'Speed Bonus:', score: (remainingTime / GAME_TIME) * TIME_MULTIPLIER},
+          {title: 'Speed Bonus:', score: Math.ceil((remainingTime / GAME_TIME) * TIME_MULTIPLIER)},
           {title: 'Level Bonus:', score: currentLevel * BASE_MULTIPLIER},
           {title: 'Treasure Bonus:', score: treasureCollected * BASE_MULTIPLIER},
-          {title: 'Level Score:', score: score + levelScore},
+          {title: 'Level Score:', score: levelScore},
           {title: 'New Score:', score: score + levelScore},
         ]}
       />
@@ -64,20 +62,6 @@ export default function LevelSummary() {
         css={css`
           height: 100px;
           margin-bottom: 64px;
-
-          // will only apply if !wasLastLevel
-          button:nth-of-type(2) {
-            position: absolute;
-            bottom: 0;
-            color: ${MOLTEN_ORANGE};
-            border-color: ${MOLTEN_ORANGE};
-
-            :hover,
-            :active {
-              color: #000;
-              background: none ${MOLTEN_ORANGE};
-            }
-          }
         `}
       >
         <h1
@@ -117,7 +101,7 @@ export default function LevelSummary() {
         {!wasLastLevel && (
           <Button onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
         )}
-        <Button onClick={handleEndGame}>End Game</Button>
+        <Button extraCss={NEGATIVE_BUTTON} onClick={handleEndGame}>End Game</Button>
       </div>
     </CenterChildren>
   );
