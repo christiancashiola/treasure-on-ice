@@ -3,9 +3,11 @@ import {css} from '@emotion/react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
+import {Instruction} from '../components/Instruction';
 import {Title} from '../components/Title';
-import {AppRoutes, SCORE_CALC} from '../constants/reactConstants';
-import {FLEX_CENTER, ICE_BLUE} from '../constants/styleConstants';
+import {BASE_MULTIPLIER, TIME_MULTIPLIER} from '../constants/gameConstants';
+import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
+import {ICE_BLUE} from '../constants/styleConstants';
 
 export default function Instructions() {
   const navigate = useNavigate();
@@ -14,80 +16,71 @@ export default function Instructions() {
     <CenterChildren
       extraCss={css`
         margin: 0 auto;
+        margin: 0 auto 20px;
+        padding: 0 10px;
         max-width: 500px;
 
-        button {
+        button:first-of-type {
           margin-top: 24px;
         }
       `}
     >
       <Title />
-      <p
-        css={css`
-          margin: 0 auto 20px;
-          padding: 0 10px;
-          font-size: 18px;
-          align-self: flex-start;
-          font-weight: bold;
-          font-family: monospace;
-          color: ${ICE_BLUE};
-        `}
-      >
-        Desktop controls: W, A, S, D or Arrow Keys.
-        <br />
-        <br />
-        Mobile controls: Swipe any direction.
-        <br />
-        <br />
-        You have 2 minutes to complete each level by collecting the treasure.
-        <br />
-        <br />
-        You only have 3 lives to last you the entirety of the game. Be careful!
-        <br />
-        <br />
-        There are a total of 10 levels. Your score will increase after completing each level.
-        <br />
-        <br />
-        Score formula:
-        <br />
-        {SCORE_CALC}
-      </p>
       <div
         css={css`
-          align-self: flex-start;
-
-          > div {
-            ${FLEX_CENTER}
-            width: 200px;
-            padding: 0 10px;
-            margin-bottom: 10px;
-            justify-content: flex-start;
-          }
+          color: ${ICE_BLUE};
+          font-size: 18px;
+          font-weight: bold;
+          font-family: monospace;
         `}
       >
-        <div>
-          {/* <img src="/images/goal.png" alt="Lilac gem" width={50} height={50} loading="lazy" /> */}
-          <span>&nbsp;=&nbsp;GOOD</span>
-        </div>
-        <div>
-          {/* <img
-            src="/images/obstacle.png"
-            alt="Spikey obstacle"
-            width={50}
-            height={50}
-            loading="lazy"
-          /> */}
-          <span>&nbsp;=&nbsp;BAD</span>
-        </div>
-        <div>
-          {/* <img src="/images/wall.png" alt="Wall" width={50} height={50} loading="lazy" /> */}
-          <span>&nbsp;=&nbsp;SAFE</span>
-        </div>
-        <div>
-          {/* <img src="/images/ice.png" alt="Ice" width={50} height={50} loading="lazy" /> */}
-          <span>&nbsp;=&nbsp;SLIPPERY</span>
-        </div>
+        <Instruction imagePath="hourglass.png" alt="Hourglass">
+          You have 2 minutes to complete each level. If you run out of time, it's game over.
+        </Instruction>
+        <Instruction imagePath="controller.png" alt="Controller">
+          If you are on desktop, use: W, A, S, D or Arrow Keys.
+          <br />
+          If you are on mobile/tablet, swipe in the direction you want to move.
+        </Instruction>
+        <Instruction imagePath="ice.png" alt="Ice">
+          This ground is slippery. Any direction you move, you'll continue moving in that direction
+          until something stops you.
+        </Instruction>
+        <Instruction imagePath="treasure.png" alt="Treasure">
+          {`Every time you complete a level you will get a ${BASE_MULTIPLIER}-point bonus for every treasure you've collected. Collect them all for a special ending!`}
+        </Instruction>
+        <Instruction imagePath="walls/wall-2.png" alt="Wall">
+          This is a wall and they come in many colors. Slide into these to position yourself
+          advantageously and complete the level.
+        </Instruction>
+        <Instruction imagePath="life.png" alt="Potion">
+          Collect these to replenish your life. You'll notice a couple of red hearts below the game
+          once you start. Every time you slide into something harmful, you'll lose one of these.
+          Lose them all and it's game over!
+        </Instruction>
+        <Instruction imagePath="key.png" alt="Key">
+          Each level contains a key that unlocks the exit door. Be careful, if you lose a life,
+          you'll have to reacquire the key.
+        </Instruction>
+        <Instruction imagePath="doors/door-closed.png" alt="Closed door">
+          This is a locked door. It functions like a wall--use this to your advantage.
+        </Instruction>
+        <Instruction imagePath="doors/door-opened.png" alt="Opened door">
+          This is an unlocked door. Going through this will end the current level.
+        </Instruction>
+        <Instruction imagePath="obstacle.png" alt="Pitfall">
+          This is a trap. Don't fall in or you will lose a life.
+        </Instruction>
+        <Instruction imagePath="monster/monster-right.png" alt="Monster">
+          This monster is not your friend. Bump into it and you'll lose a life.
+        </Instruction>
+        <Instruction imagePath="trophy.png" alt="Trophy">
+          You're score will increase after completing each level. In case you're curious, the
+          formula for calculating each level score is:&nbsp;
+          {`((time remaining / time allotted) × ${TIME_MULTIPLIER}) + (level × ${BASE_MULTIPLIER}) + (treasure × ${BASE_MULTIPLIER})`}
+        </Instruction>
       </div>
+      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
       <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Main Menu</Button>
     </CenterChildren>
   );
