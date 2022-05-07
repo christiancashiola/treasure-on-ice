@@ -19,6 +19,7 @@
 - different textures for each level
 - refactor Movable piece
 - do we need collisions to be this.gamePieces?
+- add special ending
 
 # Highlights
 
