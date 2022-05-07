@@ -24,6 +24,7 @@ export function useBrowserRoutingProtection() {
 
     const userTryingToGoBackToGameAfterLosing =
       currentPathname.current === AppRoutes.game &&
+      prevPathname.current !== AppRoutes.instructions &&
       prevPathname.current !== AppRoutes.levelSummary &&
       prevPathname.current !== AppRoutes.mainMenu;
 
