@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
+import {useEffect, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
@@ -7,14 +8,16 @@ import {HighscoreBoard} from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
 import {Title} from '../components/Title';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
-import {useGameStateContext} from '../hooks/useGameStateContext';
-import {useSound} from '../hooks/useSound';
+import {MOLTEN_ORANGE} from '../constants/styleConstants';
 
 export default function MainMenu() {
+  const test = useRef<HTMLAudioElement>(null);
   const navigate = useNavigate();
-  const {soundPreference} = useGameStateContext();
-  useSound('wind.mp3', 0.1, soundPreference);
-  useSound('arctic.mp3', 0.1, soundPreference);
+  console.log('asdf');
+
+  useEffect(() => {
+    test.current?.click();
+  }, []);
 
   return (
     <CenterChildren
@@ -29,6 +32,34 @@ export default function MainMenu() {
       <Button onClick={() => navigate(AppRoutes.instructions)}>Instructions</Button>
       <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
       <HighscoreBoard />
+      <p
+        css={css`
+          width: 300px;
+          color: ${MOLTEN_ORANGE};
+          font-size: 18px;
+          font-family: monospace;
+          text-align: center;
+
+          span {
+            display: inline-block;
+            text-align: left;
+          }
+        `}
+      >
+        This is only a demo
+        <br />
+        version of the game.
+        <br />
+        The real release
+        <br />
+        date is 5/24/2022.
+        <br />
+        All demo highscores will
+        <br />
+        be cleared after release.
+        <br />
+        Thanks for the support!
+      </p>
     </CenterChildren>
   );
 }

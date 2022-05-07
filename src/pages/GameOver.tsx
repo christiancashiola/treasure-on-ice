@@ -15,7 +15,7 @@ export default function GameOver() {
   const {score, currentLevel} = useGameStateContext();
 
   const handleEndGame = () => {
-    navigate(AppRoutes.home, {state: null});
+    navigate(AppRoutes.mainMenu, {state: null});
     resetGameState();
   };
 

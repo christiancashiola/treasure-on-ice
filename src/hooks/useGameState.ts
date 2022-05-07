@@ -19,7 +19,6 @@ export function useGameState(): GameState {
   const [score, setScore] = useState(0);
   const mapsRef = useRef(getLevelMaps());
   const gameRef = useRef<Game | null>(null);
-  const [soundPreference, setSoundPreference] = useState(false);
   const [treasureCollected, setTreasureCollected] = useState(0);
   const highscores = useHighscoresSubscription();
   const [lives, setLives] = useState(GAMES_LIVES);
@@ -107,9 +106,7 @@ export function useGameState(): GameState {
     completeLevel,
     remainingTime,
     collectTreasure,
-    soundPreference,
     treasureCollected,
-    setSoundPreference,
     isLoadingHighscores,
   };
 }

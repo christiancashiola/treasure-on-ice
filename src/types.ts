@@ -1,4 +1,3 @@
-import {Dispatch, SetStateAction} from 'react';
 import {GamePiece, IGamePiece} from './classes/GamePiece';
 
 export type Level = Symbol[][];
@@ -45,10 +44,8 @@ export type GameState = {
   currentLevel: number;
   completeLevel: () => void;
   remainingTime: number;
-  soundPreference: boolean;
   collectTreasure: () => void;
   treasureCollected: number;
-  setSoundPreference: Dispatch<SetStateAction<boolean>>;
   isLoadingHighscores: boolean;
 };
 

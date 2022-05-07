@@ -6,7 +6,7 @@ export default function NoMatch() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(AppRoutes.home, {state: null});
+    navigate(AppRoutes.mainMenu, {state: null});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

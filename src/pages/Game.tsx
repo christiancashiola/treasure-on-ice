@@ -7,16 +7,12 @@ import {Lives} from '../components/Lives';
 import {RemainingTime} from '../components/RemainingTime';
 import {Score} from '../components/Score';
 import {Title} from '../components/Title';
-import {
-  CANVAS_MEDIA_QUERY,
-  DEFAULT_IN_GAME_TEXT,
-  ICE_GRADIENT_LETTERS,
-} from '../constants/styleConstants';
+import {CANVAS_MEDIA_QUERY} from '../constants/styleConstants';
 import {Countdown} from '../components/Countdown';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {CenterChildren} from '../components/CenterChildren';
 import {TreasureCollected} from '../components/TreasureCollected';
-import { CurrentLevel } from '../components/CurrentLevel';
+import {CurrentLevel} from '../components/CurrentLevel';
 
 export default function Game() {
   const {lives, score, startLevel, remainingTime, currentLevel, treasureCollected} =

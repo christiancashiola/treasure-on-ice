@@ -12,7 +12,6 @@
 - add special ending
 - last level summary end game button should not be negative
 - sound not working mobile
-- sound not working after ending game
 
 # Phase 2 (optional)
 
@@ -22,7 +21,6 @@
 - teleport/warp squares
 - moving enemies
 - different textures for each level
-
 
 # Highlights
 

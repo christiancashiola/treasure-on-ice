@@ -1,5 +1,4 @@
 export enum AppRoutes {
-  home = '/',
   game = '/game',
   mainMenu = '/main-menu',
   gameOver = '/game-over',

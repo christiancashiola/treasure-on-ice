@@ -28,7 +28,7 @@ export function useBrowserRoutingProtection() {
       prevPathname.current !== AppRoutes.mainMenu;
 
     if (userTryingToGoBackToScoreSubmission || userTryingToGoBackToGameAfterLosing) {
-      navigate(AppRoutes.home, {state: null});
+      navigate(AppRoutes.mainMenu, {state: null});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);

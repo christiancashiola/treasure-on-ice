@@ -11,7 +11,7 @@ export function withRouteProtection<T>(LazyComponent: (props: unknown) => Emotio
     const isUserAuthorized = location.state?.key === NAVIGATION_KEY;
 
     useEffect(() => {
-      if (!isUserAuthorized) navigate(AppRoutes.home, {state: null});
+      if (!isUserAuthorized) navigate(AppRoutes.mainMenu, {state: null});
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isUserAuthorized]);
 

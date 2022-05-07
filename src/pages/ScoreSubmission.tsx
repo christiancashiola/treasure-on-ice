@@ -26,7 +26,7 @@ export default function ScoreSubmission() {
   const [isPostingScore, setIsPostingScore] = useState(false);
 
   const sendUserHome = () => {
-    navigate(AppRoutes.home, {state: null});
+    navigate(AppRoutes.mainMenu, {state: null});
     resetGameState();
   };
 
