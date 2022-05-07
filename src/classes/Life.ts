@@ -2,7 +2,7 @@ import {GamePieceExtension} from '../types';
 import {Consumable, IConsumable} from './Consumable';
 
 export class Life extends Consumable {
-  constructor({ctx, position, level}: GamePieceExtension & IConsumable) {
+  constructor({ctx, position, level, gamePieces}: GamePieceExtension & IConsumable) {
     const image = new Image();
     image.src = './images/game/life.png';
 
@@ -11,6 +11,7 @@ export class Life extends Consumable {
       image,
       level,
       position,
+      gamePieces,
     });
   }
 }

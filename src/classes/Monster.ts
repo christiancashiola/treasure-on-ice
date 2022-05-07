@@ -61,6 +61,18 @@ export class Monster extends GamePiece {
       dy = this.position.y + (this.direction === Direction.Down ? MONSTER_SPEED : -MONSTER_SPEED);
     }
 
+    // next update the deltas based on if player is sliding off one side to the other
+    if (dx > GAME_SIZE) {
+      dx = -1;
+    } else if (dx < 0) {
+      dx = GAME_SIZE - 1;
+    }
+    if (dy > GAME_SIZE) {
+      dy = -1;
+    } else if (dy < 0) {
+      dy = GAME_SIZE - 1;
+    }
+
     return {dx, dy};
   }
 

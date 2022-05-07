@@ -89,9 +89,19 @@ export class Game {
         } else if (col === K) {
           this.gamePieces[rowI][colI] = new Key({ctx: this.ctx, position});
         } else if (col === L) {
-          this.gamePieces[rowI][colI] = new Life({ctx: this.ctx, position, level});
+          this.gamePieces[rowI][colI] = new Life({
+            ctx: this.ctx,
+            position,
+            level,
+            gamePieces: this.gamePieces,
+          });
         } else if (col === T) {
-          this.gamePieces[rowI][colI] = new Treasure({ctx: this.ctx, position, level});
+          this.gamePieces[rowI][colI] = new Treasure({
+            ctx: this.ctx,
+            position,
+            level,
+            gamePieces: this.gamePieces,
+          });
         } else if (col === D) {
           this.door = new Door({ctx: this.ctx, position});
           this.gamePieces[rowI][colI] = this.door;
