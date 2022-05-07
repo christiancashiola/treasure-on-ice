@@ -5,6 +5,7 @@ import {LEVEL_3} from './level-3';
 import {LEVEL_4} from './level-4';
 import {LEVEL_5} from './level-5';
 import {LEVEL_6} from './level-6';
+import {LEVEL_7} from './level-7';
 
 export const LEVEL_MAP: Record<number, Level> = {
   1: LEVEL_1,
@@ -13,4 +14,5 @@ export const LEVEL_MAP: Record<number, Level> = {
   4: LEVEL_4,
   5: LEVEL_5,
   6: LEVEL_6,
+  7: LEVEL_7,
 };

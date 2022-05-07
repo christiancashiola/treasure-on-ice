@@ -24,7 +24,6 @@ import {LEVEL_MAP} from '../levels/levelMap';
 import {Monster, MonsterType} from './Monster';
 
 interface IGame {
-  level: Level;
   currentLevel: number;
   reactUpdaters: ReactUpdaters;
 }
@@ -41,7 +40,7 @@ export class Game {
   readonly currentLevel: number;
   protected ctx: CanvasRenderingContext2D;
 
-  constructor({level, reactUpdaters, currentLevel}: IGame) {
+  constructor({reactUpdaters, currentLevel}: IGame) {
     this.ctx = (document.getElementById('canvas') as HTMLCanvasElement).getContext(
       '2d',
     ) as CanvasRenderingContext2D;

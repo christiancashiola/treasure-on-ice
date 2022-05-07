@@ -1,7 +1,7 @@
 import {W, _, P, D, O, K, T, X, Y} from '../constants/gameConstants';
 import {Level} from '../types';
 
-export const LEVEL_6: Level = [
+export const LEVEL_7: Level = [
   [W, W, W, W, _, _, W, _, W, W, W, W, W],
   [W, W, _, W, _, _, _, _, _, _, _, W, W],
   [_, X, _, T, _, _, _, _, _, _, _, W, W],

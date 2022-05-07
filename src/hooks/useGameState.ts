@@ -10,14 +10,12 @@ import {
   REMAINING_TIME_INTERVAL,
 } from '../constants/reactConstants';
 import {GameState} from '../types';
-import {getLevelMaps} from '../util/getLevelMaps';
 import {useHighscoresSubscription} from './useHighscoresSubscription';
 import {useInterval} from './useInterval';
 
 export function useGameState(): GameState {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
-  const mapsRef = useRef(getLevelMaps());
   const gameRef = useRef<Game | null>(null);
   const [treasureCollected, setTreasureCollected] = useState(0);
   const highscores = useHighscoresSubscription();
@@ -83,7 +81,6 @@ export function useGameState(): GameState {
   const startLevel = () => {
     setRemainingTime(GAME_TIME);
     gameRef.current = new Game({
-      level: mapsRef.current[currentLevel],
       currentLevel: currentLevel + 1,
       reactUpdaters: {gainLife, loseLife, collectTreasure, completeLevel},
     });
