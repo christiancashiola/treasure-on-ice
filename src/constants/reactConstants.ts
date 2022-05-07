@@ -1,6 +1,6 @@
 export enum AppRoutes {
   game = '/game',
-  mainMenu = '/main-menu',
+  mainMenu = '/',
   gameOver = '/game-over',
   instructions = '/instructions',
   levelSummary = '/level-summary',
