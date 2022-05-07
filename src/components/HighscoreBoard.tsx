@@ -16,6 +16,7 @@ export function HighscoreBoard() {
       extraCss={css`
         margin: 0 auto;
         box-sizing: border-box;
+        padding-bottom: 0;
       `}
     >
       <h1

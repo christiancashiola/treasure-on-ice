@@ -10,8 +10,6 @@
 - refactor Movable piece
 - do we need collisions to be this.gamePieces?
 - add special ending
-- last level summary end game button should not be negative
-- sound not working mobile
 
 # Phase 2 (optional)
 

@@ -11,17 +11,12 @@ import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
 import {MOLTEN_ORANGE} from '../constants/styleConstants';
 
 export default function MainMenu() {
-  const test = useRef<HTMLAudioElement>(null);
   const navigate = useNavigate();
-  console.log('asdf');
-
-  useEffect(() => {
-    test.current?.click();
-  }, []);
 
   return (
     <CenterChildren
       extraCss={css`
+        padding-top: 24px;
         button:last-of-type {
           margin-bottom: 48px;
         }
@@ -53,12 +48,6 @@ export default function MainMenu() {
         The real release
         <br />
         date is 5/24/2022.
-        <br />
-        All demo highscores will
-        <br />
-        be cleared after release.
-        <br />
-        Thanks for the support!
       </p>
     </CenterChildren>
   );
