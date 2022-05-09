@@ -1,4 +1,4 @@
-import {W, _, P, D, O, K, T, L} from '../constants/gameConstants';
+import {W, _, P, D, O, K, T, L, Y, X} from '../constants/gameConstants';
 import {Level} from '../types';
 
 export const LEVEL_1: Level = [
