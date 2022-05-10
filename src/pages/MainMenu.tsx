@@ -5,6 +5,7 @@ import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {HighscoreBoard} from '../components/HighscoreBoard';
 import {SnowStorm} from '../components/SnowStorm';
+import {SocialLinks} from '../components/SocialLinks';
 import {Title} from '../components/Title';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
 import {MOLTEN_ORANGE} from '../constants/styleConstants';
@@ -30,7 +31,7 @@ export default function MainMenu() {
         css={css`
           width: 300px;
           color: ${MOLTEN_ORANGE};
-          font-size: 18px;
+          font-size: 16px;
           font-family: monospace;
           text-align: center;
 
@@ -40,14 +41,11 @@ export default function MainMenu() {
           }
         `}
       >
-        This is only a demo
+        This is only a demo.
         <br />
-        version of the game.
-        <br />
-        The real release
-        <br />
-        date is 5/24/2022.
+        Release date: Friday the 13th!
       </p>
+      <SocialLinks />
     </CenterChildren>
   );
 }
