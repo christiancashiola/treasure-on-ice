@@ -1,4 +1,4 @@
-import {GAME_SIZE, BLOCK_SIZE, PLAYER_SPEED} from '../constants/gameConstants';
+import {GAME_SIZE, BLOCK_SIZE, PLAYER_SPEED, MAX_REVOLUTIONS} from '../constants/gameConstants';
 import {CollisionResult, Direction, GamePieces, Position} from '../types';
 import {Door} from './Door';
 import {GamePiece} from './GamePiece';
@@ -158,7 +158,7 @@ export class Player extends GamePiece {
 
     // it's possible for user to slide themselves into an infinite loop
     // we let it slide 3 times around so player realizes they made the mistake
-    if (this.timesSlidThroughMap === 3) {
+    if (this.timesSlidThroughMap === MAX_REVOLUTIONS) {
       this.loseLife();
       this.completeMove();
     }

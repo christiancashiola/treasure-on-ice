@@ -1,4 +1,4 @@
-import {Axis, GamePieces, Level, Position, ReactUpdaters} from '../types';
+import {Axis, GamePieces, Position, ReactUpdaters} from '../types';
 import {Obstacle} from './Obstacle';
 import {Door} from './Door';
 import {Player} from './Player';
