@@ -18,7 +18,7 @@ export const GAME_DELAY = 700;
 export const GAMES_LIVES = 2;
 export const BASE_MULTIPLIER = 1000;
 export const TIME_MULTIPLIER = 5000;
-export const LEVEL_COUNT = 9;
+export const LEVEL_COUNT = 10;
 export const MAX_REVOLUTIONS = 3;
 
 export const PLAYER_SPEED = 15;

@@ -47,7 +47,7 @@ export default function Instructions() {
           until something stops you.
         </Instruction>
         <Instruction imagePath="treasure.png" alt="Treasure">
-          {`Every time you complete a level you will get a ${BASE_MULTIPLIER}-point bonus for every treasure you've collected. Collect them all for a secret ending!`}
+          {`Every time you complete a level you will get a ${BASE_MULTIPLIER}-point bonus for every treasure you've collected. There is 1 treasure in every level. Collect them all for a secret ending!`}
         </Instruction>
         <Instruction imagePath="walls/wall-2.png" alt="Wall">
           This is a wall and they come in many colors. Slide into these to position yourself

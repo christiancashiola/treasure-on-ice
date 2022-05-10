@@ -1,10 +1,6 @@
 # TODOs
 
-- sounds......................`2-3hr`
-- seo.........................`1hr`
-- social links.......`1hr`
 - update personal site.......`1hr`
-- check memos
 - refactor usegame state to pass methods directly to player - IT gens pieces, not Level
 - Readme
 - refactor Movable piece
