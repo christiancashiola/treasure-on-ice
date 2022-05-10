@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {useEffect, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
