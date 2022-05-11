@@ -1,42 +1,23 @@
-# TODOs
+# TREASURE ON ICE
+A fun puzzle game based inspired by the Pokémon Gold/Silver "Ice Path". 
+Website: https://www.treasure-on-ice.com/  
 
-- update personal site.......`1hr`
-- refactor usegame state to pass methods directly to player - IT gens pieces, not Level
-- Readme
-- refactor Movable piece
-- do we need collisions to be this.gamePieces?
-- add special ending
+# Tech Used
+- JavaScript
+- React
+- Google Firebase
+- Object Oriented Programming
+- Emotion CSS
+- Vercel
 
-# Phase 2 (optional)
-
-- error handling
-- slide off one side and come out the other
-- level generator using maze runner algorithm w/ difficulty rankings
-- teleport/warp squares
-- moving enemies
-- different textures for each level
-
-# Highlights
-
-React profiling to view re-renders
-Only repaints parts of the canvas that need to, not the entire canvas
-
-# Bug Bash Test Cases
-
-1. Verify timer turns yellow if < 1m is remaining (only numbers change colors)
-2. Verify timer turns red if < 30s are remaining (only numbers change colors)
-3. Verify timer @#$%!!! shows up for a split second when time runs out
-4. Verify score is calculated correctly on level summary: (level _ lives _ remaining seconds \* 1000) / 120
-5. Verify that a random motivational message is shown after score is calculated--intentional delay between calculation complete and message
-6. Verify button text in level summary is accurate
-7. Verify routing between main menu and instructions and back works
-8. Verify routing between main menu and game and level summary and game works
-9. Verify running out of lives ends game
-10. Verify running out of time ends game
-11. Verify lives remain same between levels
-12. Verify game over screen text and score accuracy
-13. Verify initials submission form
-14. Verify lives turns yellow if 2 lives are left (only emoji changes colors)
-15. Verify lives turns red if 1 life is left (only emoji changes colors)
-
-- Verify everything again on mobile device
+# Screenshots
+Main menu:  
+![Main menu](https://user-images.githubusercontent.com/41166875/167765619-8da94ff9-f977-4889-a430-cfabe1e269ec.png)  
+Gameplay:  
+![Gameplay screenshot](https://user-images.githubusercontent.com/41166875/167765617-0abe27e7-b174-43b7-829d-154d0bb3dace.png)  
+Level summary:  
+![Level summary](https://user-images.githubusercontent.com/41166875/167765618-944bc071-117d-4e99-b0c7-006e825cad25.png)  
+Mobile Lighthouse score (incognito):  
+![Mobile Lighthouse score](https://user-images.githubusercontent.com/41166875/167765488-d8145148-ab53-46fd-bc16-324ca9e51302.png)  
+Desktop Lighthouse score (incognito):  
+![Desktop Lighthouse score](https://user-images.githubusercontent.com/41166875/167765581-346a5d9d-7e2a-40eb-9861-08c7a3526470.png)  
