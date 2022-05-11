@@ -3,6 +3,7 @@ A fun puzzle game based inspired by the Pokémon Gold/Silver "Ice Path".
 Website: https://www.treasure-on-ice.com/  
 
 # Tech Used
+- TypeScript
 - JavaScript
 - React
 - Google Firebase
