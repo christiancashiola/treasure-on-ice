@@ -42,7 +42,10 @@ export default function NoMatch() {
           text-align: center;
         `}
       >
-        Here is a selfie for collecting all of the treasure.
+        Congratulations!
+        <br />
+        <br />
+        You collected all of the treasure.
         <br />
         <br />
         You are truly awesome!
