@@ -17,7 +17,7 @@ Main menu:
 Gameplay:  
 ![Gameplay screenshot](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/example-gameplay.png)  
 Level summary:  
-![Level summary](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/example-level-summary-score.png)  
+![Level summary](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/example-level-summary.png)  
 Mobile Lighthouse score (incognito):  
 ![Mobile Lighthouse score](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/mobile-lighthouse-score.png)  
 Desktop Lighthouse score (incognito):  
