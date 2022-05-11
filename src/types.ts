@@ -47,6 +47,7 @@ export type GameState = {
   collectTreasure: () => void;
   treasureCollected: number;
   isLoadingHighscores: boolean;
+  handleEndGameRouting: () => void;
 };
 
 // where game logic overlaps with React logic, make these update fns explicit

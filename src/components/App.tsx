@@ -19,6 +19,9 @@ const ProtectedLazyLevelSummary = withRouteProtection(
 const ProtectedScoreSubmission = withRouteProtection(
   withNullSuspense(lazy(() => import('../pages/ScoreSubmission'))),
 );
+const ProtectedSecret = withRouteProtection(
+  withNullSuspense(lazy(() => import('../pages/Secret'))),
+);
 const LazyMainMenu = withNullSuspense(lazy(() => import('../pages/MainMenu')));
 const LazyInstructions = withNullSuspense(lazy(() => import('../pages/Instructions')));
 const LazyNoMatch = withNullSuspense(lazy(() => import('../pages/NoMatch')));
@@ -36,6 +39,7 @@ export function App() {
         <Route path={AppRoutes.mainMenu} element={<LazyMainMenu />} />
         <Route path={AppRoutes.instructions} element={<LazyInstructions />} />
         <Route path={AppRoutes.scoreSubmission} element={<ProtectedScoreSubmission />} />
+        <Route path={AppRoutes.secret} element={<ProtectedSecret />} />
         <Route path="*" element={<LazyNoMatch />} />
       </Routes>
     </GameStateContext.Provider>

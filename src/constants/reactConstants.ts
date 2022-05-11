@@ -1,5 +1,6 @@
 export enum AppRoutes {
   game = '/game',
+  secret = '/secret',
   mainMenu = '/',
   gameOver = '/game-over',
   instructions = '/instructions',

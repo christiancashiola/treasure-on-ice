@@ -2,7 +2,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Game} from '../classes/Game';
-import {GAMES_LIVES, GAME_TIME} from '../constants/gameConstants';
+import {GAMES_LIVES, GAME_TIME, LEVEL_COUNT} from '../constants/gameConstants';
 import {
   AppRoutes,
   MAX_HIGHSCORES,
@@ -51,17 +51,25 @@ export function useGameState(): GameState {
 
   useEffect(() => {
     if (isGameOver && !isLoadingHighscores) {
-      // it's possible there are less than MAX_HIGHSCORES
-      const {score: lowestHighscore = 0} = highscores[MAX_HIGHSCORES - 1] ?? [];
+      if (treasureCollected === LEVEL_COUNT) {
+        return navigate(AppRoutes.secret, {state: {key: NAVIGATION_KEY, isAwesome: true}});
+      }
 
-      navigate(
-        score > 0 && score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver,
-        {
-          state: {key: NAVIGATION_KEY},
-        },
-      );
+      handleEndGameRouting();
     }
   }, [isGameOver, isLoadingHighscores]);
+
+  const handleEndGameRouting = () => {
+    // it's possible there are less than MAX_HIGHSCORES
+    const {score: lowestHighscore = 0} = highscores[MAX_HIGHSCORES - 1] ?? [];
+
+    navigate(
+      score > 0 && score >= lowestHighscore ? AppRoutes.scoreSubmission : AppRoutes.gameOver,
+      {
+        state: {key: NAVIGATION_KEY},
+      },
+    );
+  };
 
   const updateScore = (points: number) => setScore((prevScore) => prevScore + points);
 
@@ -105,5 +113,6 @@ export function useGameState(): GameState {
     collectTreasure,
     treasureCollected,
     isLoadingHighscores,
+    handleEndGameRouting,
   };
 }
