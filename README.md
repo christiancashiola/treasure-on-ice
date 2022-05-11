@@ -6,6 +6,7 @@
 - refactor Movable piece
 - do we need collisions to be this.gamePieces?
 - add special ending
+- version??
 
 # Phase 2 (optional)
 
