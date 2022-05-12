@@ -5,7 +5,7 @@ import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 import {LevelSummaryLineItem} from './LevelSummaryLineItem';
 
 interface ILevelSummaryScores {
-  scores: {title: string; score: number;}[];
+  scores: {title: string; score: number}[];
   extraCss?: SerializedStyles | null;
 }
 
@@ -43,12 +43,7 @@ export function LevelSummaryScores({scores, extraCss = null}: ILevelSummaryScore
       `}
     >
       {scores.map(({title, score}, i) => (
-        <LevelSummaryLineItem
-          key={uuidV4()}
-          delay={i * 500}
-          title={title}
-          score={score}
-        />
+        <LevelSummaryLineItem key={uuidV4()} delay={i * 500} title={title} score={score} />
       ))}
     </div>
   );

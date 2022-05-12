@@ -77,10 +77,14 @@ export function Snowflake({left, delay, duration, size, opacity}: ISnowflake) {
   `;
 
   if (isSecretPage) {
-    return <Gem extraCss={css`
-      ${snowCss}
-      font-size: ${size * 2}px;
-    `} />;
+    return (
+      <Gem
+        extraCss={css`
+          ${snowCss}
+          font-size: ${size * 2}px;
+        `}
+      />
+    );
   }
 
   return <div css={snowCss}>❄️</div>;

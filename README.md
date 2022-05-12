@@ -1,8 +1,10 @@
 # TREASURE ON ICE
+
 A fun puzzle game based inspired by the Pokémon Gold/Silver "Ice Path".  
-Website: https://www.treasure-on-ice.com/  
+Website: https://www.treasure-on-ice.com/
 
 # Tech Used
+
 - TypeScript
 - JavaScript
 - React
@@ -12,6 +14,7 @@ Website: https://www.treasure-on-ice.com/
 - Vercel
 
 # Screenshots
+
 Main menu:  
 ![Main menu](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/example-main-menu.png)  
 Gameplay:  
@@ -21,4 +24,4 @@ Level summary:
 Mobile Lighthouse score (incognito):  
 ![Mobile Lighthouse score](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/mobile-lighthouse-score.png)  
 Desktop Lighthouse score (incognito):  
-![Desktop Lighthouse score](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/desktop-lighthouse-score.png)  
+![Desktop Lighthouse score](https://github.com/christiancashiola/treasure-on-ice/blob/main/public/images/desktop-lighthouse-score.png)

@@ -12,7 +12,7 @@ export function useBrowserRoutingProtection() {
   useEffect(() => {
     window.addEventListener('popstate', reload);
 
-    return () => window.removeEventListener('popstate', reload)
+    return () => window.removeEventListener('popstate', reload);
   }, []);
 
   // this will clear history state on refresh

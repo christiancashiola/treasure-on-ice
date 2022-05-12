@@ -14,7 +14,7 @@ import {CenterChildren} from '../components/CenterChildren';
 import {TreasureCollected} from '../components/TreasureCollected';
 import {CurrentLevel} from '../components/CurrentLevel';
 import {toggleBodyScroll} from '../util/toggleBodyScroll';
-import { mediaQuery, ScreenSize } from '../util/mediaQuery';
+import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
 export default function Game() {
   const {lives, score, startLevel, remainingTime, currentLevel, treasureCollected} =

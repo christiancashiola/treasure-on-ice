@@ -3,7 +3,7 @@ export function toggleBodyScroll() {
   if (!body) return;
 
   if (body.style.overflow === 'hidden') {
-    return body.style.overflow = 'auto';
+    return (body.style.overflow = 'auto');
   }
 
   body.style.overflow = 'hidden';
