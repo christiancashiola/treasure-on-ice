@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 import {Canvas} from '../components/Canvas';
 import {Lives} from '../components/Lives';
 import {RemainingTime} from '../components/RemainingTime';
@@ -13,6 +13,7 @@ import {useGameStateContext} from '../hooks/useGameStateContext';
 import {CenterChildren} from '../components/CenterChildren';
 import {TreasureCollected} from '../components/TreasureCollected';
 import {CurrentLevel} from '../components/CurrentLevel';
+import { toggleBodyScroll } from '../util/toggleBodyScroll';
 
 export default function Game() {
   const {lives, score, startLevel, remainingTime, currentLevel, treasureCollected} =
@@ -22,13 +23,20 @@ export default function Game() {
     startLevel();
   }, []);
 
+  // @ts-ignore
+  useEffect(() => {
+    toggleBodyScroll();
+
+    return toggleBodyScroll;
+  }, []);
+
   return (
     <>
       <Countdown onCountdownDone={onCountdownDone} />
       <CenterChildren
         extraCss={css`
-          padding-bottom: 10vh;
           justify-self: flex-start;
+          padding-bottom: 10vh;
         `}
       >
         <Title />
