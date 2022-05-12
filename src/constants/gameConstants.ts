@@ -12,7 +12,7 @@ export const T = Symbol('TREASURE');
 export const GAME_SIZE = 650;
 export const BLOCK_SIZE = 50;
 
-export const GAME_TIME = 120;
+export const GAME_TIME = 300;
 // a delay so user has time to realize they lost a life
 export const GAME_DELAY = 700;
 export const GAMES_LIVES = 15;
