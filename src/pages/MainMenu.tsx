@@ -27,24 +27,6 @@ export default function MainMenu() {
       <Button onClick={() => navigate(AppRoutes.instructions)}>Instructions</Button>
       <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
       <HighscoreBoard />
-      <p
-        css={css`
-          width: 300px;
-          color: ${MOLTEN_ORANGE};
-          font-size: 16px;
-          font-family: monospace;
-          text-align: center;
-
-          span {
-            display: inline-block;
-            text-align: left;
-          }
-        `}
-      >
-        This is only a demo.
-        <br />
-        Release date: Friday the 13th!
-      </p>
       <SocialLinks />
     </CenterChildren>
   );
