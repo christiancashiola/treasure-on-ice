@@ -18,9 +18,9 @@ import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
 export default function LevelSummary() {
   const navigate = useNavigate();
-  const {lives, score, currentLevel, remainingTime, treasureCollected, updateScore, endGame} =
+  const {score, currentLevel, remainingTime, treasureCollected, updateScore, endGame} =
     useGameStateContext();
-  const levelScore = calculateLevelScore(lives, currentLevel, remainingTime, treasureCollected);
+  const levelScore = calculateLevelScore(currentLevel, remainingTime, treasureCollected);
   const wasLastLevel = currentLevel === LEVEL_COUNT;
 
   const handlePlayNextLevel = () => {
@@ -51,7 +51,7 @@ export default function LevelSummary() {
           {title: 'Level Bonus:', score: currentLevel * BASE_MULTIPLIER},
           {title: 'Treasure Bonus:', score: treasureCollected * BASE_MULTIPLIER},
           {title: 'Level Score:', score: levelScore},
-          {title: 'New Score:', score: score + levelScore, start: score},
+          {title: 'New Score:', score: score + levelScore},
         ]}
       />
       <div

@@ -2,7 +2,6 @@
 import {css, keyframes} from '@emotion/react';
 import {useEffect, useState} from 'react';
 import {DEFAULT_IN_GAME_TEXT, FLEX_CENTER} from '../constants/styleConstants';
-import {CountUpTo} from './CountUpTo';
 
 const fadeInAnimation = keyframes`
   0% {
@@ -17,13 +16,12 @@ const fadeInAnimation = keyframes`
 `;
 
 interface ILevelSummaryLineItem {
-  start?: number;
   delay: number;
   score: number;
   title: string;
 }
 
-export function LevelSummaryLineItem({start = 0, delay, title, score}: ILevelSummaryLineItem) {
+export function LevelSummaryLineItem({delay, title, score}: ILevelSummaryLineItem) {
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
@@ -48,23 +46,17 @@ export function LevelSummaryLineItem({start = 0, delay, title, score}: ILevelSum
     >
       <div css={css(DEFAULT_IN_GAME_TEXT)}>{title}</div>
       {shouldRender && (
-        <CountUpTo
-          start={start}
-          numberToCountUpTo={score}
-          renderProp={(count) => (
-            <div
-              css={css`
-                ${DEFAULT_IN_GAME_TEXT}
-                animation-name: ${fadeInAnimation};
-                animation-duration: 0.3s;
-                animation-iteration-count: 1;
-                animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53); ;
-              `}
-            >
-              {count}
-            </div>
-          )}
-        />
+        <div
+          css={css`
+            ${DEFAULT_IN_GAME_TEXT}
+            animation-name: ${fadeInAnimation};
+            animation-duration: 0.3s;
+            animation-iteration-count: 1;
+            animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53); ;
+          `}
+        >
+          {score}
+        </div>
       )}
     </div>
   );

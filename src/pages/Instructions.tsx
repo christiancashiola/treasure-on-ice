@@ -47,11 +47,10 @@ export default function Instructions() {
           until something stops you.
         </Instruction>
         <Instruction imagePath="treasure.png" alt="Treasure">
-          {`Every time you complete a level you will get a ${BASE_MULTIPLIER}-point bonus for every treasure you've collected. There is 1 treasure in every level. Collect them all for a secret ending!`}
+          {`Every time you complete a level you will earn ${BASE_MULTIPLIER} bonus points for every treasure you've collected. There is 1 treasure in every level. Collect them all for a secret ending!`}
         </Instruction>
         <Instruction imagePath="walls/wall-2.png" alt="Wall">
-          This is a wall and they come in many colors. Slide into these to position yourself
-          advantageously and complete the level.
+          This is a wall and they come in many colors. Use these to stop yourself from sliding.
         </Instruction>
         <Instruction imagePath="life.png" alt="Potion">
           Collect these to replenish your life. You'll notice a couple of red hearts below the game
@@ -81,6 +80,7 @@ export default function Instructions() {
         </Instruction>
       </div>
       <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
+      <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Home</Button>
     </CenterChildren>
   );
 }
