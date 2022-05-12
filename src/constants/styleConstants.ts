@@ -62,17 +62,26 @@ export const CANVAS_MEDIA_QUERY = css`
     width: 374px;
     margin-bottom: 5px;
   }
-  @media (min-width: 400px) {
-    width: 399px;
+  @media (min-width: 401px) {
+    width: 400px;
     margin-bottom: 10px;
   }
-  @media (min-width: 450px) {
-    width: 449px;
+  @media (min-width: 451px) {
+    width: 450px;
     margin-bottom: 15px;
   }
   @media (min-width: 501px) {
-    width: 650px;
+    width: 500px;
     margin-bottom: 20px;
+  }
+  @media (min-width: 551px) {
+    width: 550px;
+  }
+  @media (min-width: 601px) {
+    width: 600px;
+  }
+  @media (min-width: 651px) {
+    width: 650px;
   }
 `;
 

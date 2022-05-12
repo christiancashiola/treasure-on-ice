@@ -13,7 +13,8 @@ import {useGameStateContext} from '../hooks/useGameStateContext';
 import {CenterChildren} from '../components/CenterChildren';
 import {TreasureCollected} from '../components/TreasureCollected';
 import {CurrentLevel} from '../components/CurrentLevel';
-import { toggleBodyScroll } from '../util/toggleBodyScroll';
+import {toggleBodyScroll} from '../util/toggleBodyScroll';
+import { mediaQuery, ScreenSize } from '../util/mediaQuery';
 
 export default function Game() {
   const {lives, score, startLevel, remainingTime, currentLevel, treasureCollected} =
@@ -48,9 +49,27 @@ export default function Game() {
             align-items: flex-start;
 
             > div {
-              height: 26px;
               display: flex;
               align-items: center;
+              height: 20px;
+              ${mediaQuery(
+                ScreenSize.Phablet,
+                `
+                  height: 22px;
+                `,
+              )}
+              ${mediaQuery(
+                ScreenSize.Tablet,
+                `
+                  height: 24px;
+                `,
+              )}
+              ${mediaQuery(
+                ScreenSize.Desktop,
+                `
+                  height: 26px;
+                `,
+              )}
             }
           `}
         >
