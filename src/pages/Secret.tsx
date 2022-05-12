@@ -8,22 +8,17 @@ import {
   SHINING_LETTERS,
   ICE_GRADIENT_LETTERS,
 } from '../constants/styleConstants';
+import {LocationType} from '../types';
 import {CenterChildren} from '../components/CenterChildren';
 import {Button} from '../components/Button';
 import {useGameStateContext} from '../hooks/useGameStateContext';
 import {SnowStorm} from '../components/SnowStorm';
 
-type LocationState = {
-  state: {
-    isAwesome: boolean;
-  } | null;
-};
-
 export default function NoMatch() {
   const {handleEndGameRouting} = useGameStateContext();
   const [isVerifyingAwesomeness, setIsVerifyingAwesomeness] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation() as LocationState;
+  const location = useLocation() as LocationType;
 
   useEffect(() => {
     if (location.state?.isAwesome) {

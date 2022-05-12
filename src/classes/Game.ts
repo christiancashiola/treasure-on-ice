@@ -115,8 +115,6 @@ export class Game {
             completeLevel: this.completeLevel,
             collectTreasure: this.reactUpdaters.collectTreasure,
           });
-          // @ts-ignore todo
-          window.__player = this.player;
         }
       }
     }

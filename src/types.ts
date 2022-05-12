@@ -63,6 +63,7 @@ export type Highscore = {
 
 export type LocationType = {
   state: {
-    key: string;
+    key?: string;
+    isAwesome?: boolean;
   } | null;
 };

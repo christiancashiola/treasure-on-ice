@@ -10,7 +10,6 @@ export type MonsterType = {
   playerPosition: Position;
 } & GamePieceExtension;
 
-// todo refactor make new piece type Movable
 export class Monster extends GamePiece {
   destroyPlayer: () => void;
   private direction: Direction;
