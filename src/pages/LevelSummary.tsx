@@ -4,6 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import {Button} from '../components/Button';
 import {CenterChildren} from '../components/CenterChildren';
 import {LevelSummaryScores} from '../components/LevelSummaryScores';
+import { Lives } from '../components/Lives';
+import { TreasureCollected } from '../components/TreasureCollected';
 import {BASE_MULTIPLIER, GAME_TIME, LEVEL_COUNT, TIME_MULTIPLIER} from '../constants/gameConstants';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
 import {
@@ -18,7 +20,7 @@ import {mediaQuery, ScreenSize} from '../util/mediaQuery';
 
 export default function LevelSummary() {
   const navigate = useNavigate();
-  const {score, currentLevel, remainingTime, treasureCollected, updateScore, endGame} =
+  const {lives, score, currentLevel, remainingTime, treasureCollected, updateScore, endGame} =
     useGameStateContext();
   const levelScore = calculateLevelScore(currentLevel, remainingTime, treasureCollected);
   const wasLastLevel = currentLevel === LEVEL_COUNT;
@@ -34,7 +36,16 @@ export default function LevelSummary() {
   };
 
   return (
-    <CenterChildren>
+    <CenterChildren extraCss={css`
+      > div:nth-of-type(1),
+      > div:nth-of-type(2) {
+        align-self: flex-start;
+      }
+
+      > div:nth-of-type(2) {
+        margin-bottom: 20px;
+      }
+    `}>
       <h1
         css={css`
           ${ICE_GRADIENT_LETTERS}
@@ -45,6 +56,8 @@ export default function LevelSummary() {
         <br />
         {`LEVEL ${currentLevel}`}
       </h1>
+      <Lives lives={lives} />
+      <TreasureCollected treasureCollected={treasureCollected} />
       <LevelSummaryScores
         scores={[
           {title: 'Speed Bonus:', score: Math.ceil((remainingTime / GAME_TIME) * TIME_MULTIPLIER)},
