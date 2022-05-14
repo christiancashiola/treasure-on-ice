@@ -8,13 +8,15 @@ interface IButton {
   children: ReactNode;
   onClick: () => void;
   extraCss?: SerializedStyles | null;
+  autoFocus?: boolean;
 }
 
-export function Button({children, onClick, extraCss = null}: IButton) {
+export function Button({children, onClick, extraCss = null, autoFocus = false}: IButton) {
   return (
     <button
       type="button"
       onClick={onClick}
+      autoFocus={autoFocus}
       css={css`
         margin: 0 auto 20px;
         display: block;
