@@ -14,7 +14,6 @@ export function SnowStorm() {
     >
       <SnowflakeRow offset={40} />
       <SnowflakeRow offset={80} />
-      <SnowflakeRow offset={120} />
     </div>
   );
 }
