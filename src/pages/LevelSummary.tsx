@@ -32,7 +32,7 @@ export default function LevelSummary() {
 
   const handleEndGame = () => {
     updateScore(levelScore);
-    endGame();
+    endGame(wasLastLevel);
   };
 
   return (

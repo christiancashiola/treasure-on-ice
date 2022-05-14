@@ -17,6 +17,7 @@ export function useGameState(): GameState {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
   const gameRef = useRef<Game | null>(null);
+  const hasPlayerCompletedGame = useRef(false);
   const [treasureCollected, setTreasureCollected] = useState(0);
   const highscores = useHighscoresSubscription();
   const [lives, setLives] = useState(GAMES_LIVES);
@@ -36,10 +37,11 @@ export function useGameState(): GameState {
     REMAINING_TIME_INTERVAL,
   );
 
-  const endGame = () => {
+  const endGame = (didPlayerCompleteGame = false) => {
     // remove previous level event listeners
     gameRef.current?.player.removeControls();
     cancelInterval();
+    if (didPlayerCompleteGame) hasPlayerCompletedGame.current = true;
     setIsGameOver(true);
   };
 
@@ -51,7 +53,7 @@ export function useGameState(): GameState {
 
   useEffect(() => {
     if (isGameOver && !isLoadingHighscores) {
-      if (treasureCollected === LEVEL_COUNT) {
+      if (hasPlayerCompletedGame.current && treasureCollected === LEVEL_COUNT) {
         return navigate(AppRoutes.secret, {state: {key: NAVIGATION_KEY, isAwesome: true}});
       }
 

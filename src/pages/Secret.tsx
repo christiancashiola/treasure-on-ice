@@ -47,7 +47,7 @@ export default function NoMatch() {
         width={400}
         height={218}
       />
-      <p
+      <div
         css={css`
           ${DEFAULT_IN_GAME_TEXT}
           margin: 20px auto;
@@ -79,7 +79,7 @@ export default function NoMatch() {
         >
           💯
         </h1>
-      </p>
+      </div>
       <Button onClick={handleEndGameRouting}>Continue</Button>
     </CenterChildren>
   );

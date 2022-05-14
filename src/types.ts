@@ -34,7 +34,7 @@ export enum Direction {
 export type GameState = {
   lives: number;
   score: number;
-  endGame: () => void;
+  endGame: (didPlayerCompleteGame?: boolean) => void;
   gainLife: () => void;
   loseLife: () => void;
   highscores: Highscore[];
