@@ -15,7 +15,6 @@ export default function Instructions() {
   return (
     <CenterChildren
       extraCss={css`
-        margin: 0 auto;
         margin: 0 auto 20px;
         padding: 0 10px;
         max-width: 500px;

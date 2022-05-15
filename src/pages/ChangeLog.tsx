@@ -10,7 +10,17 @@ export default function ChangeLog() {
   const navigate = useNavigate();
 
   return (
-    <CenterChildren>
+    <CenterChildren
+      extraCss={css`
+        margin: 0 auto 20px;
+        padding: 0 10px;
+        max-width: 500px;
+
+        button:first-of-type {
+          margin-top: 24px;
+        }
+      `}
+    >
       <ul
         css={css`
           color: ${ICE_BLUE};
@@ -18,6 +28,7 @@ export default function ChangeLog() {
           font-weight: bold;
           font-family: monospace;
           padding: 0 10px;
+          width: ;
 
           li {
             :not(:last-child) {
