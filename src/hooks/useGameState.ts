@@ -10,7 +10,7 @@ import {
   REMAINING_TIME_INTERVAL,
 } from '../constants/reactConstants';
 import {GameState} from '../types';
-import {useHighscoresSubscription} from './useHighscoresSubscription';
+import {useHighscores} from './useHighscores';
 import {useInterval} from './useInterval';
 
 export function useGameState(): GameState {
@@ -19,7 +19,7 @@ export function useGameState(): GameState {
   const gameRef = useRef<Game | null>(null);
   const hasPlayerCompletedGame = useRef(false);
   const [treasureCollected, setTreasureCollected] = useState(0);
-  const highscores = useHighscoresSubscription();
+  const highscores = useHighscores();
   const [lives, setLives] = useState(GAMES_LIVES);
   const [currentLevel, setCurrentLevel] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);

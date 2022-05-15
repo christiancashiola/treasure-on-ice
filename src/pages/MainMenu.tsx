@@ -8,7 +8,6 @@ import {SnowStorm} from '../components/SnowStorm';
 import {SocialLinks} from '../components/SocialLinks';
 import {Title} from '../components/Title';
 import {AppRoutes, NAVIGATION_KEY} from '../constants/reactConstants';
-import {MOLTEN_ORANGE} from '../constants/styleConstants';
 
 export default function MainMenu() {
   const navigate = useNavigate();

@@ -150,7 +150,7 @@ export class Game {
       this.intervalId = window.setInterval(() => {
         this.player.update();
         this.monsters.forEach((monster) => monster.update());
-    }, GAME_SPEED);
+      }, GAME_SPEED);
     } catch (e) {
       this.stopAnimationFrame();
       console.error(e);

@@ -110,7 +110,9 @@ export default function LevelSummary() {
           {wasLastLevel ? 'YOU BEAT THE GAME!' : getMotivation()}
         </h1>
         {!wasLastLevel && (
-          <Button autoFocus onClick={handlePlayNextLevel}>Go To Level&nbsp;{currentLevel + 1}</Button>
+          <Button autoFocus onClick={handlePlayNextLevel}>
+            Go To Level&nbsp;{currentLevel + 1}
+          </Button>
         )}
         <Button extraCss={wasLastLevel ? null : NEGATIVE_BUTTON} onClick={handleEndGame}>
           End Game
