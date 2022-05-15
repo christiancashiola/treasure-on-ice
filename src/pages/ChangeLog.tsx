@@ -70,7 +70,7 @@ export default function ChangeLog() {
           </ul>
         </li>
       </ul>
-      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
+      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play Game</Button>
       <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Home</Button>
     </CenterChildren>
   );
