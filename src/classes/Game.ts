@@ -9,13 +9,14 @@ import {
   W,
   D,
   K,
-  BLOCK_SIZE,
-  GAME_SIZE,
-  GAME_DELAY,
   T,
   L,
   X,
   Y,
+  GAME_SIZE,
+  BLOCK_SIZE,
+  GAME_DELAY,
+  GAME_SPEED,
 } from '../constants/gameConstants';
 import {Key} from './Key';
 import {Treasure} from './Treasure';
@@ -34,7 +35,7 @@ export class Game {
   monsters: Monster[] = [];
   goalCount: number = 0;
   gamePieces: GamePieces;
-  animationReq: number;
+  intervalId: number;
   reactUpdaters: ReactUpdaters;
   readonly lives: number;
   readonly currentLevel: number;
@@ -146,9 +147,10 @@ export class Game {
 
   private runRenderLoop = () => {
     try {
-      this.animationReq = window.requestAnimationFrame(this.runRenderLoop);
-      this.player.update();
-      this.monsters.forEach((monster) => monster.update());
+      this.intervalId = window.setInterval(() => {
+        this.player.update();
+        this.monsters.forEach((monster) => monster.update());
+    }, GAME_SPEED);
     } catch (e) {
       this.stopAnimationFrame();
       console.error(e);
@@ -156,7 +158,7 @@ export class Game {
   };
 
   private stopAnimationFrame() {
-    window.cancelAnimationFrame(this.animationReq);
+    window.clearInterval(this.intervalId);
   }
 
   start() {

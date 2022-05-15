@@ -20,6 +20,7 @@ export const BASE_MULTIPLIER = 1000;
 export const TIME_MULTIPLIER = 5000;
 export const LEVEL_COUNT = 10;
 export const MAX_REVOLUTIONS = 3;
+export const GAME_SPEED = 17;
 
 export const PLAYER_SPEED = 15;
 export const MONSTER_SPEED = 3;
