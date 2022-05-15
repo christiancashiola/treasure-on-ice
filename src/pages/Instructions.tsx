@@ -35,7 +35,8 @@ export default function Instructions() {
         `}
       >
         <Instruction imagePath="hourglass.png" alt="Hourglass">
-          You have 2 minutes to complete each level. If you run out of time, it's game over.
+          You have 2 minutes to complete each level. If you run out of time, it's game over. There
+          are 10 total levels.
         </Instruction>
         <Instruction imagePath="controller.png" alt="Controller">
           If you are on desktop, use: W, A, S, D or Arrow Keys.
@@ -79,7 +80,9 @@ export default function Instructions() {
           {`((time remaining / time allotted) × ${TIME_MULTIPLIER}) + (level × ${BASE_MULTIPLIER}) + (treasure × ${BASE_MULTIPLIER})`}
         </Instruction>
       </div>
-      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
+      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>
+        Play Game
+      </Button>
       <Button onClick={() => navigate(AppRoutes.mainMenu, {state: null})}>Home</Button>
     </CenterChildren>
   );

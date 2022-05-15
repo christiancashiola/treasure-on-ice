@@ -24,6 +24,7 @@ const ProtectedSecret = withRouteProtection(
 );
 const LazyMainMenu = withNullSuspense(lazy(() => import('../pages/MainMenu')));
 const LazyInstructions = withNullSuspense(lazy(() => import('../pages/Instructions')));
+const LazyChangeLog = withNullSuspense(lazy(() => import('../pages/ChangeLog')));
 const LazyNoMatch = withNullSuspense(lazy(() => import('../pages/NoMatch')));
 
 export function App() {
@@ -38,6 +39,7 @@ export function App() {
         <Route path={AppRoutes.levelSummary} element={<ProtectedLazyLevelSummary />} />
         <Route path={AppRoutes.mainMenu} element={<LazyMainMenu />} />
         <Route path={AppRoutes.instructions} element={<LazyInstructions />} />
+        <Route path={AppRoutes.changeLog} element={<LazyChangeLog />} />
         <Route path={AppRoutes.scoreSubmission} element={<ProtectedScoreSubmission />} />
         <Route path={AppRoutes.secret} element={<ProtectedSecret />} />
         <Route path="*" element={<LazyNoMatch />} />

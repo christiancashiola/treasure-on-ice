@@ -3,6 +3,7 @@ export enum AppRoutes {
   secret = '/secret',
   mainMenu = '/',
   gameOver = '/game-over',
+  changeLog = '/change-log',
   instructions = '/instructions',
   levelSummary = '/level-summary',
   scoreSubmission = '/score-submission',

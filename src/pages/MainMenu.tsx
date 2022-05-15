@@ -23,8 +23,11 @@ export default function MainMenu() {
     >
       <Title />
       <SnowStorm />
+      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>
+        Play Game
+      </Button>
       <Button onClick={() => navigate(AppRoutes.instructions)}>Instructions</Button>
-      <Button onClick={() => navigate(AppRoutes.game, {state: {key: NAVIGATION_KEY}})}>Play</Button>
+      <Button onClick={() => navigate(AppRoutes.changeLog)}>Change Log</Button>
       <HighscoreBoard />
       <SocialLinks />
     </CenterChildren>

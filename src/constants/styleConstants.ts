@@ -128,20 +128,20 @@ export const MOLTEN_ORANGE = '#ff9b44';
 
 export const TITLE_MEDIA_QUERIES = css`
   text-align: center;
-  font-size: 36px;
+  font-size: 32px;
   margin: 16px auto;
   ${mediaQuery(
     ScreenSize.Phablet,
     `
       margin: 20px auto;
-      font-size: 40px;
+      font-size: 36px;
     `,
   )}
   ${mediaQuery(
     ScreenSize.Tablet,
     `
     margin: 28px auto;
-    font-size: 44px;
+    font-size: 42px;
   `,
   )}
           ${mediaQuery(
