@@ -38,6 +38,12 @@ export default function ChangeLog() {
         `}
       >
         <li>
+          05/24/2022
+          <ul>
+            <li>Add media queries based on screen height.</li>
+          </ul>
+        </li>
+        <li>
           05/15/2022
           <ul>
             <li>Update instructions to show how many levels there are total.</li>
