@@ -66,21 +66,21 @@ export const CANVAS_MEDIA_QUERY = css`
     width: 400px;
     margin-bottom: 10px;
   }
-  @media (min-width: 451px) {
+  @media (min-width: 451px) and (min-height: 800px) {
     width: 450px;
     margin-bottom: 15px;
   }
-  @media (min-width: 501px) {
+  @media (min-width: 501px) and (min-height: 874px) {
     width: 500px;
     margin-bottom: 20px;
   }
-  @media (min-width: 551px) {
+  @media (min-width: 551px) and (min-height: 929px) {
     width: 550px;
   }
-  @media (min-width: 601px) {
+  @media (min-width: 601px) and (min-height: 979px) {
     width: 600px;
   }
-  @media (min-width: 651px) {
+  @media (min-width: 651px) and (min-height: 1030px) {
     width: 650px;
   }
 `;
@@ -130,27 +130,19 @@ export const TITLE_MEDIA_QUERIES = css`
   text-align: center;
   font-size: 32px;
   margin: 16px auto;
-  ${mediaQuery(
-    ScreenSize.Phablet,
-    `
-      margin: 20px auto;
-      font-size: 36px;
-    `,
-  )}
-  ${mediaQuery(
-    ScreenSize.Tablet,
-    `
+
+  @media (min-width: ${ScreenSize.Phablet}) {
+    margin: 20px auto;
+    font-size: 36px;
+  }
+  @media (min-width: ${ScreenSize.Tablet}) {
     margin: 28px auto;
     font-size: 42px;
-  `,
-  )}
-          ${mediaQuery(
-    ScreenSize.Desktop,
-    `
+  }
+  @media (min-width: ${ScreenSize.Desktop}) and (min-height: 1030px) {
     margin: 36px auto;
     font-size: 48px;
-  `,
-  )}
+  }
 `;
 
 export const NEGATIVE_BUTTON = css`
