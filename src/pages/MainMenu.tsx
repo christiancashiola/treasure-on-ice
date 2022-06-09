@@ -27,7 +27,6 @@ export default function MainMenu() {
         Play Game
       </Button>
       <Button onClick={() => navigate(AppRoutes.instructions)}>Instructions</Button>
-      <Button onClick={() => navigate(AppRoutes.changeLog)}>Change Log</Button>
       <HighscoreBoard />
       <SocialLinks />
     </CenterChildren>
